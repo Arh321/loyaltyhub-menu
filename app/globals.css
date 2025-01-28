@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+
+@font-face {
+  font-family: Regular;
+  src: url("./fonts/IRANYekanXFaNum-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: Light;
+  src: url("./fonts/IRANYekanXFaNum-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: Medium;
+  src: url("./fonts/IRANYekanXFaNum-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: Bold;
+  src: url("./fonts/IRANYekanXFaNum-Bold.woff") format("woff");
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --primary: "#FFFFFF";
+    --secondary: "#6E6E70";
+    --Tritary: "#26262D";
+    --background: "#151518";
+    --cta: "#B70F0F";
+    --text: "#333333";
+    --accent: "#F3F4F6";
+  }
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --primary: "#1C1C29";
+    --secondary: "#D4DCC0";
+    --Tritary: "#F3F3F3";
+    --highliter: "#FFFFFF";
+    --background: "#F0F0F0";
+    --cta: "#FF8754";
+    --text: "#333333";
+    --accent: "#F3F4F6";
+  }
+}
+.almarai-light {
+  font-family: "Almarai", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.almarai-regular {
+  font-family: "Almarai", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.almarai-bold {
+  font-family: "Almarai", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.almarai-extrabold {
+  font-family: "Almarai", serif;
+  font-weight: 800;
+  font-style: normal;
+}
