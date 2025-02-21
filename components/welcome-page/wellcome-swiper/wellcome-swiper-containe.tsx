@@ -7,6 +7,7 @@ import WelcomeSwiperSlideCart from "./wellcome-swiper-slide-card";
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useRouter } from "next/navigation";
 
 // Slide Data
 const slides = [
@@ -39,7 +40,7 @@ const slides = [
 const WelcomeSwiperContainer = () => {
   const [isEnd, setIsEnd] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType | null>(null);
-
+  const router = useRouter();
   // useMemo to prevent unnecessary re-renders
   const handleSlideChange = useCallback(() => {
     if (swiperRef.current) {
@@ -129,10 +130,17 @@ const WelcomeSwiperContainer = () => {
         <button
           id="custom-swiper-page-next"
           aria-label="next"
+          onClick={() => {
+            if (isEnd) {
+              router.push("/barcode-scanner");
+            } else {
+              // swiperRef.current?.slideNext();
+            }
+          }}
           className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary"
         >
           {isEnd ? (
-            <span className="font-almarai font-bold text-lg w-full text-left">
+            <span className="font-almarai font-bold text-lg w-full text-left cursor-pointer">
               ثبت سفارش
             </span>
           ) : (

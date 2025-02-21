@@ -1,11 +1,11 @@
+"use client";
 import { useState } from "react";
 
 import { Ripple } from "primereact/ripple";
 
 import "./barcode-scanner.css";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Scanner } from "@yudiel/react-qr-scanner";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface Html5QrcodePluginProps {
   handler?: (deskId: string) => void;
@@ -18,13 +18,13 @@ const Html5QrcodePlugin: React.FC<Html5QrcodePluginProps> = ({
 }) => {
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [result, setResult] = useState<any>();
-  const navigate = useNavigate();
+  const router = useRouter();
   return (
     <div
       className={
         classProp
           ? (classProp as string)
-          : "grow w-full flex flex-col items-center justify-start relative"
+          : "grow w-full flex flex-col h-full  items-center justify-start relative"
       }
     >
       {isScanning ? (
@@ -33,7 +33,7 @@ const Html5QrcodePlugin: React.FC<Html5QrcodePluginProps> = ({
           onScan={(result) =>
             handler
               ? handler(result[0].rawValue)
-              : navigate(`/${result[0].rawValue}`)
+              : router.push(`/${result[0].rawValue}`)
           }
         />
       ) : (
