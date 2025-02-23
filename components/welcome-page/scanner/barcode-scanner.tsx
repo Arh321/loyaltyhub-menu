@@ -24,7 +24,7 @@ const Html5QrcodePlugin: React.FC<Html5QrcodePluginProps> = ({
       className={
         classProp
           ? (classProp as string)
-          : "grow w-full flex flex-col h-full  items-center justify-start relative"
+          : "grow w-full flex flex-col h-full  items-center justify-start relative my-[10vh]"
       }
     >
       {isScanning ? (
@@ -50,13 +50,13 @@ const Html5QrcodePlugin: React.FC<Html5QrcodePluginProps> = ({
         } rounded  gap-2 text-main-light-silver font-medium shadow-lg text-3xl sm:text-3xl absolute bottom-0 left-0 right-0 mx-auto`}
       >
         {isScanning ? (
-          <span className="w-full flex items-center justify-center gap-2 animate-show-drop-down ">
+          <span className="w-full flex items-center justify-center gap-2 animate-show-drop-down mb-[10vh] ">
             <span>توقف</span>
             <i className="pi pi-stop bg-main-light-silver text-3xl"></i>
           </span>
         ) : (
           <>
-            <span className="w-full flex items-center justify-center gap-2 animate-show-drop-down">
+            <span className="w-full flex items-center justify-center gap-2 animate-show-drop-down mb-[10vh]">
               <span>اسکن بارکد</span>
               <i className="pi pi-qrcode text-3xl"></i>
             </span>
