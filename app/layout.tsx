@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider"; // Update the path if necessary
 import "./globals.css";
+import ReduxProvider from "@/components/redux/redux-provider";
+import CartNotification from "@/components/cart-notification";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,7 +43,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-light-background dark:bg-dark-background transition-colors duration-300`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ReduxProvider>
+            {children}
+
+            <CartNotification />
+          </ReduxProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

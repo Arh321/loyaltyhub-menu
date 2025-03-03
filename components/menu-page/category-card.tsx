@@ -1,4 +1,8 @@
+import { setMenuData } from "@/app/store/menuSlice";
+import { Product } from "@/app/types/api-menu/menu";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 interface CategoryCardProps {
   imageUrl: string | null;
@@ -6,6 +10,8 @@ interface CategoryCardProps {
   titleEn?: string | null;
   key: number | null;
   expand?: boolean | null;
+  products: Product[];
+  categoryId: number | null;
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({
@@ -14,10 +20,21 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   titleEn,
   key,
   expand,
+  products,
+  categoryId,
 }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   return (
     <div
       key={key}
+      onClick={() => {
+        dispatch(
+          setMenuData({ products: products, selectedCategory: categoryId })
+        );
+
+        router.push(window.location.pathname + "/products");
+      }}
       className="relative max-w-full h-48 rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 hover:scale-[1.02]"
     >
       {/* تصویر پس‌زمینه */}

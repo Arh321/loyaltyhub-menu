@@ -4,6 +4,9 @@ import { fetchMenuByBranch } from "@/app/lib/api/digital-menu/api-menu";
 import { Main, Result } from "@/app/types/api-menu/menu";
 import { useEffect, useState } from "react";
 import CategoryCard from "./category-card";
+import { useDispatch, useSelector } from "react-redux";
+import { setMenuData } from "@/app/store/menuSlice";
+import { RootState } from "@/app/store/store";
 
 export default function MenuCategories({
   branchId,
@@ -15,7 +18,9 @@ export default function MenuCategories({
   const [menu, setMenu] = useState<Result | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  const dispatch = useDispatch();
+  const menu1 = useSelector((state: RootState) => state.menu);
+  console.log(menu1);
   useEffect(() => {
     if (!branchId) return;
     setLoading(true);
@@ -23,6 +28,11 @@ export default function MenuCategories({
       .then((data: Main) => {
         if (data.status === "success") {
           setMenu(data.result[0]);
+          dispatch(
+            setMenuData({
+              categories: data.result[0].categories,
+            })
+          );
         } else {
           throw new Error(data.message || "دریافت منو با مشکل مواجه شد");
         }
@@ -34,6 +44,7 @@ export default function MenuCategories({
   if (loading) return <p>⏳ در حال بارگذاری...</p>;
   if (error) return <p className="text-red-500">❌ {error}</p>;
 
+  // console.log(menu);
   return (
     <>
       {/* کارت‌ها */}
@@ -41,6 +52,8 @@ export default function MenuCategories({
         <div className={`grid grid-cols-${gridCols} gap-4`}>
           {menu.categories.map((category) => (
             <CategoryCard
+              categoryId={category.category_id}
+              products={category.products}
               key={category.category_id}
               titleFa={category.category_name}
               imageUrl={"/images/hamburger-test.jpg"}
