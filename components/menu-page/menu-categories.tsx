@@ -4,6 +4,7 @@ import { fetchMenuByBranch } from "@/app/lib/api/digital-menu/api-menu";
 import { Main, Result } from "@/app/types/api-menu/menu";
 import { useEffect, useState } from "react";
 import CategoryCard from "./category-card";
+import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenuData } from "@/app/store/menuSlice";
 import { RootState } from "@/app/store/store";
@@ -49,7 +50,12 @@ export default function MenuCategories({
     <>
       {/* کارت‌ها */}
       {menu?.categories && menu.categories.length > 0 ? (
-        <div className={`grid grid-cols-${gridCols} gap-4`}>
+        <div
+          className={clsx(
+            `grid gap-4`,
+            gridCols == 1 ? "grid-cols-1" : "grid-cols-2"
+          )}
+        >
           {menu.categories.map((category) => (
             <CategoryCard
               categoryId={category.category_id}
