@@ -41,6 +41,7 @@ export default function RootLayout({
         />
       </head>
       <body
+        dir="rtl"
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-light-background dark:bg-dark-background transition-colors duration-300`}
       >
         <ThemeProvider>
