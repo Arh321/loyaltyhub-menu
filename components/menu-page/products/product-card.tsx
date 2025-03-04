@@ -13,14 +13,16 @@ const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const router = useRouter();
+
+  const handleSelectProduct = () => {
+    dispatch(setMenuData({ selectedProduct: product }));
+    router.push(window.location.pathname + `/${product.id}`);
+  };
   return (
     <div
       className="flex flex-col font-almarai text-sm text-black bg-green-200 p-3 gap-6 rounded-lg shadow-md w-full "
       dir="rtl"
-      onClick={() => {
-        dispatch(setMenuData({ selectedProduct: product }));
-        router.push(window.location.pathname + `/${product.id}`);
-      }}
+      onClick={handleSelectProduct}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-start gap-2">

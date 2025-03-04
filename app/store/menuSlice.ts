@@ -20,10 +20,22 @@ const menuSlice = createSlice({
   initialState,
   reducers: {
     setMenuData: (state, action: PayloadAction<MenuState>) => {
-      state.categories = action.payload.categories;
-      state.products = action.payload.products;
-      state.selectedCategory = action.payload.selectedCategory;
-      state.selectedProduct = action.payload.selectedProduct;
+      if (action.payload.categories !== undefined) {
+        state.categories = action.payload.categories;
+      }
+      if (action.payload.products !== undefined) {
+        state.products = action.payload.products;
+      }
+      if (action.payload.selectedCategory !== undefined) {
+        state.selectedCategory = action.payload.selectedCategory;
+      }
+      if (action.payload.selectedProduct !== undefined) {
+        state.selectedProduct = action.payload.selectedProduct;
+      }
+      console.log(
+        "📢 مقدار جدید `selectedProduct` در Redux:",
+        state.selectedProduct
+      );
     },
   },
 });
