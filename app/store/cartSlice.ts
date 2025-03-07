@@ -4,6 +4,7 @@ import { Product } from "../types/api-menu/menu";
 interface CartItem extends Product {
   quantity: number;
   totalPrice: number; // ✅ جمع قیمت همین محصول
+  categoryName: null | string;
 }
 
 interface CartState {
@@ -22,27 +23,27 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem: (state, action: PayloadAction<Product>) => {
+    addItem: (state, action: PayloadAction<Product | null | undefined>) => {
       const existingItem = state.items.find(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload?.id
       );
 
       if (existingItem) {
         existingItem.quantity += 1;
-        existingItem.totalPrice += action.payload.price; // ✅ آپدیت قیمت کل محصول
+        existingItem.totalPrice += action.payload?.price; // ✅ آپدیت قیمت کل محصول
       } else {
         state.items.push({
           ...action.payload,
           quantity: 1,
-          totalPrice: action.payload.price, // ✅ مقدار اولیه قیمت کل
+          totalPrice: action.payload?.price, // ✅ مقدار اولیه قیمت کل
         });
       }
 
       state.totalQuantity += 1;
-      state.totalAmount += action.payload.price;
+      state.totalAmount += action.payload?.price;
     },
 
-    removeItem: (state, action: PayloadAction<number>) => {
+    removeItem: (state, action: PayloadAction<number | undefined>) => {
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload
       );

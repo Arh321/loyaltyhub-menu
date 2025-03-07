@@ -11,9 +11,12 @@ export const fetchBranchInfo = async (
     if (branchName) queryParams.append("branch_name", branchName);
 
     const response = await apiClient.get(
-      `/branches/?${queryParams.toString()}`
+      `/branches/?${queryParams.toString()}`,
+      { timeout: 45000 }
     );
-    return response.data;
+
+    // تبدیل داده دریافتی به JSON و بازگرداندن آن به عنوان Plain Object
+    return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
     console.error("خطا در دریافت منو:", error);
     throw error;

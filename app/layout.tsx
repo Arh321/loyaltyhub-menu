@@ -5,6 +5,8 @@ import "./globals.css";
 import ReduxProvider from "@/components/redux/redux-provider";
 import CartNotification from "@/components/cart-notification";
 import { ConfigProvider } from "antd";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/react-query/queryClient";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -61,9 +63,10 @@ export default function RootLayout({
       </head>
       <body
         dir="rtl"
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-light-background dark:bg-dark-background transition-colors duration-300 font-Yekan-Regular text-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-light-background dark:bg-dark-background transition-colors duration-300 font-Yekan-Regular text-black max-w-[570px] mx-auto`}
       >
         {/* <ThemeProvider> */}
+        {/* <QueryClientProvider client={queryClient}> */}
         <ConfigProvider theme={theme}>
           <ReduxProvider>
             {children}
@@ -71,6 +74,7 @@ export default function RootLayout({
             <CartNotification />
           </ReduxProvider>
         </ConfigProvider>
+        {/* </QueryClientProvider> */}
         {/* </ThemeProvider> */}
       </body>
     </html>

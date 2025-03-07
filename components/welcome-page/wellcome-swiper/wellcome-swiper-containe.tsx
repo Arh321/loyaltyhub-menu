@@ -128,7 +128,7 @@ const WelcomeSwiperContainer = () => {
           </SwiperSlide>
         ))}
         <button
-          id="custom-swiper-page-next"
+          id={isEnd ? "" : "custom-swiper-page-next"}
           aria-label="next"
           onClick={() => {
             if (isEnd) {
@@ -140,7 +140,10 @@ const WelcomeSwiperContainer = () => {
           className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary"
         >
           {isEnd ? (
-            <span className="font-almarai font-bold text-lg w-full text-left cursor-pointer">
+            <span
+              className="font-almarai font-bold text-lg w-full text-left cursor-pointer"
+              onClick={() => router.push("/barcode-scanner")}
+            >
               ثبت سفارش
             </span>
           ) : (

@@ -8,7 +8,6 @@ import { setMenuData } from "@/app/store/menuSlice"; // Assuming this action exi
 import ProductCard from "@/components/menu-page/products/product-card";
 import CategoryTabs from "@/components/menu-page/products/category-tabs";
 import { Category, Main, Product } from "@/app/types/api-menu/menu";
-import { Main } from "@/app/types/api-menu/menu";
 
 const ProductsPage = () => {
   const { branchId } = useParams(); // ✅ Get branchId from URL
@@ -61,7 +60,7 @@ const ProductsPage = () => {
   }, [branchId, menu?.selectedCategory, dispatch]);
 
   return (
-    <div className="p-4 bg-[#F0D5B6] h-screen max-w-[570px] mx-auto ">
+    <div className="p-4 bg-[#F0D5B6] h-screen max-w-[570px] mx-auto pb-32">
       {loading && <p>در حال دریافت اطلاعات...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
@@ -69,7 +68,7 @@ const ProductsPage = () => {
         categories={menu?.categories}
         selectedCategory={menu?.selectedCategory}
       />
-      <div className="flex flex-col gap-4 overflow-y-auto h-full ">
+      <div className="flex flex-col gap-4 overflow-y-auto h-full pb-24 ">
         {menu?.products?.map((product) => (
           <ProductCard product={product} />
         ))}

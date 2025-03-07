@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, removeItem } from "@/app/store/cartSlice";
-import Button from "./button";
 import { RootState } from "@/app/store/store";
-import { Category, Product } from "@/app/types/api-menu/menu";
-import { PlusSquareOutlined, WindowsFilled } from "@ant-design/icons";
+import { Product } from "@/app/types/api-menu/menu";
 import { setMenuData } from "@/app/store/menuSlice";
 import { useRouter } from "next/navigation";
+import AddToEmptyCart from "../buttons/add-to-empty-cart";
+import AddToCart from "../buttons/add-to-cart";
+import PriceCurrency from "../price-currency";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
@@ -42,35 +42,13 @@ const ProductCard = ({ product }: { product: Product }) => {
       </div>
       <div className="flex justify-between">
         <div className="flex justify-between gap-3 items-center w-[30%]">
-          {cart.items.find((product1) => product1.id !== product.id) ? (
-            <Button
-              className="text-gray-600 flex justify-between items-center gap-2 border rounded-lg border-gray-600 font-bold hover:bg-gray-300 transition-all"
-              onClick={() => dispatch(addItem(product))}
-            >
-              <span>+</span>
-              <span>افزودن</span>
-            </Button>
+          {cart.items.some((product1) => product1.id === product?.id) ? (
+            <AddToCart product={product} />
           ) : (
-            <>
-              <Button
-                onClick={() => dispatch(addItem(product))}
-                className="p-1 !border rounded-sm"
-              >
-                +
-              </Button>
-              <span>{cart.totalQuantity}</span>
-              <Button
-                onClick={() => dispatch(removeItem(product.id))}
-                className="p-1 !border rounded-sm"
-              >
-                -
-              </Button>
-            </>
+            <AddToEmptyCart product={product} />
           )}
         </div>
-        <p className="mt-2 text-md font-semibold font-almarai">
-          {product.price.toLocaleString()} تومان
-        </p>
+        <PriceCurrency price={product.price} />
       </div>
     </div>
   );

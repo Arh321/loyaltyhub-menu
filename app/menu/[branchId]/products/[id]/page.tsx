@@ -1,8 +1,10 @@
 "use client";
-import { addItem, removeItem } from "@/app/store/cartSlice";
+
 import { RootState } from "@/app/store/store";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import AddToCart from "@/components/menu-page/buttons/add-to-cart";
+import AddToEmptyCart from "@/components/menu-page/buttons/add-to-empty-cart";
+import SeeCart from "@/components/menu-page/buttons/see-cart-button";
+import SeeShopMenu from "@/components/menu-page/buttons/see-shop-menu";
 import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,70 +27,33 @@ const ProductPropertiesPage = () => {
         />
       </div>
       <h2>{menu.selectedProduct?.thumbnail.name}</h2>
-      <div className="flex justify-between w-full p-2">
+      <div className="flex justify-between w-full p-4">
         <div className="flex justify-between gap-3 items-center w-[30%]">
-          {cart.items.find(
-            (product1) => product1.id !== menu.selectedProduct?.id
-          ) ? (
-            // <Button
-            //   className="text-gray-600 flex justify-between items-center gap-2 border rounded-lg border-gray-600 font-bold hover:bg-gray-300 transition-all"
-            //   onClick={() => dispatch(addItem(menu.selectedProduct))}
-            // >
-            //   <span>+</span>
-            //   <span>افزودن</span>
-            // </Button>
-            <Button
-              variant="filled"
-              type="default"
-              onClick={() => dispatch(addItem(menu.selectedProduct))}
-              className="flex justify-between gap-2"
-              //   classNames={}
-            >
-              <PlusOutlined />
-              <span>افزودن</span>
-            </Button>
-          ) : (
-            <>
-              <Button
-                variant="filled"
-                type="default"
-                onClick={() => dispatch(addItem(menu.selectedProduct))}
-              >
-                <PlusOutlined />
-              </Button>
-              <span>{cart.totalQuantity}</span>
-              <Button
-                onClick={() => dispatch(removeItem(menu.selectedProduct?.id))}
-                className="!border rounded-sm"
-                variant="filled"
-                type="default"
-              >
-                <MinusOutlined />
-              </Button>
-            </>
-          )}
+          <div className="flex justify-between gap-3 items-center w-[30%]">
+            {cart.items.some(
+              (product1) => product1.id === menu.selectedProduct?.id
+            ) ? (
+              // <Button
+              //   className="text-gray-600 flex justify-between items-center gap-2 border rounded-lg border-gray-600 font-bold hover:bg-gray-300 transition-all"
+              //   onClick={() => dispatch(addItem(product))}
+              // >
+              //   <span>+</span>
+              //   <span>افزودن</span>
+              // </Button>
+              <AddToCart product={menu?.selectedProduct} />
+            ) : (
+              <AddToEmptyCart product={menu?.selectedProduct} />
+            )}
+          </div>
         </div>
         <p className="mt-2 text-md font-semibold ">
           {menu.selectedProduct?.price.toLocaleString()} تومان
         </p>
       </div>
       <div className="flex justify-between gap-2 w-full fixed bottom-8 mx-auto max-w-[570px] px-2 ">
-        <Button
-          variant="filled"
-          type="default"
-          className="flex flex-grow font-Yekan-Regular text-lg !py-6 "
-        >
-          مشاهده منو/فروشگاه
-        </Button>
-        {/* {cart.totalQuantity > 0 && ( */}
-        <Button
-          type="primary"
-          className="flex gap-2 font-Yekan-Regular text-lg !py-6"
-        >
-          <span>{cart.totalQuantity}</span>
-          <span>مشاهده سبد</span>
-        </Button>
-        {/* )} */}
+        <SeeShopMenu />
+
+        {cart.totalQuantity > 0 && <SeeCart />}
       </div>
     </div>
   );
