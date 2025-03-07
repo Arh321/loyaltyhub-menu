@@ -1,6 +1,6 @@
 "use client";
 import { addItem } from "@/app/store/cartSlice";
-import { Product } from "@/app/types/api-menu/menu";
+import { Product } from "@/app/types/products/products";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React from "react";

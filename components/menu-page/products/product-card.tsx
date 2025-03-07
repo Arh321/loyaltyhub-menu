@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { Product } from "@/app/types/api-menu/menu";
 import { setMenuData } from "@/app/store/menuSlice";
 import { useRouter } from "next/navigation";
 import AddToEmptyCart from "../buttons/add-to-empty-cart";
 import AddToCart from "../buttons/add-to-cart";
 import PriceCurrency from "../price-currency";
+import { Product } from "@/app/types/products/products";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   const handleSelectProduct = () => {
     dispatch(setMenuData({ selectedProduct: product }));
-    router.push(window.location.pathname + `/${product.id}`);
+    router.push(window.location.pathname + `/${product.product_id}`);
   };
   return (
     <div
@@ -34,7 +34,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             height={100}
             className="rounded-md aspect-square"
           />
-          <h3 className="font-bold">{product.thumbnail.name}</h3>
+          <h3 className="font-bold">{product.name}</h3>
         </div>
         <p className="text-sm text-gray-600">
           {/* {product?.titleEn} در api اضافه شود */}
@@ -42,7 +42,9 @@ const ProductCard = ({ product }: { product: Product }) => {
       </div>
       <div className="flex justify-between">
         <div className="flex justify-between gap-3 items-center w-[30%]">
-          {cart.items.some((product1) => product1.id === product?.id) ? (
+          {cart.items.some(
+            (product1) => product1.product_id === product?.product_id
+          ) ? (
             <AddToCart product={product} />
           ) : (
             <AddToEmptyCart product={product} />

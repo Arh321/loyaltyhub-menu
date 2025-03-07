@@ -43,7 +43,7 @@ const TopNavbarContainer = () => {
 
   // تابعی برای تعیین تنظیمات نوار بالا بر اساس مسیر صفحه
   const getNavbarConfig = () => {
-    const isCategoriesPage = /^\/menu\/\d+\$/.test(pathname);
+    const isCategoriesPage = /^\/menu\/\d+$/.test(pathname);
 
     if (isCategoriesPage) {
       return {
@@ -56,7 +56,7 @@ const TopNavbarContainer = () => {
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
               />
-              <ToggleGrid gridCols={gridCols} onGridCols={setGridCols} />
+              {/* <ToggleGrid gridCols={gridCols} onGridCols={setGridCols} /> */}
             </div>
           </>
         ),
