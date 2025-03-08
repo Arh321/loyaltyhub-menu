@@ -1,27 +1,25 @@
 import { setMenuData } from "@/app/store/menuSlice";
-import { Product } from "@/app/types/api-menu/menu";
+import { Category, Product } from "@/app/types/api-menu/menu";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
 interface CategoryCardProps {
   imageUrl: string | null;
-  titleFa: string | null;
   titleEn?: string | null;
   key: number | null;
   expand?: boolean | null;
   products: Product[];
-  categoryId: number | null;
+  category: Category;
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({
   imageUrl,
-  titleFa,
   titleEn,
   key,
   expand,
   products,
-  categoryId,
+  category,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,7 +28,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       key={key}
       onClick={() => {
         dispatch(
-          setMenuData({ products: products, selectedCategory: categoryId })
+          setMenuData({ products: products, selectedCategory: category })
         );
 
         router.push(window.location.pathname + "/products");
@@ -53,8 +51,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         <h2
           className={`${expand ? "text-2xl" : "text-lg"} text-white font-bold`}
         >
-          {" "}
-          {titleFa}
+          {category.category_name}
+          {/* {titleFa} */}
         </h2>
         <p className="text-white text-sm mt-2">{titleEn}</p>
       </div>

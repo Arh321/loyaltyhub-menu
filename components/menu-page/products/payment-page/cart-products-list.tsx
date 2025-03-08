@@ -17,7 +17,7 @@ const CartProductsList = () => {
     <div className="flex flex-col justify-between ">
       <ProductCategoryName name="کتگوری محصول/product category" />
       {cart.items.map((item) => (
-        <div className="flex justify-between mt-4" key={item.id}>
+        <div className="flex justify-between mt-4" key={item.product_id}>
           <div className="flex gap-4 items-center">
             {/* <Image
               src={item.thumbnail.url}
@@ -34,7 +34,7 @@ const CartProductsList = () => {
             />
 
             <AddToCart product={item} />
-            <span>{item.thumbnail.name}</span>
+            <span>{item.name}</span>
           </div>
           <PriceCurrency price={item.totalPrice} />
         </div>

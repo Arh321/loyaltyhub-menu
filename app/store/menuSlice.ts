@@ -1,18 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product, Category } from "@/app/types/api-menu/menu";
+import { Category } from "../types/categories";
+import { Product } from "../types/products/products";
 
 interface MenuState {
   categories?: Category[];
   products?: Product[];
-  selectedCategory?: number | null;
-  selectedProduct?: Product | null;
+  selectedCategory?: Category;
+  selectedProduct?: Product;
 }
 
 const initialState: MenuState = {
   categories: [],
   products: [],
-  selectedCategory: null,
-  selectedProduct: null,
+  selectedCategory: undefined,
+  selectedProduct: undefined,
 };
 
 const menuSlice = createSlice({
@@ -32,10 +33,6 @@ const menuSlice = createSlice({
       if (action.payload.selectedProduct !== undefined) {
         state.selectedProduct = action.payload.selectedProduct;
       }
-      console.log(
-        "📢 مقدار جدید `selectedProduct` در Redux:",
-        state.selectedProduct
-      );
     },
   },
 });

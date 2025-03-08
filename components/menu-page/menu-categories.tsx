@@ -58,10 +58,9 @@ export default function MenuCategories({
         >
           {menu.categories.map((category) => (
             <CategoryCard
-              categoryId={category.category_id}
+              category={category}
               products={category.products}
               key={category.category_id}
-              titleFa={category.category_name}
               imageUrl={"/images/hamburger-test.jpg"}
               expand={gridCols == 1}
             />
