@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenuData } from "@/app/store/menuSlice";
 import { RootState } from "@/app/store/store";
-import { Category } from "@/app/types/categories";
+import { Category } from "@/app/types/categories/categories";
+import CategoryCard from "../category-card";
 
 const CategoryTabs = ({
   categories,
@@ -17,37 +18,59 @@ const CategoryTabs = ({
   const menu = useSelector((state: RootState) => state.menu);
   console.log(menu.selectedCategory);
   return (
-    <div className="flex overflow-x-auto gap-4 p-2 border-b" dir="rtl">
+    <ul
+      className="flex overflow-x-auto gap-4 p-2 w-full pb-20  shadow-[0px_4px_4px_-2px_rgba(0,0,0,0.2)]"
+      dir="rtl"
+    >
       {categories?.map((category: Category) => (
-        <button
-          key={category.category_id}
-          onClick={() => {
-            dispatch(setMenuData({ selectedCategory: category }));
-          }}
-          className={`flex flex-col items-center space-y-1  rounded-md `}
-        >
-          <div
-            className={`  ${
-              menu.selectedCategory === category
-                ? "border border-black rounded-lg p-1"
-                : "border border-transparent p-1"
-            }`}
+        // <CategoryCard
+        //               category={category}
+        //               // products={category.products}
+        //               key={category.category_id}
+        //               imageUrl={"/images/hamburger-test.jpg"}
+        //               expand={gridCols == 1}
+        //               // height={170}
+        //               height={90}
+        //               width={180}
+        //             />
+        <li className="">
+          <button
+            key={category.category_id}
+            onClick={() => {
+              dispatch(setMenuData({ selectedCategory: category }));
+              localStorage.setItem(
+                "selectedCategoryId",
+                String(category.category_id)
+              );
+            }}
+            className={`flex flex-col items-center space-y-1  rounded-md `}
           >
-            <Image
-              // src={category.image}
-              src={"/images/hamburger-test.jpg"}
-              alt={"نام دسته بندی"}
-              width={40}
-              height={40}
-              className="rounded-md !aspect-square "
-            />
-          </div>
-          <span className="text-[10px] font-almarai text-black font-bold ">
-            {category.name}
-          </span>
-        </button>
+            <div
+              className={`  ${
+                menu.selectedCategory === category ||
+                category.category_id ===
+                  Number(localStorage.getItem("selectedCategoryId"))
+                  ? "w-full border border-black rounded-lg p-1"
+                  : "w-full border border-transparent p-1"
+              }`}
+            >
+              <Image
+                // src={category.image}
+                src={"/images/hamburger-test.webp"}
+                alt={"نام دسته بندی"}
+                width={80}
+                height={80}
+                className="rounded-lg !aspect-square object-cover"
+                loading="lazy"
+              />
+            </div>
+            <span className="text-[10px] text-black font-bold ">
+              {category.name}
+            </span>
+          </button>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 export default CategoryTabs;

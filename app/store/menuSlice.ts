@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Category } from "../types/categories";
+import { Category } from "../types/categories/categories";
 import { Product } from "../types/products/products";
 
 interface MenuState {
@@ -7,6 +7,7 @@ interface MenuState {
   products?: Product[];
   selectedCategory?: Category;
   selectedProduct?: Product;
+  gridCols?: number;
 }
 
 const initialState: MenuState = {
@@ -14,6 +15,7 @@ const initialState: MenuState = {
   products: [],
   selectedCategory: undefined,
   selectedProduct: undefined,
+  gridCols: 1,
 };
 
 const menuSlice = createSlice({
@@ -32,6 +34,9 @@ const menuSlice = createSlice({
       }
       if (action.payload.selectedProduct !== undefined) {
         state.selectedProduct = action.payload.selectedProduct;
+      }
+      if (action.payload.gridCols !== undefined) {
+        state.gridCols = action.payload.gridCols;
       }
     },
   },

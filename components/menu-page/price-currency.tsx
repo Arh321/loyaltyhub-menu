@@ -2,9 +2,9 @@ import React from "react";
 
 const PriceCurrency = ({ price }: { price: number }) => {
   return (
-    <div className="flex gap-1 items-center">
-      <span>{price}</span>
-      <span>تومان</span>
+    <div className="flex gap-1 items-center text-lg">
+      <span>{price?.toLocaleString("fa")}</span>
+      <span>تـومان</span>
     </div>
   );
 };

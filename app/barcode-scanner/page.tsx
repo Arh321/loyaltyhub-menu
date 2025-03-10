@@ -19,12 +19,12 @@ export default function BarcodeScanner() {
   };
 
   return (
-    <div className="justify-center flex items-center  w-full bg-white mx-auto relative light:bg-background dark:bg-background">
+    <div className="justify-center flex items-center  w-full relative light:bg-background dark:bg-background">
       <div
         style={{
           backgroundColor: "#151518",
         }}
-        className="h-[100dvh] flex flex-col relative items-center pt-24 text-white w-[470px] mx-auto"
+        className="h-[100dvh] flex flex-col relative items-center pt-24 text-white "
       >
         <div className="w-full h-full absolute top-0 left-0">
           <Image

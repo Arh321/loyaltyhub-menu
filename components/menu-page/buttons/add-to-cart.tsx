@@ -14,13 +14,13 @@ const AddToCart = ({ product }: { product: Product | null | undefined }) => {
     (item) => item.product_id === product?.product_id
   );
   return (
-    <>
+    <div className="flex justify-between  items-center w-[100px]">
       <Button
         onClick={(e) => {
-          dispatch(addItem(product));
+          dispatch(addItem({ product: product }));
           e.stopPropagation();
         }}
-        className="px-1 !border rounded-sm"
+        className="!p-2  rounded-base hover:!brightness-75 "
       >
         <PlusOutlined />
       </Button>
@@ -30,11 +30,11 @@ const AddToCart = ({ product }: { product: Product | null | undefined }) => {
           dispatch(removeItem(product?.product_id));
           e.stopPropagation();
         }}
-        className="p-1 !border rounded-sm"
+        className="!p-2  rounded-base bg-transparent  hover:!bg-white !border-white hover:!border-white border"
       >
         <MinusOutlined />
       </Button>
-    </>
+    </div>
   );
 };
 

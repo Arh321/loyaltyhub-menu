@@ -11,9 +11,9 @@ const TotoalPaymentCard = () => {
 
   //   useEffect(() => {}, []);
   return (
-    <div className="shadow-lg rounded-lg p-4">
-      <div className="flex flex-col justify-between gap-2 items-center">
-        <div className="flex gap-1">
+    <div className=" rounded-lg p-4">
+      <div className="flex flex-col justify-between gap-2 items-center shadow-top-right-left">
+        <div className="flex gap-1 self-start">
           <span>مبلغ پرداختی:</span>
           <PriceCurrency price={cart.totalAmount} />
         </div>

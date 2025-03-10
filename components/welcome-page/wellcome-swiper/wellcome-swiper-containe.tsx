@@ -130,13 +130,13 @@ const WelcomeSwiperContainer = () => {
         <button
           id={isEnd ? "" : "custom-swiper-page-next"}
           aria-label="next"
-          onClick={() => {
-            if (isEnd) {
-              router.push("/barcode-scanner");
-            } else {
-              // swiperRef.current?.slideNext();
-            }
-          }}
+          // onClick={() => {
+          //   if (isEnd) {
+          //     router.push("/barcode-scanner");
+          //   } else {
+          //     // swiperRef.current?.slideNext();
+          //   }
+          // }}
           className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary"
         >
           {isEnd ? (

@@ -1,24 +1,23 @@
-import { FiGrid } from "react-icons/fi";
-import { TfiMenuAlt } from "react-icons/tfi";
+import { setMenuData } from "@/app/store/menuSlice";
+import { RootState } from "@/app/store/store";
+import { AppstoreFilled, UnorderedListOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function ToggleGrid({
-  gridCols,
-  onGridCols,
-}: {
-  gridCols: number;
-  onGridCols: React.Dispatch<React.SetStateAction<number>>;
-}) {
+export default function ToggleGrid({}: {}) {
+  const menu = useSelector((state: RootState) => state.menu);
+  const dispatch = useDispatch();
+
   return (
-    <button
-      className={`text-2xl p-2 rounded-lg transition 
-                      ${
-                        gridCols === 2
-                          ? "bg-[#E3C19C] hover:bg-[#D0AC85]"
-                          : "bg-[#D0AC85] hover:bg-[#C49770]"
-                      }`}
-      onClick={() => onGridCols(gridCols === 2 ? 1 : 2)}
-    >
-      {gridCols === 2 ? <FiGrid /> : <TfiMenuAlt />}
-    </button>
+    <>
+      <button
+        className={`text-2xl p-2 rounded-lg transition 
+        ${menu.gridCols === 2 ? " hover:bg-[#D0AC85]" : " hover:bg-[#C49770]"}`}
+        onClick={() =>
+          dispatch(setMenuData({ gridCols: menu.gridCols === 2 ? 1 : 2 }))
+        }
+      >
+        {menu.gridCols === 2 ? <AppstoreFilled /> : <UnorderedListOutlined />}
+      </button>
+    </>
   );
 }

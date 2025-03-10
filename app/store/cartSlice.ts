@@ -19,28 +19,34 @@ const initialState: CartState = {
   totalQuantity: 0,
 };
 
+interface AddItemPayload {
+  product: Product;
+  categoryName?: string | null;
+}
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem: (state, action: PayloadAction<Product | null | undefined>) => {
+    addItem: (state, action: PayloadAction<AddItemPayload>) => {
       const existingItem = state.items.find(
-        (item) => item.product_id === action.payload?.product_id
+        (item) => item.product_id === action.payload.product?.product_id
       );
 
       if (existingItem) {
         existingItem.quantity += 1;
-        existingItem.totalPrice += action.payload?.price; // ✅ آپدیت قیمت کل محصول
+        existingItem.totalPrice += action.payload.product?.price; // ✅ آپدیت قیمت کل محصول
       } else {
         state.items.push({
-          ...action.payload,
+          ...action.payload.product,
           quantity: 1,
-          totalPrice: action.payload?.price, // ✅ مقدار اولیه قیمت کل
+          totalPrice: action.payload.product?.price, // ✅ مقدار اولیه قیمت کل
+          categoryName: action.payload.categoryName,
         });
       }
 
       state.totalQuantity += 1;
-      state.totalAmount += action.payload?.price;
+      state.totalAmount += action.payload.product?.price;
     },
 
     removeItem: (state, action: PayloadAction<number | undefined>) => {

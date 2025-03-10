@@ -12,12 +12,9 @@ const CartNotification: React.FC = () => {
   const { totalQuantity, totalAmount } = useSelector(
     (state: RootState) => state.cart
   );
-  const [pathChanged, setPathChanged] = useState(false);
+
   const path = usePathname(); // مسیر کامل URL
-  console.log(path);
-  useEffect(() => {
-    setPathChanged(!pathChanged);
-  }, [path]);
+
   const openNotification = () => {
     api.open({
       message: "",
@@ -50,7 +47,7 @@ const CartNotification: React.FC = () => {
     openNotification();
   }
   return (
-    <div className="fixed bottom-4 left-4 right-4 bg-green-600 text-white p-2 rounded-lg flex justify-between items-center shadow-lg max-w-[570px] mx-auto">
+    <div className="fixed bottom-4 left-4 right-4 bg-[#005b4c] text-white px-4 py-2 rounded-lg flex justify-between items-center shadow-lg max-w-[570px] mx-auto transition-all">
       <SeeCart />
       <PriceCurrency price={totalAmount} />
     </div>

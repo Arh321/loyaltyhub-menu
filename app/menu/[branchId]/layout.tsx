@@ -6,7 +6,7 @@ export default function ProductsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" bg-[#F0D5B6] mx-auto flex flex-col gap-4 w-full p-4 h-screen">
+    <div className=" bg-[#f0d9b0]  flex flex-col gap-4 w-full p-4 h-screen">
       <TopNavbarContainer />
       <div>{children}</div>
     </div>

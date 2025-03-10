@@ -1,4 +1,18 @@
 import { Drawer } from "antd";
+import Image from "next/image";
+import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
+import SidebarItems from "../side-bar/sidebar-items";
+import { MdOutlineLocationOn } from "react-icons/md";
+import { MdOutlineShoppingBag } from "react-icons/md";
+import { FaShop } from "react-icons/fa6";
+import { MdAccessTime } from "react-icons/md";
+import { MdShop } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
+import { FaInstagram } from "react-icons/fa";
+import { MdLogin } from "react-icons/md";
+import { LoginOutlined } from "@ant-design/icons";
+
+// import log
 export default function SideBar({
   branchName,
   sidebarOpen,
@@ -12,66 +26,55 @@ export default function SideBar({
     return null;
   }
   return (
-    // <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-end font-Yekan-Regular">
-    //   <div
-    //     dir="rtl"
-    //     className="text-xs sm:text-base md:text-lg lg:text-xl w-full max-w-[50%] bg-[#E3C19C] h-full p-4 shadow-lg relative transition-all duration-300 overflow-y-auto"
-    //   >
-    <Drawer onClose={() => onSidebarOpen(false)} open={sidebarOpen}>
-      {/* دکمه بستن سایدبار */}
-      <button
-        className="absolute top-4 right-4 text-xl"
-        onClick={() => onSidebarOpen(false)}
-      >
-        ✖
-      </button>
-
+    <Drawer
+      onClose={() => onSidebarOpen(false)}
+      open={sidebarOpen}
+      className="!bg-[#F0D5B6] font-Yekan-Regular overflow-y-auto"
+    >
       {/* عنوان */}
-      <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
-
+      <div className="flex flex-col items-center">
+        <Image
+          src="/images/logo.webp"
+          loading="lazy"
+          alt="logo pic"
+          width={100}
+          height={100}
+        />
+        <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
+      </div>
       {/* دکمه ورود و عضویت */}
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-green-700 text-green-700 rounded-lg hover:bg-green-700 hover:text-white transition">
-        ورود و عضویت ➡️
+      <button className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-black text-green-700 rounded-lg bg-transparent transition">
+        <LoginOutlined />
+        <span>ورود و عضویت</span>
       </button>
-
       {/* آیتم‌های منو */}
       <ul className="mt-6 space-y-4">
-        <li className="flex items-center gap-3 p-2 hover:bg-[#D0AC85] rounded">
-          📋 سفارشات من
-        </li>
-        <li className="flex items-center gap-3 p-2 hover:bg-[#D0AC85] rounded">
-          📍 آدرس‌های من
-        </li>
-        <li className="flex items-center gap-3 p-2 hover:bg-[#D0AC85] rounded">
-          🛍 فروشگاه‌های من
-        </li>
-        <li className="flex items-center gap-3 p-2 hover:bg-[#D0AC85] rounded">
-          🏢 اطلاعات مجموعه
-        </li>
-        <li className="flex items-center gap-3 p-2 hover:bg-[#D0AC85] rounded">
-          ⏰ ساعت کاری مجموعه
-        </li>
-        <li className="flex items-center gap-3 p-2 hover:bg-[#D0AC85] rounded">
-          ℹ️ قوانین مجموعه
-        </li>
+        <SidebarItems text="سفارشات من" icon={<MdReceiptLong />} />
+        <SidebarItems text="آدرس های من" icon={<MdOutlineLocationOn />} />
+        <SidebarItems text="فروشگاه های من" icon={<MdShop />} />
+        <SidebarItems text="اطلاعات مجموعه" icon={<MdShoppingBag />} />
+        <SidebarItems text="ساعت کاری مجموعه" icon={<MdAccessTime />} />
+        <SidebarItems text="قوانین مجموعه" icon={<MdInfoOutline />} />
       </ul>
 
       {/* لوگو (موقت) */}
       <div className="flex flex-col items-center mt-6">
-        <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center">
-          <span className="text-lg font-bold">لوگو</span>
-        </div>
+        <Image
+          src="/images/logo.webp"
+          loading="lazy"
+          alt="logo pic"
+          width={100}
+          height={100}
+        />
         <p className="mt-2 text-sm font-semibold">Digital Menu Market</p>
         <p className="text-xs text-gray-700">Quality at the Top</p>
       </div>
-
       {/* دکمه‌های پایانی */}
-      <button className="w-full mt-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition">
+      <button className="w-full mt-4 py-2 bg-[#005b4c] text-white rounded-lg hover:darken transition">
         درباره دیجیتال منو مارکت{" "}
       </button>
-
       <button className="w-full mt-2 flex items-center justify-center gap-2 py-2 border border-green-700 text-green-700 rounded-lg hover:bg-green-700 hover:text-white transition">
-        📸 Follow Us on Instagram
+        <FaInstagram /> <span>Follow Us on Instagram</span>
       </button>
     </Drawer>
 

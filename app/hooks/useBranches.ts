@@ -8,5 +8,6 @@ export const useBranchInfo = (branchId?: number) => {
     queryFn: () => fetchBranchInfo(branchId), // فراخوانی API
     enabled: !!branchId, // اگر branchId مقدار نداشته باشد، اجرا نمی‌شود
     staleTime: 60 * 1000, // داده‌ها تا ۶۰ ثانیه کش شوند
+    gcTime: 1000 * 60 * 30,
   });
 };

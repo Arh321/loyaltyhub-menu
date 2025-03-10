@@ -9,19 +9,23 @@ const SeeCart = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const router = useRouter();
   const { branchId } = useParams();
+
   return (
-    <Button
-      type="primary"
-      className="flex gap-2 font-Yekan-Regular text-lg !py-6"
-      onClick={() => {
-        router.push(`/menu/${branchId}/payment`);
-      }}
-    >
-      <Badge count={cart.totalQuantity}></Badge>
-      {/* <span className="">{cart.totalQuantity}</span> */}
-      <span>مشاهده سبد</span>
-    </Button>
-    // </Badge>
+    <>
+      {cart.totalQuantity > 0 ? (
+        <Button
+          type="primary"
+          className="flex gap-2 font-Yekan-Regular text-lg !py-6 bg-[#005b4c] border-white rounded-lg"
+          onClick={() => {
+            router.push(`/menu/${branchId}/payment`);
+          }}
+        >
+          <Badge count={cart.totalQuantity} color="#fae3ba"></Badge>
+          {/* <span className="">{cart.totalQuantity}</span> */}
+          <span>مشاهده سبد</span>
+        </Button>
+      ) : null}
+    </>
   );
 };
 

@@ -1,58 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { setMenuData } from "@/app/store/menuSlice";
 import { useRouter } from "next/navigation";
-import AddToEmptyCart from "../buttons/add-to-empty-cart";
-import AddToCart from "../buttons/add-to-cart";
 import PriceCurrency from "../price-currency";
+import CartButtons from "../cart/cart-buttons";
 import { Product } from "@/app/types/products/products";
+import clsx from "clsx";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const router = useRouter();
 
+  // استیت برای وضعیت سبد خرید
+  const [isInCart, setIsInCart] = useState(false);
+
+  // بررسی اینکه آیا محصول در سبد خرید هست
+  useEffect(() => {
+    setIsInCart(
+      cart.items.some((item) => item.product_id === product.product_id)
+    );
+  }, [cart.items, product.product_id]);
+
   const handleSelectProduct = () => {
     dispatch(setMenuData({ selectedProduct: product }));
     router.push(window.location.pathname + `/${product.product_id}`);
   };
+
   return (
     <div
-      className="flex flex-col font-almarai text-sm text-black bg-green-200 p-3 gap-6 rounded-lg shadow-md w-full "
-      dir="rtl"
+      className={clsx(
+        "flex gap-2 text-sm text-black p-3 rounded-lg shadow-md w-full transition-colors duration-300",
+        isInCart
+          ? "bg-gradient-to-b from-[#fae3ba] to-[#7b8366]"
+          : "bg-[#fae3ba]"
+      )}
       onClick={handleSelectProduct}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-start gap-2">
+      <div className="flex flex-col gap-2">
+        <div className="w-full">
           <Image
-            // src={product.thumbnail.url} در api اضافه شود
-            src="/images/hamburger-test.jpg"
-            alt={"عکس محصول"}
+            src="/images/hamburger-test.webp"
+            alt="عکس محصول"
             width={100}
             height={100}
-            className="rounded-md aspect-square"
+            className="rounded-md aspect-square object-cover"
           />
-          <h3 className="font-bold">{product.name}</h3>
         </div>
-        <p className="text-sm text-gray-600">
-          {/* {product?.titleEn} در api اضافه شود */}
-        </p>
+        <div className="w-[100px]">
+          <CartButtons product={product} />
+        </div>
       </div>
-      <div className="flex justify-between">
-        <div className="flex justify-between gap-3 items-center w-[30%]">
-          {cart.items.some(
-            (product1) => product1.product_id === product?.product_id
-          ) ? (
-            <AddToCart product={product} />
-          ) : (
-            <AddToEmptyCart product={product} />
-          )}
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-2 h-[100px]">
+          <div className="font-bold">{product.name}</div>
+          <div className="self-end"></div>
+          <div className="text-gray-500">{product.description}</div>
         </div>
-        <PriceCurrency price={product.price} />
+        <div className="self-end">
+          <PriceCurrency price={product.price} />
+        </div>
       </div>
     </div>
   );
 };
+
 export default ProductCard;

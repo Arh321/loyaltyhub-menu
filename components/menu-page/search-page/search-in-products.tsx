@@ -14,10 +14,8 @@ const SearchInProducts = () => {
   ); // ارسال searchTerm به useProducts
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 0)
-      setSearchTerm(
-        e.target.value
-      ); // وقتی ورودی تغییر می‌کند، مقدار جستجو به‌روز می‌شود
+    if (e.target.value.length > 0) setSearchTerm(e.target.value);
+    // وقتی ورودی تغییر می‌کند، مقدار جستجو به‌روز می‌شود
     else setSearchTerm("jfdkfjlsjflkdsj");
   };
 
@@ -25,7 +23,7 @@ const SearchInProducts = () => {
     <div className="flex flex-col gap-4 h-screen">
       <Input
         placeholder="محصول مورد نظر خود را جست و جو کنید"
-        className="font-Yekan-Regular"
+        className="font-Yekan-Regular bg-transparent py-3 text-gray-500 border border-white rounded-lg !hover:bg-transparent"
         onChange={handleSearchChange} // در هنگام تغییر ورودی این تابع فراخوانی می‌شود
       />
 

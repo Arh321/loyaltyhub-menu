@@ -13,17 +13,17 @@ export const apiClient = axios.create({
 });
 
 // ✅ اینترسپتور برای مدیریت توکن (در صورت نیاز)
-apiClient.interceptors.request.use(
-  (config) => {
-    // اگر توکن در لوکال استوریج یا کوکی ذخیره شده باشد
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// apiClient.interceptors.request.use(
+//   (config) => {
+//     // اگر توکن در لوکال استوریج یا کوکی ذخیره شده باشد
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
 
 // ✅ اینترسپتور برای مدیریت خطاهای درخواست‌ها
 apiClient.interceptors.response.use(

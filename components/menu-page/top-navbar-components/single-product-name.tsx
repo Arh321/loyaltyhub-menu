@@ -11,8 +11,8 @@ const SingleProductName = () => {
     isLoading,
     error,
   } = useProducts(undefined, Number(productId.id));
-  console.log(products);
-  return <div>{products?.data[0]?.name}</div>;
+
+  return <div className="">{products?.data[0]?.name}</div>;
 };
 
 export default SingleProductName;

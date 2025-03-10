@@ -9,7 +9,7 @@ const SeeShopMenu = () => {
     <Button
       variant="filled"
       type="default"
-      className="flex flex-grow font-Yekan-Regular text-lg !py-6 "
+      className="flex flex-grow font-Yekan-Regular text-lg !py-6 !bg-transparent !border !border-white"
       onClick={() => router.back()}
     >
       مشاهده منو/فروشگاه

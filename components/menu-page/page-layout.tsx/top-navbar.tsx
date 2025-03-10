@@ -8,12 +8,11 @@ export default function TopNavbar({
   left?: React.ReactNode | string | null;
 }) {
   return (
-    <div
-      dir="rtl"
-      className="grid grid-cols-3 justify-between items-center h-[5vh]"
-    >
+    <div dir="rtl" className="grid grid-cols-3 justify-between items-center ">
       <span className="flex justify-start">{right}</span>
-      <span className="flex justify-center !text-sm">{center}</span>
+      <span className="flex justify-center text-lg font-Yekan-Medium">
+        {center}
+      </span>
       <span className="flex justify-end">{left}</span>
     </div>
   );
