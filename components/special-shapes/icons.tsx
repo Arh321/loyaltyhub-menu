@@ -14,22 +14,22 @@ export default function SmallQr() {
       <path
         d="M8 2H5C3.58579 2 2.87868 2 2.43934 2.43934C2 2.87868 2 3.58579 2 5V8"
         stroke="white"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M8 22H5C3.58579 22 2.87868 22 2.43934 21.5607C2 21.1213 2 20.4142 2 19V16"
         stroke="white"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M16 2H19C20.4142 2 21.1213 2 21.5607 2.43934C22 2.87868 22 3.58579 22 5V8"
         stroke="white"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M16 22H19C20.4142 22 21.1213 22 21.5607 21.5607C22 21.1213 22 20.4142 22 19V16"
         stroke="white"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );

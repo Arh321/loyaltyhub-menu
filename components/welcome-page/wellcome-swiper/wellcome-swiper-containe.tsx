@@ -127,36 +127,32 @@ const WelcomeSwiperContainer = () => {
             />
           </SwiperSlide>
         ))}
-        <button
-          id={isEnd ? "" : "custom-swiper-page-next"}
-          aria-label="next"
-          // onClick={() => {
-          //   if (isEnd) {
-          //     router.push("/barcode-scanner");
-          //   } else {
-          //     // swiperRef.current?.slideNext();
-          //   }
-          // }}
-          className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary"
-        >
-          {isEnd ? (
+        {!isEnd && (
+          <button
+            id={"custom-swiper-page-next"}
+            aria-label="next"
+            className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary"
+          >
+            {/* {isEnd ? (
             <span
               className="font-almarai font-bold text-lg w-full text-left cursor-pointer"
-              onClick={() => router.push("/barcode-scanner")}
+              style={{ pointerEvents: "auto" }}
+              onClick={() => {
+                router.push("/barcode-scanner");
+                console.log("/barcode enterrrrrrrrred");
+              }}
             >
               ثبت سفارش
             </span>
           ) : (
-            <>
-              <span className="font-almarai font-bold text-lg">بعدی</span>
-              <Icon
-                icon="simple-line-icons:arrow-left"
-                width={24}
-                height={24}
-              />
-            </>
-          )}
-        </button>
+            <> */}
+            <span className="font-almarai font-bold text-lg">بعدی</span>
+            <Icon icon="simple-line-icons:arrow-left" width={24} height={24} />
+            {/* </> */}
+            {/* )} */}
+          </button>
+        )}
+
         <button id="custom-swiper-page-prev" className="!hidden"></button>
 
         <div
@@ -167,6 +163,19 @@ const WelcomeSwiperContainer = () => {
           )}
         ></div>
       </Swiper>
+      {isEnd && (
+        <button className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary">
+          <span
+            className="font-almarai font-bold text-lg w-full text-left cursor-pointer"
+            style={{ pointerEvents: "auto" }}
+            onClick={() => {
+              router.push("/providers");
+            }}
+          >
+            ثبت سفارش
+          </span>
+        </button>
+      )}
     </div>
   );
 };

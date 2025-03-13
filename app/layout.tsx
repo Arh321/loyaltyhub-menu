@@ -65,7 +65,7 @@ export default function RootLayout({
       </head>
       <body
         dir="rtl"
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-light-background dark:bg-dark-background transition-colors duration-300 font-Yekan-Regular text-black max-w-[768px] mx-auto`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-light-background dark:bg-dark-background transition-colors duration-300 font-Yekan-Regular text-black max-w-[768px] mx-auto h-screen`}
       >
         {/* <ThemeProvider> */}
         <QueryProvider>

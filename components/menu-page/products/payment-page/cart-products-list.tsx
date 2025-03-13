@@ -28,7 +28,7 @@ const CartProductsList = () => {
   }, {} as Record<string, { categoryName: string; products: typeof cart.items }>);
 
   return (
-    <div className="flex flex-col justify-between h-[50vh] overflow-y-auto">
+    <div className="flex flex-col justify-between h-[20vh] overflow-y-auto">
       {Object.values(groupedItems).map((group) => (
         <div key={group.categoryName}>
           {/* نام دسته‌بندی */}
