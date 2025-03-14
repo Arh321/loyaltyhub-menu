@@ -24,11 +24,22 @@ const TopNavbarContainer = () => {
     isLoading,
     error,
   } = useBranchInfo(Number(branchId));
-
+  console.log(pathname);
   const getNavbarConfig = () => {
     const isCategoriesPage = /^\/menu\/\d+$/.test(pathname);
+    const isSingleProduct = /^\/menu\/\d+\/products\/\d+$/.test(pathname);
+    const isProductMenu = /^\/menu\/\d+\/products$/.test(pathname);
 
-    if (isCategoriesPage) {
+    if (pathname === "/providers") {
+      return {
+        center: <span className="text-white">Digital Menu Market</span>,
+      };
+    } else if (pathname === "/providers/search") {
+      return {
+        center: <span className="text-white">Digital Menu Market</span>,
+        left: <ReturnKey color="white" />,
+      };
+    } else if (isCategoriesPage) {
       return {
         right: (
           <>
@@ -53,30 +64,23 @@ const TopNavbarContainer = () => {
         ),
         left: <ReturnKey />,
       };
-    }
-    if (pathname.includes("/search")) {
+    } else if (pathname.includes("/search")) {
       return {
         center: <h1 className="ext-center">جست و جو</h1>,
         left: <ReturnKey />,
       };
-    }
-    const isSingleProduct = /^\/menu\/\d+\/products\/\d+$/.test(pathname);
-    if (isSingleProduct) {
+    } else if (isSingleProduct) {
       return {
         right: <ShareComponent />,
         center: <SingleProductName />,
         left: <ReturnKey />,
       };
-    }
-    if (pathname.includes("/payment")) {
+    } else if (pathname.includes("/payment")) {
       return {
         center: "تکمیل سفارش",
         left: <ReturnKey />,
       };
-    }
-    const isProductMenu = /^\/menu\/\d+\/products$/.test(pathname);
-
-    if (isProductMenu) {
+    } else if (isProductMenu) {
       return {
         right: (
           <>

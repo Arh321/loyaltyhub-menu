@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider/theme-provider"; // U
 import "./globals.css";
 import ReduxProvider from "@/components/redux/redux-provider";
 import { ConfigProvider } from "antd";
-import QueryProvider from "@/components/providers/QeryProvider";
+import QueryProvider from "@/components/layout-providers/QeryProvider";
 
 import SplashScreen from "@/components/loading/splash-screen";
 
@@ -36,6 +36,9 @@ const theme = {
       defaultBorderColor: "transparent",
       defaultHoverBorderColor: "transparent",
       paddingInline: 5,
+    },
+    Input: {
+      activeBorderColor: "red",
     },
   },
   //    token: {
