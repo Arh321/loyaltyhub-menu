@@ -1,5 +1,5 @@
 "use client";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import ReturnKey from "../top-navbar-components/return-key";
 import ToggleSidebar from "../top-navbar-components/toggle-sidebar";
@@ -21,6 +21,7 @@ const TopNavbarContainer = () => {
   const [branchName, setBranchName] = useState("");
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const {
     data: branchData,
@@ -60,10 +61,9 @@ const TopNavbarContainer = () => {
           <>
             <div className="flex gap-3 items-center">
               <ToggleSidebar
-                onSidebarOpen={setSidebarOpen}
+                
                 branchName={branchName}
-                sidebarOpen={sidebarOpen}
-                setSidebarOpen={setSidebarOpen}
+              
               />
               <ToggleGrid />
             </div>
@@ -104,10 +104,8 @@ const TopNavbarContainer = () => {
           <>
             <div className="flex gap-3">
               <ToggleSidebar
-                onSidebarOpen={setSidebarOpen}
                 branchName={branchData?.result[0]?.name}
-                sidebarOpen={sidebarOpen}
-                setSidebarOpen={setSidebarOpen}
+                
               />
               <SearchOutlined
                 className="text-2xl text-black hover:bg-[#D0AC85] p-2 rounded-lg"
@@ -122,7 +120,10 @@ const TopNavbarContainer = () => {
           </>
         ),
         center: (
-          <div className="flex gap-1 items-center" onClick={handleOpenModal}>
+          <div
+            className="flex gap-1 items-center cursor-pointer"
+            onClick={handleOpenModal}
+          >
             <Image src="/images/logo.webp" alt="logo" width={30} height={30} />
             <h1 className="  text-center flex-grow">
               {branchData?.result[0].name}

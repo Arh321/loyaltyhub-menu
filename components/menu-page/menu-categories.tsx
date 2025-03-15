@@ -1,18 +1,32 @@
 "use client";
-
-import CategoryCard from "./category-card";
-import clsx from "clsx";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { useCategories } from "@/app/hooks/useCategories";
 import { useProducts } from "@/app/hooks/useProducts";
-import { useSelector } from "react-redux";
+import { openModal } from "@/app/store/modalSlice";
+import CategoryCard from "./category-card";
+import clsx from "clsx";
 
-export default function MenuCategories({}: {}) {
+export default function MenuCategories() {
   const menu = useSelector((state: RootState) => state.menu);
-
+  const dispatch = useDispatch();
   const { data: categories, isLoading, error } = useCategories();
   const { data: products } = useProducts();
-  console.log(products);
+
+
+  // اجرای dispatch فقط در اولین ورود به صفحه
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hasModalBeenOpened = sessionStorage.getItem("rulesModalOpened");
+
+      if (!hasModalBeenOpened) {
+        dispatch(openModal("RulesModal"));
+        sessionStorage.setItem("rulesModalOpened", "true");
+      }
+    }
+  }, [dispatch]);
+
   if (isLoading) return <p>⏳ در حال بارگذاری...</p>;
   if (error) return <p className="text-red-500">❌ خطا در دریافت اطلاعات</p>;
 
@@ -29,7 +43,6 @@ export default function MenuCategories({}: {}) {
           {categories.result.map((category) => (
             <CategoryCard
               category={category}
-              // products={category.products}
               key={category.category_id}
               imageUrl={"/images/hamburger-test.webp"}
               expand={menu.gridCols == 1}
@@ -38,8 +51,8 @@ export default function MenuCategories({}: {}) {
           ))}
         </div>
       ) : (
-        <p className=" flex justify-center text-red-500">
-          دسته بندی ای وجود ندارد!{" "}
+        <p className="flex justify-center text-red-500">
+          دسته‌بندی‌ای وجود ندارد!{" "}
         </p>
       )}
     </>

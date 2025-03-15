@@ -19,7 +19,6 @@ const SearchInput = () => {
   const handleSearch = (value: string) => {
     setSearchTerm(value);
   };
-  // console.log(providers);
 
   return (
     <div className="flex flex-col gap-4">

@@ -11,6 +11,8 @@ import { Skeleton, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
+import InfoModal from "@/components/modals/info-modal/info-modal-container/info-modal";
+import RulesModal from "@/components/modals/rules-modal/rules-modal";
 const ProductCard = dynamic(
   () => import("@/components/menu-page/products/product-card"),
   {
@@ -52,46 +54,50 @@ const ProductsPage = () => {
 
   return (
     // ❗️ اضافه کردن return
-    <div className="p-4  h-screen w-full flex flex-col gap-4">
-      <Suspense fallback={<Spin />}>
-        <CategoryTabs
-          categories={categories?.result}
-          selectedCategory={selectedCategory}
+    <>
+      <div className="p-4  h-screen w-full flex flex-col gap-4">
+        <Suspense fallback={<Spin />}>
+          <CategoryTabs
+            categories={categories?.result}
+            selectedCategory={selectedCategory}
+          />
+        </Suspense>
+
+        <ProductCategoryName
+          name={selectedCategory?.name}
+          isLoadingCatName={isLoadingCat}
         />
-      </Suspense>
 
-      <ProductCategoryName
-        name={selectedCategory?.name}
-        isLoadingCatName={isLoadingCat}
-      />
+        {isLoadingPro ? (
+          <div className="flex flex-col gap-4">
+            {[...Array(4)].map((_, index) => (
+              <Skeleton.Button
+                key={index}
+                active
+                size="large"
+                className="w-full h-10"
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4 overflow-y-auto h-full pb-40 scrollableContainer ">
+            {products?.data?.length ? (
+              products.data.map((product) => (
+                <Suspense fallback={<Skeleton.Button active size="large" />}>
+                  <ProductCard product={product} key={product.product_id} />
+                </Suspense>
+              ))
+            ) : (
+              <div>محصولی در این دسته بندی وجود ندارد</div>
+            )}
+          </div>
+        )}
 
-      {isLoadingPro ? (
-        <div className="flex flex-col gap-4">
-          {[...Array(4)].map((_, index) => (
-            <Skeleton.Button
-              key={index}
-              active
-              size="large"
-              className="w-full h-10"
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col gap-4 overflow-y-auto h-full pb-40 scrollableContainer ">
-          {products?.data?.length ? (
-            products.data.map((product) => (
-              <Suspense fallback={<Skeleton.Button active size="large" />}>
-                <ProductCard product={product} key={product.product_id} />
-              </Suspense>
-            ))
-          ) : (
-            <div>محصولی در این دسته بندی وجود ندارد</div>
-          )}
-        </div>
-      )}
-
-      <CartNotification />
-    </div>
+        <CartNotification />
+      </div>
+      <InfoModal modalId="InfoModal" />
+      <RulesModal modalId="RulesModal" />
+    </>
   );
 };
 

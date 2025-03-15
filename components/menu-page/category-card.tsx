@@ -31,7 +31,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log(category);
   return (
     <div
       key={key}

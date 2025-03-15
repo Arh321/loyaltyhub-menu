@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
 
-const BranchLogo = () => {
+const BranchLogo = ({className}:{className?:string}) => {
   return (
-    <div className="relative mx-auto w-[80px] h-[80px] rounded-full border-2 border-white bg-white overflow-hidden -mt-10">
+    <div className={`relative mx-auto w-[80px] h-[80px] rounded-full  overflow-hidden -mt-10 ${className ? className : ""}`}>
       <Image
-        src="/images/hamburger-test.webp" // مسیر تصویر لوگو
+        src="/images/logo.webp" // مسیر تصویر لوگو
         layout="fill"
         objectFit="cover"
         alt="Branch Logo"

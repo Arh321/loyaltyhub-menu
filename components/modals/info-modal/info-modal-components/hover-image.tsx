@@ -3,13 +3,13 @@ import React from "react";
 
 const HoverImage = () => {
   return (
-    <div className="relative w-full h-[180px] overflow-hidden rounded-t-lg">
+    <div className="relative w-full h-[220px] overflow-hidden rounded-t-lg  ">
       <Image
-        src="/images/hamburger-test.webp" // مسیر تصویر را تغییر دهید
-        layout="fill"
-        objectFit="cover"
+        src="/images/logo.webp" // مسیر تصویر را تغییر دهید
+        fill
+        objectFit="contain"
         alt="Branch Banner"
-        className="transition-transform duration-300 hover:scale-105"
+        className="transition-transform duration-300 hover:scale-105 "
       />
     </div>
   );

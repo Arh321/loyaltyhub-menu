@@ -8,6 +8,7 @@ import QueryProvider from "@/components/layout-providers/QeryProvider";
 
 import SplashScreen from "@/components/loading/splash-screen";
 import InfoModal from "@/components/modals/info-modal/info-modal-container/info-modal";
+import RulesModal from "@/components/modals/rules-modal/rules-modal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -78,7 +79,7 @@ export default function RootLayout({
         <QueryProvider>
           <ConfigProvider theme={theme}>
             <ReduxProvider>
-              <InfoModal modalId="InfoModal" />
+              
               <SplashScreen />
               {children}
             </ReduxProvider>

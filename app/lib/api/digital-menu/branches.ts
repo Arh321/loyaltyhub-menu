@@ -14,7 +14,6 @@ export const fetchBranchInfo = async (
       `/branches/?${queryParams.toString()}`,
       { timeout: 45000 }
     );
-    console.log("entered branch");
     // تبدیل داده دریافتی به JSON و بازگرداندن آن به عنوان Plain Object
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {

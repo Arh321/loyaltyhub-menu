@@ -1,3 +1,4 @@
+"use clinet"
 import { Drawer } from "antd";
 import Image from "next/image";
 import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
@@ -11,23 +12,29 @@ import { MdInfoOutline } from "react-icons/md";
 import { FaInstagram } from "react-icons/fa";
 import { MdLogin } from "react-icons/md";
 import { LoginOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal, openModal } from "@/app/store/modalSlice";
+import { RootState } from "@/app/store/store";
 
 // import log
 export default function SideBar({
   branchName,
-  sidebarOpen,
-  onSidebarOpen,
+  
 }: {
   branchName: string;
-  sidebarOpen: boolean;
-  onSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
 }) {
-  if (!sidebarOpen) {
-    return null;
-  }
+  const sidebarOpen = useSelector(
+      (state: RootState) => state.modal.openModals["Sidebar"] || false
+    );
+  const dispatch=useDispatch();
+  const router=useRouter();
+ 
+ 
   return (
     <Drawer
-      onClose={() => onSidebarOpen(false)}
+      onClose={() => dispatch(closeModal("Sidebar"))}
       open={sidebarOpen}
       className="!bg-[#F0D5B6] font-Yekan-Regular overflow-y-auto  "
       style={{ width: "50vw", maxWidth: "400px" }}
@@ -44,7 +51,7 @@ export default function SideBar({
         <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
       </div>
       {/* دکمه ورود و عضویت */}
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-black text-green-700 rounded-lg bg-transparent transition">
+      <button className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-black text-green-700 rounded-lg bg-transparent transition" onClick={()=>{}}>
         <LoginOutlined />
         <span>ورود و عضویت</span>
       </button>
@@ -53,26 +60,32 @@ export default function SideBar({
         <SidebarItems
           text="سفارشات من"
           icon={<MdReceiptLong className="text-base" />}
+          onClick={() => {}}
         />
         <SidebarItems
           text="آدرس های من"
           icon={<MdOutlineLocationOn className="text-base" />}
+          onClick={() => {}}
         />
         <SidebarItems
           text="فروشگاه های من"
           icon={<MdShop className="text-base" />}
+          onClick={() => {router.push("/providers")}}
         />
         <SidebarItems
           text="اطلاعات مجموعه"
           icon={<MdShoppingBag className="text-base" />}
+          onClick={() => {dispatch(openModal("InfoModal"))}}
         />
         <SidebarItems
           text="ساعت کاری مجموعه"
           icon={<MdAccessTime className="text-base" />}
+          onClick={() => {}}
         />
         <SidebarItems
           text="قوانین مجموعه"
           icon={<MdInfoOutline className="text-base" />}
+          onClick={() => {dispatch(openModal("RulesModal"))}}
         />
       </ul>
 
@@ -96,8 +109,5 @@ export default function SideBar({
         <FaInstagram /> <span>Follow Us on Instagram</span>
       </button>
     </Drawer>
-
-    //   </div>
-    // </div>
   );
 }

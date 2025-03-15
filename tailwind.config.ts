@@ -10,7 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        xs: "375px", // breakpoint برای صفحه‌های کوچک‌تر از 400px
+        lxs:"375px",
+        xs: "460px", // breakpoint برای صفحه‌های کوچک‌تر از 400px
+        
       },
       backgroundImage: {
         "custom-gradient": "linear-gradient(to top, black, transparent)",

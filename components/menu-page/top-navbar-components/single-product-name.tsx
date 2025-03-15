@@ -4,7 +4,6 @@ import React from "react";
 
 const SingleProductName = () => {
   const productId = useParams();
-  console.log(productId.id);
 
   const {
     data: products,

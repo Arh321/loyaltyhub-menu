@@ -14,12 +14,13 @@ const modalSlice = createSlice({
   reducers: {
     openModal: (state, action: PayloadAction<string>) => {
       const modalId = action.payload;
-      state.openModals[modalId] = true; // باز کردن مودال با شناسه مشخص
-      // console.log(modalId);
+
+      // بستن همه مودال‌ها قبل از باز کردن مودال جدید
+      state.openModals = { [modalId]: true };
     },
     closeModal: (state, action: PayloadAction<string>) => {
       const modalId = action.payload;
-      state.openModals[modalId] = false; // بستن مودال با شناسه مشخص
+      state.openModals[modalId] = false;
     },
   },
 });

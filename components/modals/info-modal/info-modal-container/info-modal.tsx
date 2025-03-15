@@ -12,7 +12,12 @@ import { RootState } from "@/app/store/store";
 import { closeModal } from "@/app/store/modalSlice";
 import styles from "./info-modal.module.css";
 import ModalFooterButtons from "../info-modal-components/modal-footer-buttons";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import { useBranchInfo } from "@/app/hooks/useBranches";
+import { IoMdTime } from "react-icons/io";
+import { MdLocalPhone } from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
+
 interface modalProps {
   modalId: string;
   address?: string;
@@ -25,9 +30,12 @@ const InfoModal = ({ modalId }: modalProps) => {
   );
 
   const pathname = usePathname(); // گرفتن مسیر فعلی
+  const params = useParams();
+  const branchId = params.id; // مقدار branchId از مسیر `menu/[id]`
+
   const currentUrl =
     typeof window !== "undefined" ? window.location.origin + pathname : "";
-
+  const { data: info, isLoading, error } = useBranchInfo(Number(branchId));
   const handleShare = async () => {
     const shareData = {
       title: "دیجیتال منو",
@@ -53,9 +61,10 @@ const InfoModal = ({ modalId }: modalProps) => {
       open={isModalOpen}
       footer={null}
       onCancel={() => dispatch(closeModal(modalId))}
-      className={`font-Yekan-Regular ${styles.modalContainer}`}
+      className={`font-Yekan-Regular ${styles.modalContainer} relative`}
       bodyStyle={{
         height: "calc(100vh - 48px)",
+
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -65,22 +74,23 @@ const InfoModal = ({ modalId }: modalProps) => {
       closeIcon={<span className="hidden"></span>}
     >
       {/* تصویر بالایی */}
+      <div className="h-[70%] flex flex-col justify-between">
+        <div className="relative">
+          <HoverImage />
+          <OpenCloseTag isOpen={false} />
+          <BranchLogo className="border-2 border-black bg-transparent text-xl" />
+        </div>
 
-      <div className="relative">
-        <HoverImage />
+        <div className="flex flex-col items-center text-black text-2xl font-Yekan-Light">
+          <BranchTitle title={info?.result[0].name} />
+        </div>
 
-        <OpenCloseTag isOpen={false} />
-        <BranchLogo />
+        {/* جزئیات */}
+        <div className="flex flex-col gap-2">
+          <ActionButtons />
+          <AddressSection address={info?.result[0].location} />
+        </div>
       </div>
-      {/* اطلاعات رستوران */}
-      <div className="flex flex-col items-center">
-        <BranchTitle title="باهارات کافه رستوران" />
-      </div>
-
-      {/* جزئیات */}
-      <AddressSection />
-      <ActionButtons />
-
       <ModalFooterButtons onViewMenu={handleViewMenu} onShare={handleShare} />
     </Modal>
   );

@@ -157,3 +157,17 @@
 .scrollableContainer::-webkit-scrollbar {
   display: none; /* برای مرورگرهای WebKit */
 }
+
+.custom-rules-modal .ant-modal-content {
+  background: #706553 !important; /* پس‌زمینه مشکی نیمه شفاف */
+  backdrop-filter: blur(10px); /* افکت شیشه‌ای */
+  border-radius: 12px !important; /* گرد کردن گوشه‌ها */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* ایجاد مرز نرم */
+  color: white;
+}
+
+.custom-rules-modal .ant-modal {
+  max-width: 200px; /* عرض مناسب */
+  top: 50%;
+  transform: translateY(-50%);
+}

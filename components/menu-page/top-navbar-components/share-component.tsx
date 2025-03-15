@@ -6,7 +6,6 @@ const ShareComponent = () => {
   const pathname = usePathname(); // گرفتن مسیر فعلی
   const currentUrl =
     typeof window !== "undefined" ? window.location.origin + pathname : "";
-  console.log(pathname);
   const handleShare = async () => {
     const shareData = {
       title: "دیجیتال منو",

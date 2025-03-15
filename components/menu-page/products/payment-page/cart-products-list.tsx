@@ -15,7 +15,6 @@ const CartProductsList = () => {
     if (cart.totalQuantity === 0) router.back();
   }, [cart.totalQuantity]);
 
-  console.log(cart.items);
 
   const groupedItems = cart.items.reduce(
     (acc, item) => {

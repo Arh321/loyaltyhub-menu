@@ -1,4 +1,6 @@
 import React from "react";
+import { IoMdShare } from "react-icons/io";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 interface ModalFooterButtonsProps {
   onViewMenu: () => void;
@@ -10,17 +12,24 @@ const ModalFooterButtons = ({
   onShare,
 }: ModalFooterButtonsProps) => {
   return (
-    <div className="flex justify-between w-full p-4 ">
+    <div className="flex  flex-col xs:flex-row gap-2 items-center w-full p-4 absolute bottom-0 left-0 right-0">
       <button
-        className="flex-1 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition-all"
+        className="flex gap-2 justify-center py-[10px] w-full bg-[#005b4c] text-white rounded-lg hover:brightness-75 transition-all text-base"
         onClick={onViewMenu}
       >
-        مشاهده منو / فروشگاه
+        <div>
+          <MdOutlineRemoveRedEye />
+        </div>
+        <div>مشاهده منو / فروشگاه</div>
       </button>
       <button
-        className="flex-1 py-2 px-4 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all"
+        className="flex gap-2 justify-center items-center py-[10px] w-full bg-[#fae3ba] border border-[#005f4e] hover:bg-[#c1a990] text-gray-700 rounded-lg  transition-all text-base"
         onClick={onShare}
       >
+        
+          <IoMdShare />
+        
+
         اشتراک‌گذاری منو / فروشگاه
       </button>
     </div>
