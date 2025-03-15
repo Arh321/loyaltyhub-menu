@@ -1,5 +1,5 @@
 "use client";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useState } from "react";
 import ReturnKey from "../top-navbar-components/return-key";
 import ToggleSidebar from "../top-navbar-components/toggle-sidebar";
@@ -10,21 +10,28 @@ import ShareComponent from "../top-navbar-components/share-component";
 import ToggleGrid from "../top-navbar-components/toggle-grid";
 import { useBranchInfo } from "@/app/hooks/useBranches";
 import Image from "next/image";
+import { openModal } from "@/app/store/modalSlice";
+import { useDispatch } from "react-redux";
 
 const TopNavbarContainer = () => {
   const pathname = usePathname(); // مسیر صفحه فعلی
   const { branchId } = useParams();
-
+  const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [branchName, setBranchName] = useState("");
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
   const {
     data: branchData,
     isLoading,
     error,
   } = useBranchInfo(Number(branchId));
-  console.log(pathname);
+
+  const handleOpenModal = (modalId) => {
+    dispatch(openModal(modalId));
+  };
+
   const getNavbarConfig = () => {
     const isCategoriesPage = /^\/menu\/\d+$/.test(pathname);
     const isSingleProduct = /^\/menu\/\d+\/products\/\d+$/.test(pathname);
@@ -32,11 +39,19 @@ const TopNavbarContainer = () => {
 
     if (pathname === "/providers") {
       return {
-        center: <span className="text-white">Digital Menu Market</span>,
+        center: (
+          <span className="text-white whitespace-nowrap">
+            Digital Menu Market
+          </span>
+        ),
       };
     } else if (pathname === "/providers/search") {
       return {
-        center: <span className="text-white">Digital Menu Market</span>,
+        center: (
+          <span className="text-white whitespace-nowrap">
+            Digital Menu Market
+          </span>
+        ),
         left: <ReturnKey color="white" />,
       };
     } else if (isCategoriesPage) {
@@ -55,7 +70,10 @@ const TopNavbarContainer = () => {
           </>
         ),
         center: (
-          <div className="flex gap-1 items-center">
+          <div
+            className="flex gap-1 items-center cursor-pointer"
+            onClick={() => handleOpenModal("InfoModal")}
+          >
             <Image src="/images/logo.webp" alt="logo" width={30} height={30} />
             <h1 className="  text-center flex-grow">
               {branchData?.result[0].name}
@@ -104,7 +122,7 @@ const TopNavbarContainer = () => {
           </>
         ),
         center: (
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-1 items-center" onClick={handleOpenModal}>
             <Image src="/images/logo.webp" alt="logo" width={30} height={30} />
             <h1 className="  text-center flex-grow">
               {branchData?.result[0].name}

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import { RootState } from "@/app/store/store";
-import ProductCategoryName from "@/components/menu-page/products/payment-page/product-category-name";
+import ProductCategoryName from "@/components/menu-page/products/products-page/product-category-name";
 import { useProducts } from "@/app/hooks/useProducts";
 import { useCategories } from "@/app/hooks/useCategories";
 import CartNotification from "@/components/cart-notification";
@@ -77,7 +77,7 @@ const ProductsPage = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-4 overflow-y-auto h-full pb-40">
+        <div className="flex flex-col gap-4 overflow-y-auto h-full pb-40 scrollableContainer ">
           {products?.data?.length ? (
             products.data.map((product) => (
               <Suspense fallback={<Skeleton.Button active size="large" />}>

@@ -29,7 +29,8 @@ export default function SideBar({
     <Drawer
       onClose={() => onSidebarOpen(false)}
       open={sidebarOpen}
-      className="!bg-[#F0D5B6] font-Yekan-Regular overflow-y-auto"
+      className="!bg-[#F0D5B6] font-Yekan-Regular overflow-y-auto  "
+      style={{ width: "50vw", maxWidth: "400px" }}
     >
       {/* عنوان */}
       <div className="flex flex-col items-center">
@@ -48,13 +49,31 @@ export default function SideBar({
         <span>ورود و عضویت</span>
       </button>
       {/* آیتم‌های منو */}
-      <ul className="mt-6 space-y-4">
-        <SidebarItems text="سفارشات من" icon={<MdReceiptLong />} />
-        <SidebarItems text="آدرس های من" icon={<MdOutlineLocationOn />} />
-        <SidebarItems text="فروشگاه های من" icon={<MdShop />} />
-        <SidebarItems text="اطلاعات مجموعه" icon={<MdShoppingBag />} />
-        <SidebarItems text="ساعت کاری مجموعه" icon={<MdAccessTime />} />
-        <SidebarItems text="قوانین مجموعه" icon={<MdInfoOutline />} />
+      <ul className="mt-6 space-y-4 whitespace-nowrap">
+        <SidebarItems
+          text="سفارشات من"
+          icon={<MdReceiptLong className="text-base" />}
+        />
+        <SidebarItems
+          text="آدرس های من"
+          icon={<MdOutlineLocationOn className="text-base" />}
+        />
+        <SidebarItems
+          text="فروشگاه های من"
+          icon={<MdShop className="text-base" />}
+        />
+        <SidebarItems
+          text="اطلاعات مجموعه"
+          icon={<MdShoppingBag className="text-base" />}
+        />
+        <SidebarItems
+          text="ساعت کاری مجموعه"
+          icon={<MdAccessTime className="text-base" />}
+        />
+        <SidebarItems
+          text="قوانین مجموعه"
+          icon={<MdInfoOutline className="text-base" />}
+        />
       </ul>
 
       {/* لوگو (موقت) */}

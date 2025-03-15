@@ -22,7 +22,7 @@ export default function MenuCategories({}: {}) {
       {categories?.result && categories?.result.length > 0 ? (
         <div
           className={clsx(
-            `grid gap-4`,
+            `grid gap-4 scrollableContainer`,
             menu.gridCols == 1 ? "grid-cols-1" : "grid-cols-2"
           )}
         >
@@ -33,8 +33,7 @@ export default function MenuCategories({}: {}) {
               key={category.category_id}
               imageUrl={"/images/hamburger-test.webp"}
               expand={menu.gridCols == 1}
-              height={170}
-              width={170}
+              height="170px"
             />
           ))}
         </div>

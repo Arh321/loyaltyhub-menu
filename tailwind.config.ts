@@ -9,6 +9,9 @@ const config: Config = {
   darkMode: ["class", "class"], // Enables dark mode with a 'class' strategy
   theme: {
     extend: {
+      screens: {
+        xs: "375px", // breakpoint برای صفحه‌های کوچک‌تر از 400px
+      },
       backgroundImage: {
         "custom-gradient": "linear-gradient(to top, black, transparent)",
         "welcome-slide-linear":

@@ -22,7 +22,7 @@ const SearchInput = () => {
   // console.log(providers);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <Search
         placeholder="برای مثال: دیجیتال منو"
         allowClear
@@ -40,6 +40,7 @@ const SearchInput = () => {
               imageSrc="/images/hamburger-test.webp"
               name={provider.name}
               key={provider.branch_id}
+              cardDestination={provider.branch_id}
             />
           ))}
         </div>

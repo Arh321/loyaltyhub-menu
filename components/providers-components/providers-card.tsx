@@ -5,7 +5,7 @@ import React from "react";
 interface ProvidersCardProps {
   name: string;
   imageSrc: string;
-  cardDestination: string; // تغییر به string
+  cardDestination: number; // تغییر به string
 }
 
 const ProvidersCard: React.FC<ProvidersCardProps> = ({

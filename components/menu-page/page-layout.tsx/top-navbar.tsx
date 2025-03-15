@@ -13,7 +13,7 @@ export default function TopNavbar({
       className="grid grid-cols-3 justify-between items-center py-2"
     >
       <span className="flex justify-start">{right}</span>
-      <span className="flex justify-center text-lg font-Yekan-Medium">
+      <span className="flex justify-center text-lg font-Yekan-Medium whitespace-nowrap">
         {center}
       </span>
       <span className="flex justify-end">{left}</span>

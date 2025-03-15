@@ -143,8 +143,17 @@
   );
 }
 .shadow-top-right-left {
-  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 -4px 6px -1px rgba(0, 0, 0, 0.1),
     /* سایه بالا */ 4px 0 6px -1px rgba(0, 0, 0, 0.1),
     /* سایه راست */ -4px 0 6px -1px rgba(0, 0, 0, 0.1); /* سایه چپ */
   clip-path: inset(0 0 -10px 0); /* حذف سایه از پایین */
+}
+.scrollableContainer {
+  overflow: auto;
+  scrollbar-width: none; /* برای Firefox */
+}
+
+.scrollableContainer::-webkit-scrollbar {
+  display: none; /* برای مرورگرهای WebKit */
 }

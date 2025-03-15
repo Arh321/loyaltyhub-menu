@@ -5,9 +5,9 @@ import WelcomeSwiperContainer from "@/components/welcome-page/wellcome-swiper/we
 export default function WelcomePAge() {
   return (
     <div className="w-full  mx-auto h-screen relative light:bg-background dark:bg-background">
-      <div className="w-max h-max absolute top-4 right-4 z-10">
+      {/* <div className="w-max h-max absolute top-4 right-4 z-10">
         <ThemeSwitch />
-      </div>
+      </div> */}
       <WelcomeSwiperContainer />
     </div>
   );

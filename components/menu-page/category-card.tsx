@@ -11,10 +11,11 @@ interface CategoryCardProps {
   titleEn?: string | null;
   key: number | null;
   expand?: boolean | null;
-  products?: Product[];
+  className?: string;
   category: Category;
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
+  tabs?: boolean;
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({
@@ -22,10 +23,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   titleEn,
   key,
   expand,
-  products,
+  className,
   category,
   width,
   height,
+  tabs,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -42,10 +44,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           String(category.category_id)
         );
 
-        router.push(window.location.pathname + "/products");
+        !tabs && router.push(window.location.pathname + "/products");
       }}
-      className={`relative max-w-full rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all  duration-300 hover:scale-[1.02] `}
+      className={`relative max-w-full rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all  duration-300 hover:scale-[1.08] ${className ? className : ""}`}
       style={{
+        width: width ? width : undefined,
         height: height ? height : "auto", // If height is defined, use it; otherwise, use 'auto'
       }}
     >

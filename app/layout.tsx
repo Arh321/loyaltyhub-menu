@@ -7,6 +7,7 @@ import { ConfigProvider } from "antd";
 import QueryProvider from "@/components/layout-providers/QeryProvider";
 
 import SplashScreen from "@/components/loading/splash-screen";
+import InfoModal from "@/components/modals/info-modal/info-modal-container/info-modal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,6 +40,9 @@ const theme = {
     },
     Input: {
       activeBorderColor: "red",
+    },
+    Modal: {
+      contentBg: "#f0d9b0",
     },
   },
   //    token: {
@@ -74,6 +78,7 @@ export default function RootLayout({
         <QueryProvider>
           <ConfigProvider theme={theme}>
             <ReduxProvider>
+              <InfoModal modalId="InfoModal" />
               <SplashScreen />
               {children}
             </ReduxProvider>

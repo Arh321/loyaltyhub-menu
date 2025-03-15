@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenuData } from "@/app/store/menuSlice";
 import { RootState } from "@/app/store/store";
@@ -16,61 +15,62 @@ const CategoryTabs = ({
 }) => {
   const dispatch = useDispatch();
   const menu = useSelector((state: RootState) => state.menu);
-  console.log(menu.selectedCategory);
+  const selectedCategoryRef = useRef<HTMLLIElement>(null);
+
+  // اسکرول به آیتم منتخب هنگام تغییر
+  useEffect(() => {
+    if (selectedCategoryRef.current) {
+      selectedCategoryRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center", // آیتم منتخب را در وسط صفحه قرار می‌دهد
+        inline: "center", // آیتم منتخب را در وسط افقی قرار می‌دهد
+      });
+    }
+  }, [menu.selectedCategory]);
+
   return (
     <ul
-      className="flex overflow-x-auto gap-4 p-2 w-full pb-20  shadow-[0px_4px_4px_-2px_rgba(0,0,0,0.2)]"
+      className="flex overflow-x-auto gap-3 p-2 w-full pb-20 shadow-[0px_4px_4px_-2px_rgba(0,0,0,0.2)] scrollableContainer"
       dir="rtl"
     >
       {categories?.map((category: Category) => (
-        // <CategoryCard
-        //               category={category}
-        //               // products={category.products}
-        //               key={category.category_id}
-        //               imageUrl={"/images/hamburger-test.jpg"}
-        //               expand={gridCols == 1}
-        //               // height={170}
-        //               height={90}
-        //               width={180}
-        //             />
-        <li className="">
-          <button
+        <li
+          ref={
+            menu.selectedCategory === category ||
+            category.category_id ===
+              Number(localStorage.getItem("selectedCategoryId"))
+              ? selectedCategoryRef
+              : null
+          }
+          key={category.category_id}
+          onClick={() => {
+            dispatch(setMenuData({ selectedCategory: category }));
+            localStorage.setItem(
+              "selectedCategoryId",
+              String(category.category_id)
+            );
+          }}
+        >
+          <CategoryCard
+            category={category}
+            imageUrl={"/images/hamburger-test.webp"}
+            expand={false}
+            height="80px"
+            width="180px"
             key={category.category_id}
-            onClick={() => {
-              dispatch(setMenuData({ selectedCategory: category }));
-              localStorage.setItem(
-                "selectedCategoryId",
-                String(category.category_id)
-              );
-            }}
-            className={`flex flex-col items-center space-y-1  rounded-md `}
-          >
-            <div
-              className={`  ${
-                menu.selectedCategory === category ||
-                category.category_id ===
-                  Number(localStorage.getItem("selectedCategoryId"))
-                  ? "w-full border border-black rounded-lg p-1"
-                  : "w-full border border-transparent p-1"
-              }`}
-            >
-              <Image
-                // src={category.image}
-                src={"/images/hamburger-test.webp"}
-                alt={"نام دسته بندی"}
-                width={80}
-                height={80}
-                className="rounded-lg !aspect-square object-cover"
-                loading="lazy"
-              />
-            </div>
-            <span className="text-[10px] text-black font-bold ">
-              {category.name}
-            </span>
-          </button>
+            tabs={true}
+            className={`${
+              menu.selectedCategory === category ||
+              category.category_id ===
+                Number(localStorage.getItem("selectedCategoryId"))
+                ? "scale-[1.08]"
+                : ""
+            } !text-base !font-Yekan-Regular`}
+          />
         </li>
       ))}
     </ul>
   );
 };
+
 export default CategoryTabs;

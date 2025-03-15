@@ -5,7 +5,7 @@ import React from "react";
 
 const PaymentPage = () => {
   return (
-    <div className="p-4 w-full  flex justify-between flex-col h-[90vh]">
+    <div className=" w-full  flex flex-col h-[85vh] relative ">
       <CartProductsList />
       <TotalPayment />
       <TotoalPaymentCard />
