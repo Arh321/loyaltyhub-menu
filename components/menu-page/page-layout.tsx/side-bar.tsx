@@ -1,17 +1,16 @@
 "use clinet"
-import { Drawer } from "antd";
+import { Divider, Drawer } from "antd";
 import Image from "next/image";
 import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
 import SidebarItems from "../side-bar/sidebar-items";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { MdOutlineShoppingBag } from "react-icons/md";
-import { FaShop } from "react-icons/fa6";
+
 import { MdAccessTime } from "react-icons/md";
 import { MdShop } from "react-icons/md";
 import { MdInfoOutline } from "react-icons/md";
 import { FaInstagram } from "react-icons/fa";
-import { MdLogin } from "react-icons/md";
-import { LoginOutlined } from "@ant-design/icons";
+
+import { MdOutlineLogin } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "@/app/store/modalSlice";
@@ -36,8 +35,17 @@ export default function SideBar({
     <Drawer
       onClose={() => dispatch(closeModal("Sidebar"))}
       open={sidebarOpen}
-      className="!bg-[#F0D5B6] font-Yekan-Regular overflow-y-auto  "
-      style={{ width: "50vw", maxWidth: "400px" }}
+      className="!bg-[#F0D5B6] font-Yekan-Light overflow-y-auto custom-drawer "
+      style={{ width: "60vw", maxWidth: "400px" }}
+      maskStyle={{
+        background: "rgba(0, 0, 0, 0.3)", // پس‌زمینه نیمه‌شفاف
+        backdropFilter: "blur(10px)", // مات شدن پس‌زمینه
+      }}
+      drawerStyle={{
+        background: "rgba(255, 255, 255, 0.2)", // حالت شیشه‌ای برای خود دراور
+        backdropFilter: "blur(15px)",
+        borderRadius: "10px", // گوشه‌های گرد
+      }}
     >
       {/* عنوان */}
       <div className="flex flex-col items-center">
@@ -51,8 +59,11 @@ export default function SideBar({
         <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
       </div>
       {/* دکمه ورود و عضویت */}
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-black text-green-700 rounded-lg bg-transparent transition" onClick={()=>{}}>
-        <LoginOutlined />
+      <button
+        className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-[#2e5d53] text-[#2e5d53] rounded-lg bg-transparent transition"
+        onClick={() => {}}
+      >
+        <MdOutlineLogin />
         <span>ورود و عضویت</span>
       </button>
       {/* آیتم‌های منو */}
@@ -62,30 +73,46 @@ export default function SideBar({
           icon={<MdReceiptLong className="text-base" />}
           onClick={() => {}}
         />
+        <Divider className="!border-[#fae3bb]" />
+
         <SidebarItems
           text="آدرس های من"
           icon={<MdOutlineLocationOn className="text-base" />}
           onClick={() => {}}
         />
+        <Divider className="!border-[#fae3bb]" />
+
         <SidebarItems
           text="فروشگاه های من"
           icon={<MdShop className="text-base" />}
-          onClick={() => {router.push("/providers")}}
+          onClick={() => {
+            router.push("/providers");
+          }}
         />
+        <Divider className="!border-[#fae3bb]" />
+
         <SidebarItems
           text="اطلاعات مجموعه"
           icon={<MdShoppingBag className="text-base" />}
-          onClick={() => {dispatch(openModal("InfoModal"))}}
+          onClick={() => {
+            dispatch(openModal("InfoModal"));
+          }}
         />
+        <Divider className="!border-[#fae3bb]" />
+
         <SidebarItems
           text="ساعت کاری مجموعه"
           icon={<MdAccessTime className="text-base" />}
-          onClick={() => {}}
+          onClick={() => dispatch(openModal("WorkTimesDrawer"))}
         />
+        <Divider className="!border-[#fae3bb]" />
+
         <SidebarItems
           text="قوانین مجموعه"
           icon={<MdInfoOutline className="text-base" />}
-          onClick={() => {dispatch(openModal("RulesModal"))}}
+          onClick={() => {
+            dispatch(openModal("RulesModal"));
+          }}
         />
       </ul>
 

@@ -17,10 +17,10 @@ const ModalFooterButtons = ({
         className="flex gap-2 justify-center py-[10px] w-full bg-[#005b4c] text-white rounded-lg hover:brightness-75 transition-all text-base"
         onClick={onViewMenu}
       >
-        <div>
+        
           <MdOutlineRemoveRedEye />
-        </div>
-        <div>مشاهده منو / فروشگاه</div>
+        
+        مشاهده منو / فروشگاه
       </button>
       <button
         className="flex gap-2 justify-center items-center py-[10px] w-full bg-[#fae3ba] border border-[#005f4e] hover:bg-[#c1a990] text-gray-700 rounded-lg  transition-all text-base"

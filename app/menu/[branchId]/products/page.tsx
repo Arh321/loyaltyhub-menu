@@ -1,14 +1,12 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "next/navigation";
 import { RootState } from "@/app/store/store";
 import ProductCategoryName from "@/components/menu-page/products/products-page/product-category-name";
 import { useProducts } from "@/app/hooks/useProducts";
 import { useCategories } from "@/app/hooks/useCategories";
 import CartNotification from "@/components/cart-notification";
 import { Skeleton, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 import { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
 import InfoModal from "@/components/modals/info-modal/info-modal-container/info-modal";

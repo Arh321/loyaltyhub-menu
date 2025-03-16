@@ -171,3 +171,48 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+.custom-drawer .ant-drawer-header {
+  display: none;
+}
+.ant-drawer-mask {
+  background: rgba(0, 0, 0, 0.3); /* پس‌زمینه نیمه‌شفاف */
+  backdrop-filter: blur(10px); /* میزان بلور (مات شدن) */
+  z-index: 999; /* بالاتر از همه قرار بگیرد */
+}
+
+.custom-list .ant-list-item {
+  padding: 12px;
+  border: 1px solid #005b4c;
+  border-right: 6px solid #005b4c;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  margin-bottom: 10px;
+}
+.custom-list .ant-drawer-header {
+  width: 100%;
+  direction: rtl;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  background-color: black;
+  color: white;
+  position: relative;
+}
+.custom-list .ant-drawer-body {
+  background-color: black;
+  color: white;
+}
+.custom-list .ant-list-item-no-flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.custom-list .ant-drawer-close {
+  color: white;
+  position: absolute;
+
+  left: 8px;
+}
