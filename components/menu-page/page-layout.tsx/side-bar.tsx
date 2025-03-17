@@ -1,4 +1,4 @@
-"use clinet"
+"use clinet";
 import { Divider, Drawer } from "antd";
 import Image from "next/image";
 import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
@@ -17,20 +17,13 @@ import { closeModal, openModal } from "@/app/store/modalSlice";
 import { RootState } from "@/app/store/store";
 
 // import log
-export default function SideBar({
-  branchName,
-  
-}: {
-  branchName: string;
-
-}) {
+export default function SideBar({ branchName }: { branchName: string }) {
   const sidebarOpen = useSelector(
-      (state: RootState) => state.modal.openModals["Sidebar"] || false
-    );
-  const dispatch=useDispatch();
-  const router=useRouter();
- 
- 
+    (state: RootState) => state.modal.openModals["Sidebar"] || false
+  );
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   return (
     <Drawer
       onClose={() => dispatch(closeModal("Sidebar"))}
@@ -61,7 +54,9 @@ export default function SideBar({
       {/* دکمه ورود و عضویت */}
       <button
         className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-[#2e5d53] text-[#2e5d53] rounded-lg bg-transparent transition"
-        onClick={() => {}}
+        onClick={() => {
+          dispatch(openModal("OTPDrawer"));
+        }}
       >
         <MdOutlineLogin />
         <span>ورود و عضویت</span>

@@ -90,6 +90,22 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+/* برای مرورگرهای WebKit مثل Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* برای Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* برای IE و Edge */
+* {
+  -ms-overflow-style: none;
+}
+
 .almarai-light {
   font-family: "Almarai", serif;
   font-weight: 300;
@@ -171,6 +187,10 @@
   top: 50%;
   transform: translateY(-50%);
 }
+.custom-rules-modal .ant-modal-close {
+  color: white;
+  text-align: right;
+}
 
 .custom-drawer .ant-drawer-header {
   display: none;
@@ -215,4 +235,21 @@
   position: absolute;
 
   left: 8px;
+}
+.custom-drawer-login .ant-drawer-header {
+  background-color: #f0d9b0;
+}
+.ant-input {
+  background-color: transparent;
+  border-color: white;
+}
+.ant-input:focus {
+  border-color: black;
+  background-color: transparent !important;
+}
+.ant-input::placeholder {
+  color: black;
+}
+.ant-scroll-number-only-unit {
+  color: black;
 }

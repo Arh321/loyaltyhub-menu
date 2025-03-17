@@ -53,7 +53,7 @@ const ProductsPage = () => {
   return (
     // ❗️ اضافه کردن return
     <>
-      <div className="p-4  h-screen w-full flex flex-col gap-4">
+      <div className="p-4  h-screen w-full flex flex-col gap-4 font-Yekan-Regular">
         <Suspense fallback={<Spin />}>
           <CategoryTabs
             categories={categories?.result}
