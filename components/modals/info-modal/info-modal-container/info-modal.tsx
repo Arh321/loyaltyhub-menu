@@ -82,7 +82,7 @@ const InfoModal = ({ modalId }: modalProps) => {
         </div>
 
         <div className="flex flex-col items-center text-black text-2xl font-Yekan-Light">
-          <BranchTitle title={info?.result[0].name} />
+          <BranchTitle title={info?.result[0]?.name} />
         </div>
 
         {/* جزئیات */}

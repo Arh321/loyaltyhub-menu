@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Timer = ({ onFinish }: { onFinish: () => void }) => {
-  const [timer, setTimer] = useState(120);
+  const [timer, setTimer] = useState(60);
 
   useEffect(() => {
     if (timer > 0) {
@@ -12,7 +12,7 @@ const Timer = ({ onFinish }: { onFinish: () => void }) => {
     }
   }, [timer]);
 
-  return <div>{timer > 0 && `زمان باقی‌مانده: ${timer} ثانیه`}</div>;
+  return <span>{timer > 0 && ` ${timer} ثانیه تا ارسال مجدد کد`}</span>;
 };
 
 export default Timer;

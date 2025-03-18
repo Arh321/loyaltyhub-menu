@@ -32,7 +32,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div
       className={clsx(
-        "flex gap-2 text-sm text-black p-3 rounded-lg shadow-md w-full transition-colors duration-300",
+        "flex gap-2 text-sm text-black p-3 rounded-lg shadow-md w-full transition-colors duration-300 font-Yekan-Regular",
         isInCart
           ? "bg-gradient-to-b from-[#fae3ba] to-[#7b8366]"
           : "bg-[#fae3ba]"

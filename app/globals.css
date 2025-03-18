@@ -253,3 +253,19 @@
 .ant-scroll-number-only-unit {
   color: black;
 }
+.custom-drawer-login .ant-drawer-header {
+  border-bottom: none;
+  color: white;
+  margin-block: auto;
+  border-bottom: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.custom-drawer-login .ant-btn {
+  width: 100%;
+  text-align: center;
+}
+.custom-btn .ant-btn {
+  width: 100%;
+  text-align: center;
+}

@@ -5,6 +5,7 @@ import { Input, Button, message, Spin } from "antd";
 import useVerifyOTP from "@/app/hooks/useVerifyOtp";
 import Timer from "./timer";
 import { truncate } from "fs";
+import Link from "next/link";
 
 const OTPInput = ({
   phone,
@@ -44,33 +45,35 @@ const OTPInput = ({
   }, [success]);
 
   return (
-    <div>
+    <div className="flex flex-col font-Yekan-Light">
+      <p>کد تایید برای شماره {phone} ارسال شد</p>
+
       <Input
         placeholder="کد تایید"
         value={otp}
         onChange={(e) => setOtp(e.target.value)}
       />
-      {loading ? (
-        <Spin />
-      ) : (
-        <Button
-          type="default"
-          disabled={resend ? false : true}
-          style={{ marginTop: 16 }}
-          onClick={() => onBack()}
-        >
-          ویرایش شماره موبایل
-        </Button>
-      )}
 
-      <div>
-        <Timer onFinish={() => setResend(true)} />
-        {resend && (
-          <Button type="link" onClick={onBack}>
-            ارسال مجدد کد
-          </Button>
+      <div className="w-full justify-between items-center">
+        <button onClick={() => onBack()} className="font-Yekan-Light text-sm">
+          ویرایش شماره موبایل
+        </button>
+
+        {resend ? (
+          <span onClick={onBack}>ارسال مجدد کد</span>
+        ) : (
+          <Timer onFinish={() => setResend(true)} />
         )}
       </div>
+
+      <Button
+        type="default"
+        className="font-Yekan-Regular custom-drawer-login text-white w-full"
+        onClick={handleVerify}
+        loading={loading}
+      >
+        {loading ? <Spin /> : "ورود"}
+      </Button>
     </div>
   );
 };

@@ -17,7 +17,6 @@ const OTPDrawer = ({}: {}) => {
   );
   return (
     <Drawer
-      title="ورود به حساب"
       placement="bottom"
       open={open}
       onClose={() => dispatch(closeModal("OTPDrawer"))}
