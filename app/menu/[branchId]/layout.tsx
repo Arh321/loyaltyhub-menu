@@ -22,7 +22,7 @@ export default function ProductsLayout({
   }, [isAuthenticated]);
 
   return (
-    <div className=" bg-[#f0d9b0]  flex flex-col gap-4 w-full p-4 h-screen">
+    <div className=" bg-[#f0d9b0]  flex flex-col gap-4 w-full p-4 h-screen font-Yekan-Regular">
       <TopNavbarContainer />
       <RulesModal modalId="RulesModal" />
       <WorkTimesDrawer />

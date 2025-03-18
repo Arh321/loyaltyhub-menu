@@ -26,7 +26,7 @@ const SearchInProducts = () => {
   );
 
   return (
-    <div className="flex flex-col gap-4 h-screen">
+    <div className="flex flex-col gap-4 h-screen ">
       <Input
         placeholder="محصول مورد نظر خود را جست و جو کنید"
         className="font-Yekan-Regular bg-transparent py-3 text-gray-500 border border-white rounded-lg !hover:bg-transparent"

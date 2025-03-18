@@ -22,7 +22,7 @@ const SeeCart = () => {
         >
           <Badge count={cart.totalQuantity} color="#fae3ba"></Badge>
           {/* <span className="">{cart.totalQuantity}</span> */}
-          <Button className="custom">مشاهده سبد</Button>
+          <Button className="custom-button">مشاهده سبد</Button>
         </Button>
       ) : null}
     </>

@@ -1,5 +1,5 @@
 "use clinet";
-import { Divider, Drawer } from "antd";
+import { Button, Divider, Drawer } from "antd";
 import Image from "next/image";
 import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
 import SidebarItems from "../side-bar/sidebar-items";
@@ -8,13 +8,14 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { MdAccessTime } from "react-icons/md";
 import { MdShop } from "react-icons/md";
 import { MdInfoOutline } from "react-icons/md";
-import { FaInstagram } from "react-icons/fa";
+import { FaInstagram, FaRegUser } from "react-icons/fa";
 
 import { MdOutlineLogin } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "@/app/store/modalSlice";
 import { RootState } from "@/app/store/store";
+import DropdownMenu from "@/components/side-bar/dropdown-menu";
 
 // import log
 export default function SideBar({ branchName }: { branchName: string }) {
@@ -52,39 +53,45 @@ export default function SideBar({ branchName }: { branchName: string }) {
         <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
       </div>
       {/* دکمه ورود و عضویت */}
-      <button
-        className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-[#2e5d53] text-[#2e5d53] rounded-lg bg-transparent transition"
+      {/* <Button
+        className="w-full flex items-center justify-center gap-2 custom-button transition"
         onClick={() => {
           dispatch(openModal("OTPDrawer"));
         }}
       >
         <MdOutlineLogin />
         <span>ورود و عضویت</span>
-      </button>
+      </Button> */}
+
       {/* آیتم‌های منو */}
+
       <ul className="mt-6 space-y-4 whitespace-nowrap">
-        <SidebarItems
-          text="سفارشات من"
-          icon={<MdReceiptLong className="text-base" />}
-          onClick={() => {}}
+        <DropdownMenu
+          items={[
+            <SidebarItems
+              text="پروفایل من"
+              icon={<FaRegUser className="text-base" />}
+              onClick={() => {}}
+            />,
+            <SidebarItems
+              text="سفارشات من"
+              icon={<MdReceiptLong className="text-base" />}
+              onClick={() => {}}
+            />,
+            <SidebarItems
+              text="آدرس های من"
+              icon={<MdOutlineLocationOn className="text-base" />}
+              onClick={() => {}}
+            />,
+            <SidebarItems
+              text="فروشگاه های من"
+              icon={<MdShop className="text-base" />}
+              onClick={() => {
+                router.push("/providers");
+              }}
+            />,
+          ]}
         />
-        <Divider className="!border-[#fae3bb]" />
-
-        <SidebarItems
-          text="آدرس های من"
-          icon={<MdOutlineLocationOn className="text-base" />}
-          onClick={() => {}}
-        />
-        <Divider className="!border-[#fae3bb]" />
-
-        <SidebarItems
-          text="فروشگاه های من"
-          icon={<MdShop className="text-base" />}
-          onClick={() => {
-            router.push("/providers");
-          }}
-        />
-        <Divider className="!border-[#fae3bb]" />
 
         <SidebarItems
           text="اطلاعات مجموعه"
@@ -93,14 +100,12 @@ export default function SideBar({ branchName }: { branchName: string }) {
             dispatch(openModal("InfoModal"));
           }}
         />
-        <Divider className="!border-[#fae3bb]" />
 
         <SidebarItems
           text="ساعت کاری مجموعه"
           icon={<MdAccessTime className="text-base" />}
           onClick={() => dispatch(openModal("WorkTimesDrawer"))}
         />
-        <Divider className="!border-[#fae3bb]" />
 
         <SidebarItems
           text="قوانین مجموعه"

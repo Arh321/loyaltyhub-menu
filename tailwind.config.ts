@@ -10,9 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        lxs:"375px",
+        lxs: "375px",
         xs: "460px", // breakpoint برای صفحه‌های کوچک‌تر از 400px
-        
       },
       backgroundImage: {
         "custom-gradient": "linear-gradient(to top, black, transparent)",
@@ -25,6 +24,12 @@ const config: Config = {
         "Yekan-Bold": "Bold",
         "Yekan-Light": "Light",
         "Yekan-Medium": "Medium",
+        "Yekan-Demi-Bold": ["Demi-Bold", "sans-serif"],
+        "Yekan-Extra-Black": ["Extra-Black", "sans-serif"],
+        "Yekan-Extra-Bold": ["Extra-Bold", "sans-serif"],
+        "Yekan-Heavy": ["Heavy", "sans-serif"],
+        "Yekan-Thin": ["Thin", "sans-serif"],
+        "Yekan-Ultra-Light": ["Ultra-Light", "sans-serif"],
       },
       fontWeight: {
         light: "300",
