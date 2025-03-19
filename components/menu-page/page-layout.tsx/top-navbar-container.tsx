@@ -38,7 +38,12 @@ const TopNavbarContainer = () => {
     const isSingleProduct = /^\/menu\/\d+\/products\/\d+$/.test(pathname);
     const isProductMenu = /^\/menu\/\d+\/products$/.test(pathname);
 
-    if (pathname === "/providers") {
+    if (pathname === "/profile") {
+      return {
+        center: <span>پروفایل کاربری</span>,
+        left: <ReturnKey />,
+      };
+    } else if (pathname === "/providers") {
       return {
         center: (
           <span className="text-white whitespace-nowrap">
@@ -60,11 +65,7 @@ const TopNavbarContainer = () => {
         right: (
           <>
             <div className="flex gap-3 items-center">
-              <ToggleSidebar
-                
-                branchName={branchName}
-              
-              />
+              <ToggleSidebar branchName={branchName} />
               <ToggleGrid />
             </div>
           </>
@@ -103,10 +104,7 @@ const TopNavbarContainer = () => {
         right: (
           <>
             <div className="flex gap-3">
-              <ToggleSidebar
-                branchName={branchData?.result[0]?.name}
-                
-              />
+              <ToggleSidebar branchName={branchData?.result[0]?.name} />
               <SearchOutlined
                 className="text-2xl text-black hover:bg-[#D0AC85] p-2 rounded-lg"
                 onClick={() => {
