@@ -1,6 +1,5 @@
 "use client";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
 import ReturnKey from "../top-navbar-components/return-key";
 import ToggleSidebar from "../top-navbar-components/toggle-sidebar";
 import TopNavbar from "./top-navbar";
@@ -12,15 +11,13 @@ import { useBranchInfo } from "@/app/hooks/useBranches";
 import Image from "next/image";
 import { openModal } from "@/app/store/modalSlice";
 import { useDispatch } from "react-redux";
+import { Spin } from "antd";
 
 const TopNavbarContainer = () => {
   const pathname = usePathname(); // مسیر صفحه فعلی
   const { branchId } = useParams();
   const dispatch = useDispatch();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [branchName, setBranchName] = useState("");
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const {
@@ -29,7 +26,7 @@ const TopNavbarContainer = () => {
     error,
   } = useBranchInfo(Number(branchId));
 
-  const handleOpenModal = (modalId) => {
+  const handleOpenModal = (modalId: string) => {
     dispatch(openModal(modalId));
   };
 
@@ -65,7 +62,11 @@ const TopNavbarContainer = () => {
         right: (
           <>
             <div className="flex gap-3 items-center">
-              <ToggleSidebar branchName={branchName} />
+              <ToggleSidebar
+                branchName={branchData?.result[0].name}
+                isLoading={isLoading}
+                error={error?.message}
+              />
               <ToggleGrid />
             </div>
           </>
@@ -77,7 +78,13 @@ const TopNavbarContainer = () => {
           >
             <Image src="/images/logo.webp" alt="logo" width={30} height={30} />
             <h1 className="  text-center flex-grow">
-              {branchData?.result[0].name}
+              {isLoading ? (
+                <Spin />
+              ) : error ? (
+                <span className="font-Yekan-Regular">{error.message}</span>
+              ) : (
+                branchData?.result[0].name
+              )}
             </h1>
           </div>
         ),
@@ -104,7 +111,11 @@ const TopNavbarContainer = () => {
         right: (
           <>
             <div className="flex gap-3">
-              <ToggleSidebar branchName={branchData?.result[0]?.name} />
+              <ToggleSidebar
+                branchName={branchData?.result[0]?.name}
+                isLoading={isLoading}
+                error={error?.message}
+              />
               <SearchOutlined
                 className="text-2xl text-black hover:bg-[#D0AC85] p-2 rounded-lg"
                 onClick={() => {
@@ -120,12 +131,18 @@ const TopNavbarContainer = () => {
         center: (
           <div
             className="flex gap-1 items-center cursor-pointer"
-            onClick={handleOpenModal}
+            onClick={() => handleOpenModal("InfoModal")}
           >
             <Image src="/images/logo.webp" alt="logo" width={30} height={30} />
-            <h1 className="  text-center flex-grow">
-              {branchData?.result[0].name}
-            </h1>
+            {isLoading ? (
+              <Spin />
+            ) : error ? (
+              <span className="font-Yekan-Regular">{error.message}</span>
+            ) : (
+              <h1 className="  text-center flex-grow">
+                {branchData?.result[0].name}
+              </h1>
+            )}
           </div>
         ),
         left: <ReturnKey />,

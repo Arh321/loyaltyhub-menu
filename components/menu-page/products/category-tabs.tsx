@@ -8,10 +8,8 @@ import CategoryCard from "../category-card";
 
 const CategoryTabs = ({
   categories,
-  selectedCategory,
 }: {
   categories: Category[] | undefined;
-  selectedCategory: Category | undefined;
 }) => {
   const dispatch = useDispatch();
   const menu = useSelector((state: RootState) => state.menu);

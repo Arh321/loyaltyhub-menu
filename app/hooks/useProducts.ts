@@ -15,7 +15,7 @@ const fetchProducts = async (
 };
 
 export const useProducts = (
-  category_id?: number,
+  category_id: number | null,
   product_id?: number,
   name?: string
 ) => {

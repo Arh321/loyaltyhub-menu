@@ -1,5 +1,5 @@
 "use client";
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import React from "react";
 import HoverImage from "../info-modal-components/hover-image";
 import BranchLogo from "../info-modal-components/branch-logo";
@@ -14,9 +14,6 @@ import styles from "./info-modal.module.css";
 import ModalFooterButtons from "../info-modal-components/modal-footer-buttons";
 import { useParams, usePathname } from "next/navigation";
 import { useBranchInfo } from "@/app/hooks/useBranches";
-import { IoMdTime } from "react-icons/io";
-import { MdLocalPhone } from "react-icons/md";
-import { MdLocationOn } from "react-icons/md";
 
 interface modalProps {
   modalId: string;
@@ -36,6 +33,7 @@ const InfoModal = ({ modalId }: modalProps) => {
   const currentUrl =
     typeof window !== "undefined" ? window.location.origin + pathname : "";
   const { data: info, isLoading, error } = useBranchInfo(Number(branchId));
+
   const handleShare = async () => {
     const shareData = {
       title: "دیجیتال منو",
@@ -82,13 +80,33 @@ const InfoModal = ({ modalId }: modalProps) => {
         </div>
 
         <div className="flex flex-col items-center text-black text-2xl font-Yekan-Light">
-          <BranchTitle title={info?.result[0]?.name} />
+          <BranchTitle
+            title={
+              isLoading ? (
+                <Spin />
+              ) : error ? (
+                error.message
+              ) : (
+                info?.result[0]?.name
+              )
+            }
+          />
         </div>
 
         {/* جزئیات */}
         <div className="flex flex-col gap-2">
           <ActionButtons />
-          <AddressSection address={info?.result[0].location} />
+          <AddressSection
+            address={
+              isLoading ? (
+                <Spin />
+              ) : error ? (
+                error.message
+              ) : (
+                info?.result[0]?.location
+              )
+            }
+          />
         </div>
       </div>
       <ModalFooterButtons onViewMenu={handleViewMenu} onShare={handleShare} />

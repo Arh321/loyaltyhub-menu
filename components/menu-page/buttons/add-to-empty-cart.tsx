@@ -7,13 +7,9 @@ import { Button } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const AddToEmptyCart = ({ product }: { product: Product }) => {
+const AddToEmptyCart = ({ product }: { product?: Product }) => {
   const dispatch = useDispatch();
-  const {
-    data: category,
-    isLoading,
-    error,
-  } = useCategories(product?.category_id);
+  const { data: category } = useCategories(product?.category_id);
   const categoryName = category?.result[0]?.name;
 
   return (

@@ -42,7 +42,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div className="flex flex-col gap-2">
         <div className="w-full">
           <Image
-            src="/images/hamburger-test.webp"
+            src="/images/khorak-bandari.webp"
             alt="عکس محصول"
             width={100}
             height={100}

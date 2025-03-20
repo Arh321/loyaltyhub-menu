@@ -3,7 +3,7 @@ import { RootState } from "@/app/store/store";
 import { AppstoreFilled, UnorderedListOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ToggleGrid({}: {}) {
+export default function ToggleGrid() {
   const menu = useSelector((state: RootState) => state.menu);
   const dispatch = useDispatch();
 

@@ -335,3 +335,19 @@
 .custom-btn.ant-btn > span {
   color: white !important;
 }
+.ant-radio-input {
+  color: #005b4c;
+}
+.ant-radio-label {
+  font-family: "Regular";
+}
+.ant-input-group-addon {
+  font-family: "Regular";
+}
+.ant-card-body {
+  margin-left: auto;
+  margin-right: auto;
+}
+.ant-btn > span {
+  font-family: "Regular";
+}

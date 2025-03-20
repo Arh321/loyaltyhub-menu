@@ -17,7 +17,7 @@ const useVerifyOTP = () => {
       } else {
         throw new Error("کد باید ۵ رقمی باشد!");
       }
-    } catch (err: any) {
+    } catch (err: string) {
       setError(err.message || "مشکلی پیش آمده است.");
     } finally {
       setLoading(false);

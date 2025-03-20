@@ -5,7 +5,7 @@ const ProductCategoryName = ({
   name,
   isLoadingCatName,
 }: {
-  name: string;
+  name?: string;
   isLoadingCatName: boolean;
 }) => {
   return (

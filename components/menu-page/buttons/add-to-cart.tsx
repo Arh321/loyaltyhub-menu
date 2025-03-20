@@ -7,14 +7,14 @@ import { Button } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddToCart = ({ product }: { product: Product | null | undefined }) => {
+const AddToCart = ({ product }: { product?: Product }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const selectedProduct = cart.items.find(
     (item) => item.product_id === product?.product_id
   );
   return (
-    <div className="flex justify-between  items-center w-[100px]">
+    <div className="flex justify-between items-center w-[100px]">
       <Button
         onClick={(e) => {
           dispatch(addItem({ product: product }));

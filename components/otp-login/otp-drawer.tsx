@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { closeModal } from "@/app/store/modalSlice";
 
-const OTPDrawer = ({}: {}) => {
+const OTPDrawer = () => {
   const [step, setStep] = useState(1);
   const [phone, setPhone] = useState("");
   const dispatch = useDispatch();

@@ -7,7 +7,7 @@ import { useProducts } from "@/app/hooks/useProducts";
 import { useCategories } from "@/app/hooks/useCategories";
 import CartNotification from "@/components/cart-notification";
 import { Skeleton, Spin } from "antd";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import InfoModal from "@/components/modals/info-modal/info-modal-container/info-modal";
 import RulesModal from "@/components/modals/rules-modal/rules-modal";
@@ -55,10 +55,7 @@ const ProductsPage = () => {
     <>
       <div className="p-4  h-screen w-full flex flex-col gap-4 font-Yekan-Regular">
         <Suspense fallback={<Spin />}>
-          <CategoryTabs
-            categories={categories?.result}
-            selectedCategory={selectedCategory}
-          />
+          <CategoryTabs categories={categories?.result} />
         </Suspense>
 
         <ProductCategoryName
@@ -81,7 +78,16 @@ const ProductsPage = () => {
           <div className="flex flex-col gap-4 overflow-y-auto h-full pb-40 scrollableContainer ">
             {products?.data?.length ? (
               products.data.map((product) => (
-                <Suspense fallback={<Skeleton.Button active size="large" />}>
+                <Suspense
+                  key={product.product_id}
+                  fallback={
+                    <Skeleton.Button
+                      active
+                      size="large"
+                      key={product.category_id}
+                    />
+                  }
+                >
                   <ProductCard product={product} key={product.product_id} />
                 </Suspense>
               ))

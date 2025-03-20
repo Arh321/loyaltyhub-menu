@@ -1,5 +1,5 @@
 "use clinet";
-import { Button, Divider, Drawer } from "antd";
+import { Drawer, Spin } from "antd";
 import Image from "next/image";
 import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
 import SidebarItems from "../side-bar/sidebar-items";
@@ -10,7 +10,6 @@ import { MdShop } from "react-icons/md";
 import { MdInfoOutline } from "react-icons/md";
 import { FaInstagram, FaRegUser } from "react-icons/fa";
 
-import { MdOutlineLogin } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "@/app/store/modalSlice";
@@ -18,7 +17,15 @@ import { RootState } from "@/app/store/store";
 import DropdownMenu from "@/components/side-bar/dropdown-menu";
 
 // import log
-export default function SideBar({ branchName }: { branchName: string }) {
+export default function SideBar({
+  branchName,
+  isLoading,
+  error,
+}: {
+  branchName?: string;
+  isLoading: boolean;
+  error?: string;
+}) {
   const sidebarOpen = useSelector(
     (state: RootState) => state.modal.openModals["Sidebar"] || false
   );
@@ -50,7 +57,13 @@ export default function SideBar({ branchName }: { branchName: string }) {
           width={100}
           height={100}
         />
-        <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
+        {isLoading ? (
+          <Spin />
+        ) : error ? (
+          <span className="font-Yekan-Regular text-red-600">{error}</span>
+        ) : (
+          <h2 className="text-xl font-bold mb-6 text-center">{branchName}</h2>
+        )}
       </div>
       {/* دکمه ورود و عضویت */}
       {/* <Button
@@ -71,17 +84,22 @@ export default function SideBar({ branchName }: { branchName: string }) {
             <SidebarItems
               text="پروفایل من"
               icon={<FaRegUser className="text-base" />}
-              onClick={() => {}}
+              onClick={() => {
+                router.push(window.location.origin + "/profile");
+              }}
+              key={1}
             />,
             <SidebarItems
               text="سفارشات من"
               icon={<MdReceiptLong className="text-base" />}
               onClick={() => {}}
+              key={2}
             />,
             <SidebarItems
               text="آدرس های من"
               icon={<MdOutlineLocationOn className="text-base" />}
               onClick={() => {}}
+              key={3}
             />,
             <SidebarItems
               text="فروشگاه های من"
@@ -89,6 +107,7 @@ export default function SideBar({ branchName }: { branchName: string }) {
               onClick={() => {
                 router.push("/providers");
               }}
+              key={4}
             />,
           ]}
         />

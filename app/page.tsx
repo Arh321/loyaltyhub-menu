@@ -1,4 +1,4 @@
-import ThemeSwitch from "@/components/theme-provider/theme-sitch";
+// import ThemeSwitch from "@/components/theme-provider/theme-sitch";
 // import WelcomeBAckGround from "@/components/welcome-page/welcome-background/welcome-background";
 import WelcomeSwiperContainer from "@/components/welcome-page/wellcome-swiper/wellcome-swiper-containe";
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Slider } from "antd";
+import React from "react";
+import { Modal } from "antd";
 import { Scan, History } from "lucide-react";
 import Html5QrcodePlugin from "../welcome-page/scanner/barcode-scanner";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ interface BarcodeScannerModalContainerProps {
 const BarcodeScannerModalContainer: React.FC<
   BarcodeScannerModalContainerProps
 > = ({ handleCancel, openState }) => {
-  const [zoom, setZoom] = useState(1);
+  // const [zoom, setZoom] = useState(1);
   const router = useRouter();
   const scannerResultHandler = (value: string) => {
     router.push(window.location.origin + "/" + value);
@@ -39,11 +39,14 @@ const BarcodeScannerModalContainer: React.FC<
             <div className="w-[90%] h-1 bg-yellow-400 animate-scan"></div>
           </div>
           {/* اسکنر */}
-          <Html5QrcodePlugin handler={scannerResultHandler} zoom={zoom} />
+          <Html5QrcodePlugin
+            handler={scannerResultHandler}
+            // zoom={zoom}
+          />
         </div>
 
         {/* کنترل زوم */}
-        <div className="mt-4 w-3/4">
+        {/* <div className="mt-4 w-3/4">
           <Slider
             min={1}
             max={5}
@@ -52,7 +55,7 @@ const BarcodeScannerModalContainer: React.FC<
             onChange={(value) => setZoom(value)}
             tooltip={{ formatter: (value) => `Zoom: ${value}x` }}
           />
-        </div>
+        </div> */}
 
         {/* آیکون‌های پایین صفحه */}
         <div className="flex justify-around w-full mt-4">

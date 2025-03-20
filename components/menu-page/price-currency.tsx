@@ -4,7 +4,7 @@ const PriceCurrency = ({
   price,
   className,
 }: {
-  price: number;
+  price?: number;
   className?: string;
 }) => {
   return (

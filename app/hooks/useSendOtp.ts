@@ -22,7 +22,7 @@ const useSendOTP = () => {
       // 📌 اینجا باید مقدار OTP رو ذخیره کنیم، ولی فعلاً نیازی نیست چکش کنیم
       // const data = await response.json();
       // console.log("OTP RECEIVED:", data.verification_code);
-    } catch (err: any) {
+    } catch (err: string) {
       setError(err.message || "مشکلی پیش آمده است.");
     } finally {
       setLoading(false);

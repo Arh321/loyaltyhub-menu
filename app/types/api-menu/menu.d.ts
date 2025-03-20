@@ -32,7 +32,7 @@ export interface Product {
   featured: boolean;
   level: number;
   thumbnail: Thumbnail;
-  album: any[];
+  album: string[];
   has_discount: number;
   discount_type: string;
   discount_value: number;

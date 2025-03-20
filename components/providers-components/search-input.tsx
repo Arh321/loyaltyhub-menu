@@ -6,7 +6,7 @@ import ProvidersCard from "./providers-card";
 import { Spin } from "antd";
 import styles from "./provider-custom-search.module.css";
 const SearchInput = () => {
-  const [searchTerm, setSearchTerm] = useState(undefined);
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
   const {
     data: providers,
     refetch,
@@ -15,7 +15,7 @@ const SearchInput = () => {
   } = useBranchInfo(undefined, searchTerm);
   useEffect(() => {
     refetch();
-  }, [searchTerm]);
+  }, [searchTerm, refetch]);
   const handleSearch = (value: string) => {
     setSearchTerm(value);
   };
@@ -32,6 +32,8 @@ const SearchInput = () => {
       />
       {isLoading ? (
         <Spin />
+      ) : error ? (
+        <span className="font-Yekan-Regular text-red-600">{error.message}</span>
       ) : (
         <div className="flex flex-col gap-4">
           {providers?.result.map((provider) => (

@@ -1,7 +1,5 @@
 import { setMenuData } from "@/app/store/menuSlice";
-// import { Category, Product } from "@/app/types/api-menu/menu";
 import { Category } from "@/app/types/categories/categories";
-import { Product } from "@/app/types/products/products";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -29,26 +27,26 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   height,
   tabs,
 }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
   return (
     <div
       key={key}
       onClick={() => {
-        // dispatch(
-        setMenuData({ selectedCategory: category });
-        // );
+        dispatch(setMenuData({ selectedCategory: category }));
+
         localStorage.setItem(
           "selectedCategoryId",
           String(category.category_id)
         );
-
-        !tabs && router.push(window.location.pathname + "/products");
+        if (!tabs) {
+          router.push(window.location.pathname + "/products");
+        }
       }}
       className={`relative max-w-full rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all  duration-300 hover:scale-[1.08] ${className ? className : ""}`}
       style={{
-        width: width ? width : undefined,
-        height: height ? height : "auto", // If height is defined, use it; otherwise, use 'auto'
+        width: width || undefined,
+        height: height || "auto",
       }}
     >
       {/* تصویر پس‌زمینه */}

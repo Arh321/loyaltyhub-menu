@@ -6,7 +6,6 @@ import { RootState } from "@/app/store/store";
 import { closeModal } from "@/app/store/modalSlice";
 import BranchLogo from "../info-modal/info-modal-components/branch-logo";
 import BranchTitle from "../info-modal/info-modal-components/branch-title";
-import styles from "./rules-modal.module.css";
 interface modalProps {
   modalId: string;
   address?: string;
