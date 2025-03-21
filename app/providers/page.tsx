@@ -1,7 +1,6 @@
 import BarcodeScannerButton from "@/components/providers-components/barcode-scanner-button";
 import MyShops from "@/components/providers-components/my-shops";
 import SearchForProvidersButton from "@/components/providers-components/search-for-providers-button";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const ProvidersPage = () => {

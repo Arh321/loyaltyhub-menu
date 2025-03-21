@@ -1,11 +1,10 @@
 "use client";
 import { useProducts } from "@/app/hooks/useProducts";
-import { fetchProducts } from "@/app/lib/api/digital-menu/products";
-
 import SeeCart from "@/components/menu-page/buttons/see-cart-button";
 import SeeShopMenu from "@/components/menu-page/buttons/see-shop-menu";
 import CartButtons from "@/components/menu-page/cart/cart-buttons";
 import PriceCurrency from "@/components/menu-page/price-currency";
+import { Spin } from "antd";
 import Image from "next/image";
 // import { useParams } from "next/navigation";
 import React from "react";
@@ -15,7 +14,10 @@ const ProductPropertiesPage = ({ params }: { params: { id: string } }) => {
     data: product,
     isLoading,
     error,
-  } = useProducts(undefined, Number(params.id));
+  } = useProducts(null, Number(params.id));
+
+  if (isLoading) return <Spin />;
+  else if (error) return <span>{error.message}</span>;
   return (
     <div className="flex flex-col gap-2 items-center  mx-auto h-screen w-full">
       <div className="w-full">

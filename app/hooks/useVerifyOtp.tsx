@@ -13,11 +13,11 @@ const useVerifyOTP = () => {
       // 🔹 هر عدد ۵ رقمی‌ای رو قبول کن
       if (/^\d{5}$/.test(otp)) {
         setSuccess(true);
-        sessionStorage.setItem("isAuthenticated", "true"); // ✅ لاگین شدن رو در سشن ذخیره کن
+        localStorage.setItem("token", "11111"); // ✅ لاگین شدن رو در سشن ذخیره کن
       } else {
         throw new Error("کد باید ۵ رقمی باشد!");
       }
-    } catch (err: any) {
+    } catch (err: string) {
       setError(err.message || "مشکلی پیش آمده است.");
     } finally {
       setLoading(false);

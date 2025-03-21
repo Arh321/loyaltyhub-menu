@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { useCategories } from "@/app/hooks/useCategories";
-import { useProducts } from "@/app/hooks/useProducts";
 import { openModal } from "@/app/store/modalSlice";
 import CategoryCard from "./category-card";
 import clsx from "clsx";
@@ -12,8 +11,6 @@ export default function MenuCategories() {
   const menu = useSelector((state: RootState) => state.menu);
   const dispatch = useDispatch();
   const { data: categories, isLoading, error } = useCategories();
-  const { data: products } = useProducts();
-
 
   // اجرای dispatch فقط در اولین ورود به صفحه
   useEffect(() => {

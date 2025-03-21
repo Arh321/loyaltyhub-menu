@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ConfigProvider, App } from "antd";
-import { ThemeProvider } from "@/components/theme-provider/theme-provider";
 import "./globals.css";
 import ReduxProvider from "@/components/redux/redux-provider";
 import QueryProvider from "@/components/layout-providers/QeryProvider";
@@ -38,6 +37,9 @@ const theme = {
       defaultHoverBorderColor: "transparent",
       paddingInline: 5,
     },
+    Radio: {
+      buttonSolidCheckedBg: "#005b4c",
+    },
     Input: {
       activeBorderColor: "red",
     },
@@ -61,10 +63,10 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <link
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap"
           rel="stylesheet"
-        />
+        /> */}
       </head>
       <body
         dir="rtl"

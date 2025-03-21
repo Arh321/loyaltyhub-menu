@@ -1,5 +1,5 @@
 import TopNavbarContainer from "@/components/menu-page/page-layout.tsx/top-navbar-container";
-import React,from "react";
+import React from "react";
 
 const ProvidersLayout = ({ children }: { children: React.ReactNode }) => {
   return (

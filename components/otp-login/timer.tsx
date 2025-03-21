@@ -10,7 +10,7 @@ const Timer = ({ onFinish }: { onFinish: () => void }) => {
     } else {
       onFinish();
     }
-  }, [timer]);
+  }, [timer, onFinish]);
 
   return <span>{timer > 0 && ` ${timer} ثانیه تا ارسال مجدد کد`}</span>;
 };

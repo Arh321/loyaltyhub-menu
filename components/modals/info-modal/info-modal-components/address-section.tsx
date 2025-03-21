@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 
 const AddressSection = ({
@@ -6,7 +5,7 @@ const AddressSection = ({
   latitude = 35.7,
   longitude = 51.4,
 }: {
-  address?: string;
+  address?: string | React.ReactNode;
   latitude?: number;
   longitude?: number;
 }) => {

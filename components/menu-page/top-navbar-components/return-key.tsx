@@ -1,6 +1,5 @@
 import { LeftOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { FiArrowLeft } from "react-icons/fi";
 
 export default function ReturnKey({ color }: { color?: string }) {
   const router = useRouter();

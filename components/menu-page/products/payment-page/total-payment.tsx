@@ -3,7 +3,6 @@ import React from "react";
 import PriceCurrency from "../../price-currency";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { Divider } from "antd";
 
 const TotalPayment = () => {
   const cart = useSelector((state: RootState) => state.cart);

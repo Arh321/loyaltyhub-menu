@@ -1,12 +1,12 @@
 "use client";
 import { RootState } from "@/app/store/store";
-import { Main, Product } from "@/app/types/products/products";
+import { Product } from "@/app/types/products/products";
 import React from "react";
 import { useSelector } from "react-redux";
 import AddToCart from "../buttons/add-to-cart";
 import AddToEmptyCart from "../buttons/add-to-empty-cart";
 
-const CartButtons = ({ product }: { product: Product }) => {
+const CartButtons = ({ product }: { product?: Product }) => {
   const cart = useSelector((state: RootState) => state.cart);
 
   // بررسی کنید آیا محصول در سبد خرید وجود دارد یا خیر

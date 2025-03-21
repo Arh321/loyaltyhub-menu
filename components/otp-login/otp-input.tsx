@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { Input, Button, message, Spin } from "antd";
 import useVerifyOTP from "@/app/hooks/useVerifyOtp";
 import Timer from "./timer";
-import { truncate } from "fs";
-import Link from "next/link";
 
 const OTPInput = ({
   phone,
@@ -26,7 +24,7 @@ const OTPInput = ({
       message.success("ورود موفقیت‌آمیز بود!");
       onSuccess();
     } else {
-      message.error("کد امنیتی اشتباه است");
+      message.error(error);
       setOtp("");
     }
   };
@@ -34,15 +32,15 @@ const OTPInput = ({
     if (otp.length === 5) {
       verifyOTP(otp);
     }
-  }, [otp]); // 🔹 این useEffect فقط وقتی otp تغییر کند اجرا می‌شود
+  }, [otp, verifyOTP]); // 🔹 این useEffect فقط وقتی otp تغییر کند اجرا می‌شود
 
   // ✅ بعد از تأیید موفق، کاربر را به مرحله بعد ببرد
-  useEffect(() => {
-    if (success) {
-      message.success("ورود موفقیت‌آمیز بود!");
-      onSuccess();
-    }
-  }, [success]);
+  // useEffect(() => {
+  //   if (success) {
+  //     message.success("ورود موفقیت‌آمیز بود!");
+  //     onSuccess();
+  //   }
+  // }, [success, onSuccess]);
 
   return (
     <div className="flex flex-col font-Yekan-Light">

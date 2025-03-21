@@ -13,8 +13,7 @@ const CartProductsList = () => {
   const router = useRouter();
   useEffect(() => {
     if (cart.totalQuantity === 0) router.back();
-  }, [cart.totalQuantity]);
-
+  }, [cart.totalQuantity, router]);
 
   const groupedItems = cart.items.reduce(
     (acc, item) => {
@@ -28,7 +27,10 @@ const CartProductsList = () => {
       acc[categoryId].products.push(item);
       return acc;
     },
-    {} as Record<string, { categoryName: string; products: typeof cart.items }>
+    {} as Record<
+      string,
+      { categoryName: string | undefined; products: typeof cart.items }
+    >
   );
 
   return (

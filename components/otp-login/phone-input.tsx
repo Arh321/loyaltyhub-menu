@@ -9,7 +9,6 @@ const PhoneInput = ({ onNext }: { onNext: (phone: string) => void }) => {
   const { sendOTP, loading } = useSendOTP();
   const [error, setError] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  console.log(isFocused);
 
   const isValidPhone = (phone: string) => {
     return /^(09\d{9}|989\d{9}|\+98\d{10})$/.test(phone);

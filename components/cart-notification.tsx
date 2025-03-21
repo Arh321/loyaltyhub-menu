@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import SeeCart from "./menu-page/buttons/see-cart-button";
@@ -8,7 +8,7 @@ import { notification } from "antd";
 import { usePathname } from "next/navigation";
 
 const CartNotification: React.FC = () => {
-  const [api, contextHolder] = notification.useNotification();
+  const [api] = notification.useNotification();
   const { totalQuantity, totalAmount } = useSelector(
     (state: RootState) => state.cart
   );

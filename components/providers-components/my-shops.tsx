@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import ProvidersCard from "./providers-card";
 import { useBranchInfo } from "@/app/hooks/useBranches";
 import { Spin } from "antd"; // یا از کتابخانه‌ی دیگری که اسپینر دارید
 
 const MyShops = () => {
-  const { data: shops, refetch, isLoading, error } = useBranchInfo();
+  const { data: shops, isLoading, error } = useBranchInfo();
 
   if (isLoading) {
     return <Spin />;
