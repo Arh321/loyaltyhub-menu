@@ -1,7 +1,7 @@
 "use clinet";
-import { Drawer, Spin } from "antd";
+import { Button, Drawer, Spin } from "antd";
 import Image from "next/image";
-import { MdReceiptLong, MdShoppingBag } from "react-icons/md";
+import { MdOutlineLogin, MdReceiptLong, MdShoppingBag } from "react-icons/md";
 import SidebarItems from "../side-bar/sidebar-items";
 import { MdOutlineLocationOn } from "react-icons/md";
 
@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "@/app/store/modalSlice";
 import { RootState } from "@/app/store/store";
 import DropdownMenu from "@/components/side-bar/dropdown-menu";
+import { useEffect, useState } from "react";
+import { LogoutOutlined } from "@ant-design/icons";
 
 // import log
 export default function SideBar({
@@ -32,6 +34,25 @@ export default function SideBar({
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // چک کردن توکن هنگام بارگذاری صفحه
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+
+      // تنظیم تایمر برای خروج خودکار بعد از 30 دقیقه
+      setTimeout(
+        () => {
+          localStorage.removeItem("token");
+          setIsLoggedIn(false);
+          dispatch(openModal("OTPDrawer"));
+        },
+        30 * 60 * 1000
+      ); // 30 دقیقه
+    }
+  }, [sidebarOpen, dispatch]);
   return (
     <Drawer
       onClose={() => dispatch(closeModal("Sidebar"))}
@@ -66,51 +87,64 @@ export default function SideBar({
         )}
       </div>
       {/* دکمه ورود و عضویت */}
-      {/* <Button
-        className="w-full flex items-center justify-center gap-2 custom-button transition"
-        onClick={() => {
-          dispatch(openModal("OTPDrawer"));
-        }}
-      >
-        <MdOutlineLogin />
-        <span>ورود و عضویت</span>
-      </Button> */}
 
       {/* آیتم‌های منو */}
 
       <ul className="mt-6 space-y-4 whitespace-nowrap">
-        <DropdownMenu
-          items={[
-            <SidebarItems
-              text="پروفایل من"
-              icon={<FaRegUser className="text-base" />}
-              onClick={() => {
-                router.push(window.location.origin + "/profile");
-              }}
-              key={1}
-            />,
-            <SidebarItems
-              text="سفارشات من"
-              icon={<MdReceiptLong className="text-base" />}
-              onClick={() => {}}
-              key={2}
-            />,
-            <SidebarItems
-              text="آدرس های من"
-              icon={<MdOutlineLocationOn className="text-base" />}
-              onClick={() => {}}
-              key={3}
-            />,
-            <SidebarItems
-              text="فروشگاه های من"
-              icon={<MdShop className="text-base" />}
-              onClick={() => {
-                router.push("/providers");
-              }}
-              key={4}
-            />,
-          ]}
-        />
+        {!isLoggedIn ? (
+          <Button
+            className="w-full flex items-center justify-center gap-2 custom-button transition"
+            onClick={() => {
+              dispatch(openModal("OTPDrawer"));
+            }}
+          >
+            <MdOutlineLogin />
+            <span>ورود و عضویت</span>
+          </Button>
+        ) : (
+          <DropdownMenu
+            items={[
+              <SidebarItems
+                text="پروفایل من"
+                icon={<FaRegUser className="text-base" />}
+                onClick={() => {
+                  router.push(window.location.origin + "/profile");
+                }}
+                key={1}
+              />,
+              <SidebarItems
+                text="سفارشات من"
+                icon={<MdReceiptLong className="text-base" />}
+                onClick={() => {}}
+                key={2}
+              />,
+              <SidebarItems
+                text="آدرس های من"
+                icon={<MdOutlineLocationOn className="text-base" />}
+                onClick={() => {}}
+                key={3}
+              />,
+              <SidebarItems
+                text="فروشگاه های من"
+                icon={<MdShop className="text-base" />}
+                onClick={() => {
+                  router.push("/providers");
+                }}
+                key={4}
+              />,
+              <SidebarItems
+                text="خروج از حساب کاربری"
+                icon={<LogoutOutlined className="text-base" />}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  setIsLoggedIn(false);
+                  dispatch(openModal("OTPDrawer"));
+                }}
+                key={5}
+              />,
+            ]}
+          />
+        )}
 
         <SidebarItems
           text="اطلاعات مجموعه"

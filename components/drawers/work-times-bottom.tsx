@@ -11,7 +11,6 @@ const WorkTimesDrawer: React.FC = () => {
   const open = useSelector(
     (state: RootState) => state.modal.openModals["WorkTimesDrawer"] || false
   );
-  console.log(open);
   const timeSlots = [
     { day: "شنبه", time: "08:00 - 24:00" },
     { day: "یکشنبه", time: "16:00 - 24:00" },

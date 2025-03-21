@@ -6,7 +6,7 @@ import PhoneInput from "./phone-input";
 import OTPInput from "./otp-input";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { closeModal } from "@/app/store/modalSlice";
+import { closeModal, openModal } from "@/app/store/modalSlice";
 
 const OTPDrawer = () => {
   const [step, setStep] = useState(1);
@@ -43,7 +43,11 @@ const OTPDrawer = () => {
         <OTPInput
           phone={phone}
           onBack={() => setStep(1)}
-          onSuccess={() => dispatch(closeModal("OTPDrawer"))}
+          onSuccess={() => {
+            setStep(1);
+            dispatch(closeModal("OTPDrawer"));
+            dispatch(openModal("Sidebar"));
+          }}
         />
       )}
     </Drawer>

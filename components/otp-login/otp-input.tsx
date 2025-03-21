@@ -35,12 +35,12 @@ const OTPInput = ({
   }, [otp, verifyOTP]); // 🔹 این useEffect فقط وقتی otp تغییر کند اجرا می‌شود
 
   // ✅ بعد از تأیید موفق، کاربر را به مرحله بعد ببرد
-  useEffect(() => {
-    if (success) {
-      message.success("ورود موفقیت‌آمیز بود!");
-      onSuccess();
-    }
-  }, [success, onSuccess]);
+  // useEffect(() => {
+  //   if (success) {
+  //     message.success("ورود موفقیت‌آمیز بود!");
+  //     onSuccess();
+  //   }
+  // }, [success, onSuccess]);
 
   return (
     <div className="flex flex-col font-Yekan-Light">
