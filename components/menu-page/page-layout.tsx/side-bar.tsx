@@ -58,7 +58,7 @@ export default function SideBar({
       onClose={() => dispatch(closeModal("Sidebar"))}
       open={sidebarOpen}
       className="!bg-[#F0D5B6] font-Yekan-Light overflow-y-auto custom-drawer "
-      style={{ width: "60vw", maxWidth: "400px" }}
+      style={{ width: "60vw" }}
       maskStyle={{
         background: "rgba(0, 0, 0, 0.3)", // پس‌زمینه نیمه‌شفاف
         backdropFilter: "blur(10px)", // مات شدن پس‌زمینه

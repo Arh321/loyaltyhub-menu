@@ -52,7 +52,7 @@ const OTPInput = ({
         onChange={(e) => setOtp(e.target.value)}
       />
 
-      <div className="w-full justify-between items-center">
+      <div className="w-full flex justify-between items-center">
         <button onClick={() => onBack()} className="font-Yekan-Light text-sm">
           ویرایش شماره موبایل
         </button>

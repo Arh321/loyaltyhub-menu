@@ -35,8 +35,14 @@ const TopNavbarContainer = () => {
     const isSingleProduct = /^\/menu\/\d+\/products\/\d+$/.test(pathname);
     const isProductMenu = /^\/menu\/\d+\/products$/.test(pathname);
 
-    if (pathname === "/profile") {
+    if (pathname === "/profile/orders") {
       return {
+        center: <span>سفارشات من</span>,
+        left: <ReturnKey />,
+      };
+    } else if (pathname === "/profile") {
+      return {
+        className: "!h-[30vh] !bg-[#005b4c] !text-white ",
         center: <span>پروفایل کاربری</span>,
         left: <ReturnKey />,
       };
