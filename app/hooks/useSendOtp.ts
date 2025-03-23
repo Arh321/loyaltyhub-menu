@@ -9,7 +9,7 @@ const useSendOTP = () => {
   const sendOTP = async (phone: string) => {
     setLoading(true);
     setError(null);
-
+    localStorage.setItem("phoneNumber", phone);
     try {
       const response = await fetch(API_URL, {
         method: "POST",

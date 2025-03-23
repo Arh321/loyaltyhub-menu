@@ -3,7 +3,7 @@ import useOrders from "@/app/hooks/useOrders";
 import MyOrders from "@/components/profile-pages/order-pages/my-orders";
 import RefreshOrdersButton from "@/components/profile-pages/order-pages/refresh-orders-button";
 import { Spin } from "antd";
-import React, { useState } from "react";
+import React from "react";
 
 const MyOrdersPage = () => {
   const { data: orders, refetch, isLoading, error } = useOrders();

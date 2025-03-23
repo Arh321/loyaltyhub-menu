@@ -109,19 +109,25 @@ export default function SideBar({
                 icon={<FaRegUser className="text-base" />}
                 onClick={() => {
                   router.push(window.location.origin + "/profile");
+                  dispatch(closeModal("Sidebar"));
                 }}
                 key={1}
               />,
               <SidebarItems
                 text="سفارشات من"
                 icon={<MdReceiptLong className="text-base" />}
-                onClick={() => {}}
+                onClick={() => {
+                  router.push("/profile/orders");
+                  dispatch(closeModal("Sidebar"));
+                }}
                 key={2}
               />,
               <SidebarItems
                 text="آدرس های من"
                 icon={<MdOutlineLocationOn className="text-base" />}
-                onClick={() => {}}
+                onClick={() => {
+                  dispatch(closeModal("Sidebar"));
+                }}
                 key={3}
               />,
               <SidebarItems
@@ -129,6 +135,7 @@ export default function SideBar({
                 icon={<MdShop className="text-base" />}
                 onClick={() => {
                   router.push("/providers");
+                  dispatch(closeModal("Sidebar"));
                 }}
                 key={4}
               />,

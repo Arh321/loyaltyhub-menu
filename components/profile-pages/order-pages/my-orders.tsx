@@ -1,7 +1,5 @@
 import React from "react";
 
-interface Order {}
-
 const MyOrders = ({ children }: { children: Order[] | React.ReactNode }) => {
   return (
     <div className="h-[200px] w-full flex justify-center items-center">

@@ -78,6 +78,7 @@ export default function RootLayout({
               <ReduxProvider>
                 <AuthProvider>
                   <SplashScreen />
+
                   {children}
                 </AuthProvider>
               </ReduxProvider>

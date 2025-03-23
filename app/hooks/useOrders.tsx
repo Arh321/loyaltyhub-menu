@@ -9,7 +9,7 @@ interface Filters {
 
 // دریافت داده‌ها از API
 const fetchOrders = async ({ queryKey }: { queryKey: [string, Filters?] }) => {
-  const [_key, filters = {}] = queryKey; // مقدار پیش‌فرض برای filters
+  const [filters = {}] = queryKey; // مقدار پیش‌فرض برای filters
   const { data } = await apiClient.get("/users/orders", { params: filters });
   return data;
 };

@@ -361,3 +361,6 @@
   border: none;
   width: unset;
 }
+.atn-picker > input {
+  font-family: "Regular";
+}
