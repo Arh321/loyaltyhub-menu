@@ -1,18 +1,18 @@
 .modalContainer {
-  position: fixed !important; /* کل صفحه را بپوشاند */
+  position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
   margin-left: auto !important;
   margin-right: auto !important;
   height: 100vh !important;
-  
+
   max-width: 100vw !important;
   max-height: 100vh !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 0 !important; /* حذف گوشه‌های گرد */
+  border-radius: 0 !important;
   padding: 0 !important;
   background-color: #f0d9b0 !important;
 }

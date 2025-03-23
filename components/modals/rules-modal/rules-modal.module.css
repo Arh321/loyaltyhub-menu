@@ -1,16 +1,16 @@
 .customRulesModal .ant-modal-content {
-  background: rgba(0, 0, 0, 0.6) !important; /* پس‌زمینه مشکی نیمه شفاف */
-  backdrop-filter: blur(10px); /* افکت شیشه‌ای */
-  border-radius: 12px !important; /* گرد کردن گوشه‌ها */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ایجاد مرز نرم */
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .customRulesModal .ant-modal-close {
-  display: none !important; /* حذف دکمه بستن */
+  display: none !important;
 }
 
 .customRulesModal .ant-modal {
-  max-width: 400px; /* عرض مناسب */
+  max-width: 400px;
   top: 50%;
   transform: translateY(-50%);
 }
