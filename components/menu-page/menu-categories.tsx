@@ -27,10 +27,10 @@ export default function MenuCategories() {
 
   if (isLoading)
     return (
-      <div className="grid gap-4 scrollableContainer grid-cols-1">
-        {Array.from({ length: 5 }).map((_, index) => {
+      <div className="w-full h-full grid grid-cols-1">
+        {Array.from({ length: 6 }).map((_, index) => {
           return (
-            <div key={index} className="w-full aspect-[16/3]">
+            <div key={index} className="col-span-1 aspect-[16/6]">
               <Skeleton.Node active className="!w-full !h-full" />
             </div>
           );
@@ -45,7 +45,7 @@ export default function MenuCategories() {
       {categories?.result && categories?.result.length > 0 ? (
         <div
           className={clsx(
-            `grid gap-4 scrollableContainer`,
+            `grid gap-4 scrollableContainer animate-fadeIn`,
             menu.gridCols == 1 ? "grid-cols-1" : "grid-cols-2"
           )}
         >

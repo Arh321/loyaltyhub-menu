@@ -1,9 +1,13 @@
+import SplashScreen from "@/components/loading/splash-screen";
 import MenuCategories from "@/components/menu-page/menu-categories";
+import { Suspense } from "react";
 
 export default function MenuPage() {
   return (
-    <div className="h-screen overflow-auto   text-center pb-40">
-      <MenuCategories />
-    </div>
+    <Suspense fallback={<SplashScreen />}>
+      <div className="w-full h-full overflow-auto pb-20">
+        <MenuCategories />
+      </div>
+    </Suspense>
   );
 }
