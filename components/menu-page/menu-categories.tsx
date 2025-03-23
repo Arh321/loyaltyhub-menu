@@ -7,6 +7,35 @@ import { openModal } from "@/app/store/modalSlice";
 import CategoryCard from "./category-card";
 import clsx from "clsx";
 import { Skeleton } from "antd";
+import Image1 from "@/public/cats/image-1.webp";
+import Image2 from "@/public/cats/image-2.webp";
+import Image3 from "@/public/cats/image-3.webp";
+import Image4 from "@/public/cats/image-4.webp";
+import Image5 from "@/public/cats/image-5.webp";
+import Image6 from "@/public/cats/image-6.webp";
+import { StaticImageData } from "next/image";
+
+const imageList = [
+  Image1,
+  Image2,
+  Image3,
+  Image4,
+  Image5,
+  Image6,
+  Image1,
+  Image2,
+  Image3,
+  Image4,
+  Image5,
+  Image6,
+  ,
+  Image1,
+  Image2,
+  Image3,
+  Image4,
+  Image5,
+  Image6,
+];
 
 export default function MenuCategories() {
   const menu = useSelector((state: RootState) => state.menu);
@@ -49,11 +78,11 @@ export default function MenuCategories() {
             menu.gridCols == 1 ? "grid-cols-1" : "grid-cols-2"
           )}
         >
-          {categories.result.map((category) => (
+          {categories.result.map((category, index) => (
             <CategoryCard
               category={category}
               key={category.category_id}
-              imageUrl={"/images/hamburger-test.webp"}
+              imageUrl={imageList[index] as StaticImageData}
               expand={menu.gridCols == 1}
               height="170px"
             />
