@@ -32,7 +32,7 @@ const UserProfile = () => {
   const router = useRouter();
 
   const {
-    data: updataedUserInfo,
+    // data: updatedUserInfo,
     mutate: updateUser,
     isPending,
   } = useUpdateUser();
