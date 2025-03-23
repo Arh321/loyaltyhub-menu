@@ -159,9 +159,9 @@ const TopNavbarContainer = () => {
   const navbarConfig = getNavbarConfig();
 
   return (
-    <>
-      <TopNavbar {...navbarConfig} />
-    </>
+    <div className="w-full h-max">
+      <TopNavbar className="w-full " {...navbarConfig} />
+    </div>
   );
 };
 
