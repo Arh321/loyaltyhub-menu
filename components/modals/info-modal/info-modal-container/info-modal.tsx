@@ -59,7 +59,7 @@ const InfoModal = ({ modalId }: modalProps) => {
       open={isModalOpen}
       footer={null}
       onCancel={() => dispatch(closeModal(modalId))}
-      className={`font-Yekan-Regular ${styles.modalContainer} relative`}
+      className={`font-Yekan-Regular ${styles["modalContainer"]} relative`}
       bodyStyle={{
         height: "calc(100vh - 48px)",
 
