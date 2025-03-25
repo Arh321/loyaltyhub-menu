@@ -6,6 +6,7 @@ import ReduxProvider from "@/components/redux/redux-provider";
 import QueryProvider from "@/components/layout-providers/QeryProvider";
 import SplashScreen from "@/components/loading/splash-screen";
 import { AuthProvider } from "@/components/layout-providers/AuthContext";
+import { Suspense } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -77,9 +78,7 @@ export default function RootLayout({
             <App>
               <ReduxProvider>
                 <AuthProvider>
-                  <SplashScreen />
-
-                  {children}
+                  <Suspense fallback={<SplashScreen />}>{children}</Suspense>
                 </AuthProvider>
               </ReduxProvider>
             </App>

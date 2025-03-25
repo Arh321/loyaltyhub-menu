@@ -6,6 +6,7 @@ import { useCategories } from "@/app/hooks/useCategories";
 import { openModal } from "@/app/store/modalSlice";
 import CategoryCard from "./category-card";
 import clsx from "clsx";
+import { Skeleton } from "antd";
 
 export default function MenuCategories() {
   const menu = useSelector((state: RootState) => state.menu);
@@ -24,7 +25,18 @@ export default function MenuCategories() {
     }
   }, [dispatch]);
 
-  if (isLoading) return <p>⏳ در حال بارگذاری...</p>;
+  if (isLoading)
+    return (
+      <div className="w-full h-full grid grid-cols-1">
+        {Array.from({ length: 6 }).map((_, index) => {
+          return (
+            <div key={index} className="col-span-1 aspect-[16/6]">
+              <Skeleton.Node active className="!w-full !h-full" />
+            </div>
+          );
+        })}
+      </div>
+    );
   if (error) return <p className="text-red-500">❌ خطا در دریافت اطلاعات</p>;
 
   return (
@@ -33,7 +45,7 @@ export default function MenuCategories() {
       {categories?.result && categories?.result.length > 0 ? (
         <div
           className={clsx(
-            `grid gap-4 scrollableContainer`,
+            `grid gap-4 scrollableContainer animate-fadeIn`,
             menu.gridCols == 1 ? "grid-cols-1" : "grid-cols-2"
           )}
         >

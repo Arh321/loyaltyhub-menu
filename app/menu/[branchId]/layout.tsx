@@ -11,13 +11,13 @@ export default function ProductsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" bg-[#f0d9b0]  flex flex-col gap-4 w-full p-4 h-screen font-Yekan-Regular">
+    <div className=" bg-[#f0d9b0]  flex flex-col w-full p-2 h-[100dvh] font-Yekan-Regular">
       <TopNavbarContainer />
       <RulesModal modalId="RulesModal" />
       <WorkTimesDrawer />
       <InfoModal modalId="InfoModal" />
       <OTPDrawer />
-      <div>{children}</div>
+      <div className="w-full grow h-full">{children}</div>
     </div>
   );
 }
