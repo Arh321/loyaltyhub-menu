@@ -180,7 +180,7 @@ const UserProfile = () => {
         </Card>
 
         {/* مودال انتخاب تاریخ تولد */}
-        <Modal open={isModalOpen}>
+        <Modal open={isModalOpen} className="birthday-modal">
           <PersianDatePicker
             value={birth_date ? dayjs(birth_date) : null}
             onChange={(date) => {

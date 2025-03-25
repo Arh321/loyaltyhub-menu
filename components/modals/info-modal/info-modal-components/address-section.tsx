@@ -18,7 +18,7 @@ const AddressSection = ({
       <p className="text-sm text-gray-600">{address}</p>
       <button
         onClick={() => openLink(googleMapsUrl)}
-        className="mt-2 px-4 py-2 text-sm font-medium text-[#005f4e] border border-[#005f4e] bg-[#fae3ba] rounded-lg hover:bg-[#c1a990] hover:text-[#005f4e] transition-all"
+        className=" px-4 py-2 text-sm font-medium text-[#005f4e] border border-[#005f4e] bg-[#fae3ba] rounded-lg hover:bg-[#c1a990] hover:text-[#005f4e] transition-all"
         //   onClick={()=>{}}
       >
         مشاهده روی نقشه

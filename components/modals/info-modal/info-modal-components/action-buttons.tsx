@@ -14,7 +14,7 @@ const ActionButtons = () => {
       <ActionButton
         icon={<FaPhone />}
         text="ارتباط با ما"
-        onClick={() => dispatch(openModal("ContactUsDrawer"))}
+        onClick={() => dispatch(openModal("ContactUs"))}
       />
       <ActionButton
         icon={<FaInstagram />}

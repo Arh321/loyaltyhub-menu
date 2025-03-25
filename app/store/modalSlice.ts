@@ -17,6 +17,7 @@ const modalSlice = createSlice({
 
       // بستن همه مودال‌ها قبل از باز کردن مودال جدید
       state.openModals = { [modalId]: true };
+      console.log(modalId);
     },
     closeModal: (state, action: PayloadAction<string>) => {
       const modalId = action.payload;

@@ -20,21 +20,21 @@ const WorkTimesDrawer: React.FC = () => {
     { day: "پنج‌شنبه", time: "08:00 - 24:00" },
     { day: "جمعه", time: "08:00 - 24:00" },
   ];
-
+  console.log("worktimesdrawer entered");
   return (
     <Drawer
       title="ساعات کاری مجموعه"
       placement="bottom"
       closable
-      className="custom-list font-Yekan-Regular"
+      className="custom-list "
       onClose={() => dispatch(closeModal("WorkTimesDrawer"))}
       open={open}
       height="70vh" // ارتفاع کلی دراور
-      bodyStyle={{ maxHeight: "70vh", overflowY: "auto" }} // حداکثر ارتفاع لیست و قابلیت اسکرول
+      style={{ maxHeight: "70vh", overflowY: "auto" }} // حداکثر ارتفاع لیست و قابلیت اسکرول
     >
       <List
         dataSource={timeSlots}
-        className="font-Yekan-Regular custom-list gap-2 overflow-y-auto"
+        className=" custom-list gap-2 overflow-y-auto"
         renderItem={(item) => (
           <List.Item
             onClick={() => setSelectedDay(item.day)}
