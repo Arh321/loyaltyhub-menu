@@ -1,5 +1,6 @@
-import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import type { Config } from "tailwindcss";
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,16 +11,25 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
+        vld: "0px",
         lxs: "375px",
         xs: "460px", // breakpoint برای صفحه‌های کوچک‌تر از 400px
       },
       backgroundImage: {
         "custom-gradient": "linear-gradient(to top, black, transparent)",
         "welcome-slide-linear":
-          "linear-gradient(to right, rgb(0,0,0,0.1), rgb(0,0,0))",
+          "linear-gradient(to right, rgb(0,0,0,0.9), transparent)",
+        "linear-gradient-to-top":
+          "linear-gradient(to top, rgb(0,0,0,0.9), transparent)",
+        "linear-gradient-to-bottom":
+          "linear-gradient(to bottom, rgb(0,0,0,0.9), transparent)",
+        "linear-gradient-to-left":
+          "linear-gradient(to left, rgb(0,0,0,0.9), transparent)",
+        "linear-gradient-to-right":
+          "linear-gradient(to right, rgb(0,0,0,0.9), transparent)",
       },
       fontFamily: {
-        almarai: ['Almarai"', ...defaultTheme.fontFamily.sans],
+        almarai: ["Almarai", ...defaultTheme.fontFamily.sans],
         "Yekan-Regular": "Regular",
         "Yekan-Bold": "Bold",
         "Yekan-Light": "Light",
@@ -31,13 +41,34 @@ const config: Config = {
         "Yekan-Thin": ["Thin", "sans-serif"],
         "Yekan-Ultra-Light": ["Ultra-Light", "sans-serif"],
       },
-      fontWeight: {
-        light: "300",
-        regular: "400",
-        bold: "700",
-        extrabold: "800",
+      colors: {
+        light: {
+          background: "var(--background-theme)",
+          foreground: "var(--foreground)",
+          primary: "var(--primary)",
+          "primary-disabled": "var(--primary-disabled)",
+          "primary-hover": "var(--primary-hover)",
+          "primary-text": "var(--primary-text)",
+          secondary: "var(--secondary)",
+          "secondary-text": "var(--secondary-text)",
+          gray: "var(--gray)",
+          white: "var(--white)",
+          text: "var(--text)",
+        },
+        dark: {
+          background: "var(--background-dark)",
+          foreground: "var(--foreground-dark)",
+          primary: "var(--primary-dark)",
+          "primary-disabled": "var(--primary-disabled-dark)",
+          "primary-hover": "var(--primary-hover-dark)",
+          "primary-text": "var(--primary-text-dark)",
+          secondary: "var(--secondary-dark)",
+          "secondary-text": "var(--secondary-text-dark)",
+          gray: "var(--gray-dark)",
+          white: "var(--white-dark)",
+          text: "var(--text-dark)",
+        },
       },
-
       keyframes: {
         fadeIn: {
           "0%": {
@@ -84,75 +115,29 @@ const config: Config = {
         movable: "movable 3s infinite",
         popIn: "popIn 0.7s ease-in-out",
       },
-      colors: {
-        light: {
-          primary: "#FFFFFF",
-          secondary: "#6E6E70",
-          Tritary: "#26262D",
-          background: "#151518",
-          cta: "#B70F0F",
-          text: "#333333",
-          accent: "#F3F4F6",
-        },
-        dark: {
-          primary: "#1C1C29",
-          secondary: "#D4DCC0",
-          Tritary: "#F3F3F3",
-          highliter: "#FFFFFF",
-          background: "#F0F0F0",
-          cta: "#FF8754",
-          text: "#333333",
-          accent: "#F3F4F6",
-        },
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
     },
   },
-
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function ({ addUtilities }: { addUtilities: any }) {
+      addUtilities(
+        {
+          ".no-scrollbar": {
+            "-ms-overflow-style": "none" /* IE و Edge */,
+            "scrollbar-width": "none" /* فایرفاکس */,
+          },
+          ".no-scrollbar::-webkit-scrollbar": {
+            display: "none" /* مرورگرهای Webkit */,
+          },
+          ".border-gradient-secondary": {
+            border: " 0 0 4px 0 solid transparent",
+            borderImage:
+              "linear-gradient(90deg, rgba(30,156,81,0.1) 0%, rgba(161,161,161,1) 50%, rgba(30,156,81,0.1) 100%) 1",
+          },
+        },
+        ["responsive"] // Add responsive support
+      );
+    },
+  ],
 };
 export default config;

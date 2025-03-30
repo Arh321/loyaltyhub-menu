@@ -85,7 +85,7 @@ const WelcomeSwiperContainer = () => {
   return (
     <div className="w-full h-full relative">
       <Swiper
-        speed={600}
+        speed={400}
         parallax={true}
         pagination={{ el: "#paginateRef", clickable: false }}
         dir="rtl"
@@ -113,6 +113,12 @@ const WelcomeSwiperContainer = () => {
           dir="rtl"
           data-swiper-parallax="23%"
         ></div>
+        <div
+          style={{
+            background: "linear-gradient(363deg, black, transparent)",
+          }}
+          className="absolute right-0 bottom-0 h-[325px] w-full"
+        ></div>
         {slides.map((slide, index) => (
           <SwiperSlide
             key={index}
@@ -131,25 +137,10 @@ const WelcomeSwiperContainer = () => {
           <button
             id={"custom-swiper-page-next"}
             aria-label="next"
-            className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary"
+            className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary-text"
           >
-            {/* {isEnd ? (
-            <span
-              className="font-almarai font-bold text-lg w-full text-left cursor-pointer"
-              style={{ pointerEvents: "auto" }}
-              onClick={() => {
-                router.push("/barcode-scanner");
-                console.log("/barcode enterrrrrrrrred");
-              }}
-            >
-              ثبت سفارش
-            </span>
-          ) : (
-            <> */}
-            <span className="font-almarai font-bold text-lg">بعدی</span>
+            <span className="font-Yekan-Medium text-lg">بعدی</span>
             <Icon icon="simple-line-icons:arrow-left" width={24} height={24} />
-            {/* </> */}
-            {/* )} */}
           </button>
         )}
 
@@ -164,12 +155,12 @@ const WelcomeSwiperContainer = () => {
         ></div>
       </Swiper>
       {isEnd && (
-        <button className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary">
+        <button className="absolute bottom-0 w-full px-[22px] py-[26px] h-auto left-0 z-10 !flex justify-between items-center transition-all text-light-primary-text">
           <span
-            className="font-almarai font-bold text-lg w-full text-left cursor-pointer"
+            className="font-Yekan-Medium text-lg w-full text-left cursor-pointer"
             style={{ pointerEvents: "auto" }}
             onClick={() => {
-              router.push("/providers");
+              router.push("/departments");
             }}
           >
             ثبت سفارش

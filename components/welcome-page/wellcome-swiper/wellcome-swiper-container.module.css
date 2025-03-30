@@ -29,11 +29,11 @@
 }
 
 .custom-active-slide h2 {
-  animation: slideLeft 1s ease-in-out forwards;
+  animation: slideLeft 0.7s ease-in-out forwards;
 }
 
 .custom-active-slide p {
-  animation: slideUp 1s ease-in-out forwards;
+  animation: slideUp 0.7s ease-in-out forwards;
 }
 
 .custom-swiper-pagination {
