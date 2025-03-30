@@ -1,4 +1,3 @@
-import defaultTheme from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -20,7 +19,7 @@ const config: Config = {
         "welcome-slide-linear":
           "linear-gradient(to right, rgb(0,0,0,0.9), transparent)",
         "linear-gradient-to-top":
-          "linear-gradient(to top, rgb(0,0,0,0.9), transparent)",
+          "linear-gradient(to top, rgb(0,0,0), transparent)",
         "linear-gradient-to-bottom":
           "linear-gradient(to bottom, rgb(0,0,0,0.9), transparent)",
         "linear-gradient-to-left":
@@ -29,7 +28,10 @@ const config: Config = {
           "linear-gradient(to right, rgb(0,0,0,0.9), transparent)",
       },
       fontFamily: {
-        almarai: ["Almarai", ...defaultTheme.fontFamily.sans],
+        "Almarai-Bold": ["Almarai-Bold", "sans-serif"],
+        "Almarai-ExtraBold": ["Almarai-ExtraBold", "sans-serif"],
+        "Almarai-Light": ["Almarai-Light", "sans-serif"],
+        "Almarai-Regular": ["Almarai-Regular", "sans-serif"],
         "Yekan-Regular": "Regular",
         "Yekan-Bold": "Bold",
         "Yekan-Light": "Light",

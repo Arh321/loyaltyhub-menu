@@ -1,5 +1,5 @@
 "use client";
-import { Parallax, Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import clsx from "clsx";
 import style from "./wellcome-swiper-container.module.css";
@@ -8,6 +8,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // Slide Data
 const slides = [
@@ -16,24 +17,28 @@ const slides = [
     title: "سفارش آسان",
     content:
       "با اسکن QR Code، منوی دیجیتال را باز و غذای دلخواه خود را انتخاب کنید. سفارش شما تنها با چند لمس ساده ثبت خواهد شد!",
+    image: "/welcome-images/sec1-min.webp",
   },
   {
     id: 2,
     title: "انتخاب متنوع",
     content:
       " از بین انواع غذاها و نوشیدنی‌های خوشمزه گزینه مورد علاقه خود را پیدا کنید. انتخاب شما راحت‌تر از همیشه خواهد بود.",
+    image: "/welcome-images/sec2-min.webp",
   },
   {
     id: 3,
     title: "آماده‌سازی سریع",
     content:
       " پس از ثبت، اطلاع‌رسانی آماده بودن سفارش شما نمایش داده می‌شود. نیازی به انتظار طولانی نیست",
+    image: "/welcome-images/sec3-min.webp",
   },
   {
     id: 4,
     title: "تجربه مدرن",
     content:
       "صف‌های طولانی را پشت سر بگذارید و در کوتاه‌ترین زمان سفارش خود را دریافت کنید. رضایت شما اولویت ماست.",
+    image: "/welcome-images/sec4-min.webp",
   },
 ];
 
@@ -86,14 +91,13 @@ const WelcomeSwiperContainer = () => {
     <div className="w-full h-full relative">
       <Swiper
         speed={400}
-        parallax={true}
         pagination={{ el: "#paginateRef", clickable: false }}
         dir="rtl"
         navigation={{
           nextEl: "#custom-swiper-page-next",
           prevEl: "#custom-swiper-page-prev",
         }}
-        modules={[Parallax, Pagination, Navigation]}
+        modules={[Pagination, Navigation]}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         touchStartPreventDefault={true}
         touchMoveStopPropagation={true}
@@ -101,36 +105,30 @@ const WelcomeSwiperContainer = () => {
         allowTouchMove={false}
         className="mySwiper !h-full !w-full"
       >
-        <div
-          slot="container-start"
-          className={clsx(style["parallax-bg"])}
-          style={{
-            backgroundImage: "url(/menu-welcome-bg.webp)",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-          dir="rtl"
-          data-swiper-parallax="23%"
-        ></div>
-        <div
-          style={{
-            background: "linear-gradient(363deg, black, transparent)",
-          }}
-          className="absolute right-0 bottom-0 h-[325px] w-full"
-        ></div>
         {slides.map((slide, index) => (
           <SwiperSlide
             key={index}
             className={clsx(
               style["swiper-slide"],
-              "!flex flex-col justify-end"
+              "!flex flex-col justify-end !bg-[#243131]"
             )}
           >
+            <div className="absolute top-0 right-0 w-full h-full flex justify-center pt-[10dvh]">
+              <div className="w-[312px] h-[312px] p-2 rounded-[20px] border-gradient !bg-transparent">
+                <Image
+                  src={slide.image}
+                  alt="menu-welcome-bg"
+                  className="w-full h-full object-contain"
+                  width={290}
+                  height={290}
+                />
+              </div>
+            </div>
             <WelcomeSwiperSlideCart
               title={slide.title}
               content={slide.content}
             />
+            <div className="absolute bottom-0 right-0 w-full h-[50dvh] bg-linear-gradient-to-top"></div>
           </SwiperSlide>
         ))}
         {!isEnd && (
