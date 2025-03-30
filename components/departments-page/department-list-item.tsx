@@ -35,7 +35,7 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/menu/${cardDestination}`);
+    router.push(`/departments/${cardDestination}`);
   };
 
   const handleMouseEnter = () => {
