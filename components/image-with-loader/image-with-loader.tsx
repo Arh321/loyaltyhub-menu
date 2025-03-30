@@ -2,9 +2,8 @@
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import styles from "./ImageWithLoader.module.css"; // CSS for transitions
-import logo from "../../public/images/hosseiniLogo.webp";
+import logo from "@/public/images/logo.webp";
 import clsx from "clsx";
-import { Skeleton } from "antd";
 const ImageWithLoader = ({
   src,
   alt,
@@ -29,7 +28,15 @@ const ImageWithLoader = ({
   return (
     <div className={clsx(styles.imageWrapper, imageClass)}>
       {/* Placeholder image */}
-      {!isLoaded && <Skeleton.Node active className="!w-full !h-full" />}
+      {!isLoaded && (
+        <Image
+          src={placeholder}
+          alt={alt}
+          width={width}
+          height={height}
+          className={styles.placeholder}
+        />
+      )}
 
       {/* Actual image */}
       <Image

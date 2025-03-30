@@ -1,9 +1,10 @@
 "use client";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { StaticImageData } from "next/image";
 import clsx from "clsx";
+import ImageWithLoader from "../image-with-loader/image-with-loader";
+import { Skeleton } from "antd";
 interface ProvidersCardProps {
   name: string;
   imageSrc: StaticImageData;
@@ -62,14 +63,23 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
       onClick={handleClick} // استفاده از تابع جداگانه برای مدیریت کلیک
     >
       {/* عکس در انتها */}
-      <div className="w-[calc(80px-0.5rem)] absolute top-0 bottom-0 my-auto right-1  aspect-square  lxs:w-[calc(85px-0.5rem)] xs:w-[calc(90px-0.5rem)]  rounded-full overflow-hidden image-container transition-all duration-500">
-        <Image
-          src={imageSrc}
-          className="object-cover"
-          layout="fill"
-          alt="provider pic"
-        />
-      </div>
+      <Suspense
+        fallback={
+          <div className="w-[calc(80px-0.5rem)] aspect-square  lxs:w-[calc(85px-0.5rem)] xs:w-[calc(90px-0.5rem)]  rounded-full">
+            <Skeleton.Node active className="!w-full !h-full rounded-full" />
+          </div>
+        }
+      >
+        <div className="w-[calc(80px-0.5rem)] absolute top-0 bottom-0 my-auto right-1  aspect-square  lxs:w-[calc(85px-0.5rem)] xs:w-[calc(90px-0.5rem)]  rounded-full overflow-hidden image-container transition-all duration-500">
+          <ImageWithLoader
+            src={imageSrc.src}
+            alt={`${name} pic`}
+            width={80}
+            height={80}
+            imageClass="object-cover"
+          />
+        </div>
+      </Suspense>
       {/* متن در وسط */}
       <div className="flex flex-col items-center  h-full gap-1 xs:gap-2 justify-center grow z-[2] text-container">
         <span className="w-max h-max block lxs:text-base text-sm xs:text-xl font-Yekan-Medium text-white text-center transition-all duration-500">
