@@ -1,8 +1,5 @@
 "use client";
 import { useEffect } from "react";
-
-import CTAInput from "@/components/shared-components/cta-input/cta-input";
-
 import { useState } from "react";
 import { useProducts } from "@/hooks/useSearchProducts";
 import { Spin, Input } from "antd";

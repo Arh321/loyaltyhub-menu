@@ -1,10 +1,11 @@
 import MenusContainer from "@/components/menu-page/menus-container";
-
+import { Suspense } from "react";
+import SplashScreen from "@/components/loading/splash-screen";
 const DepartmentPage = () => {
   return (
-    <div className="w-full grow h-full overflow-y-auto px-4">
+    <Suspense fallback={<SplashScreen />}>
       <MenusContainer />
-    </div>
+    </Suspense>
   );
 };
 
