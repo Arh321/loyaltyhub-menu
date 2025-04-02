@@ -3,6 +3,9 @@ import { ICompany } from "@/types/company-type";
 import { IHttpResult } from "@/types/http-result";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCompany, setCompanyLogo } from "@/redux/company-slice/companySlice";
+import companyLogo from "@public/images/resturant-logo.webp";
 
 const defaultThemeConfig = {
   primary: "#005B4C",
@@ -44,6 +47,8 @@ const useThemeConfig = () => {
     refetchOnWindowFocus: false,
   });
 
+  const dispatch = useDispatch();
+
   const setThemeConfig = () => {
     const root = document.documentElement;
     let currentThemeConfig = defaultThemeConfig;
@@ -79,6 +84,10 @@ const useThemeConfig = () => {
 
   useEffect(() => {
     setThemeConfig();
+    if (companyData?.result?.[0]) {
+      dispatch(setCompany(companyData.result[0]));
+      dispatch(setCompanyLogo(companyLogo));
+    }
   }, [companyData]);
 
   return {

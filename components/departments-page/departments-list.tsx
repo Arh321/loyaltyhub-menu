@@ -36,8 +36,8 @@ const DepartmentsList = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3 w-full grow overflow-y-auto">
-      <div className="w-full flex justify-center items-center gap-2 p-2 rounded-[6px] border border-light-gray hover:border-light-primary-hover transition-all focus-within:border-light-primary-hover">
+    <div className="flex flex-col gap-3 w-full h-[calc(100vh-100px)]">
+      <div className="w-full h-max flex justify-center items-center gap-2 p-2 rounded-[6px] border border-light-gray hover:border-light-primary-hover transition-all focus-within:border-light-primary-hover">
         <CTAInput
           placeholder="جستجو مجموعه ها"
           haveBorder={false}
@@ -48,29 +48,35 @@ const DepartmentsList = () => {
           }}
         />
       </div>
-      <span className="self-start w-full text-white text-center font-Yekan-Bold text-2xl border-gradient-secondary pb-2 border-b border-light-gray">
+      <span className="self-start w-full text-white text-center h-max font-Yekan-Bold text-2xl border-gradient-secondary pb-2 border-b border-light-gray">
         شعبه ها
       </span>
-      {isLoading || isRefetching ? (
-        <div className="flex flex-col gap-3 justify-center">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <DepartmentItemSkeleton key={index} />
-          ))}
+      <div className="w-full overflow-y-auto  h-full">
+        <div className="flex flex-col gap-3 w-full">
+          {isLoading || isRefetching ? (
+            <div className="flex flex-col gap-3 justify-center">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <DepartmentItemSkeleton key={index} />
+              ))}
+            </div>
+          ) : (
+            departments?.map((shop) => (
+              <ProvidersCard
+                imageSrc={
+                  departmentsImageData.find(
+                    (image) => image.id === shop.branch_id
+                  )?.image as StaticImageData
+                }
+                imageId={shop.branch_id}
+                name={shop.name}
+                enName={shop.en_name}
+                key={shop.branch_id} // key باید به عنوان prop پاس داده شود
+                cardDestination={shop.branch_id}
+              />
+            ))
+          )}
         </div>
-      ) : (
-        departments?.map((shop) => (
-          <ProvidersCard
-            imageSrc={
-              departmentsImageData.find((image) => image.id === shop.branch_id)
-                ?.image as StaticImageData
-            }
-            imageId={shop.branch_id}
-            name={shop.name}
-            key={shop.branch_id} // key باید به عنوان prop پاس داده شود
-            cardDestination={shop.branch_id}
-          />
-        ))
-      )}
+      </div>
     </div>
   );
 };

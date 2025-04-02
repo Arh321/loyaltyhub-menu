@@ -1,12 +1,4 @@
-//here is the place of interfaces
-export interface Main {
-  status: string;
-  message: string;
-  result: Result[];
-  errors: null;
-}
-
-export interface Result {
+export interface IMenu {
   menu_id: number;
   menu_name: string;
   menu_description: string;

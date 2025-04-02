@@ -10,6 +10,7 @@ interface ProvidersCardProps {
   imageSrc: StaticImageData;
   cardDestination: number; // تغییر به string
   imageId: number;
+  enName: string;
 }
 
 const hoverStyles = [
@@ -30,6 +31,7 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
   imageSrc,
   cardDestination,
   imageId,
+  enName,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -72,7 +74,7 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
       >
         <div className="w-[calc(80px-0.5rem)] absolute top-0 bottom-0 my-auto right-1  aspect-square  lxs:w-[calc(85px-0.5rem)] xs:w-[calc(90px-0.5rem)]  rounded-full overflow-hidden image-container transition-all duration-500">
           <ImageWithLoader
-            src={imageSrc.src}
+            src={imageSrc?.src ?? ""}
             alt={`${name} pic`}
             width={80}
             height={80}
@@ -86,7 +88,7 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
           {name}
         </span>
         <span className="w-max h-max block lxs:text-xs xs:text-xs font-Yekan-Medium text-white text-center ">
-          Rose Darvishi Hotel
+          {enName || "Rose Darvishi Hotel"}
         </span>
       </div>
     </div>

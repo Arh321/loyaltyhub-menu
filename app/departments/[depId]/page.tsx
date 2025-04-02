@@ -1,9 +1,10 @@
-"use client";
-import { useParams } from "next/navigation";
-
+import MenusContainer from "@/components/menu-page/menus-container";
 const DepartmentPage = () => {
-  const { depId } = useParams();
-  return <div>DepartmentPage{depId}</div>;
+  return (
+    <div className="w-full grow h-full overflow-y-auto px-4">
+      <MenusContainer />
+    </div>
+  );
 };
 
 export default DepartmentPage;

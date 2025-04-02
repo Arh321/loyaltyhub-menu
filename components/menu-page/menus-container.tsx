@@ -1,0 +1,75 @@
+"use client";
+import { useParams } from "next/navigation";
+import { useMenus } from "@/hooks/useMenus";
+import ErrorComponent from "../shared-components/error-component/error-component";
+import { useMemo } from "react";
+import { Skeleton } from "antd";
+import Image, { StaticImageData } from "next/image";
+import { departmentsImageData } from "../departments-page/departments-image-data";
+
+const MenusContainer = () => {
+  const { depId } = useParams();
+
+  const { data, isLoading, isError, refetch, isRefetching } = useMenus(
+    Number(depId)
+  );
+
+  const menus = useMemo(() => {
+    console.log(data);
+    return data?.result?.filter((menu) => menu.menu_id !== null);
+  }, [data]);
+
+  if (isError) {
+    return <ErrorComponent refetch={() => refetch()} />;
+  }
+
+  return (
+    <div className="flex flex-col gap-4 h-full">
+      {isLoading || isRefetching ? (
+        <div className="flex flex-col gap-4">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div key={index} className="w-full aspect-[16/7] xs:aspect-[16/3] ">
+              <Skeleton.Node active className="!w-full !h-full" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="w-full h-full">
+          <div className="grid grid-cols-1 gap-4 h-max  pb-28">
+            {menus?.map((menu, index) => (
+              <div
+                key={index}
+                className="w-full aspect-[16/7] xs:aspect-[16/3] bg-gray-100 rounded-lg overflow-hidden"
+              >
+                <div className="w-full h-full flex justify-between items-center relative">
+                  <h2 className="text-light-primary-text flex flex-col gap-1 pr-4 absolute bottom-4 right-0 w-max bg-linear-gradient-to-left z-[2]">
+                    <span className="text-lg font-Yekan-Medium">
+                      {menu.menu_name}
+                    </span>
+                    <span className="text-white text-sm font-Yekan-Regular">
+                      {menu.menu_description}
+                    </span>
+                  </h2>
+                  <div className="w-full h-full absolute top-0 left-0">
+                    <Image
+                      src={
+                        departmentsImageData.find(
+                          (image) => image.id === menu.menu_id
+                        )?.image as StaticImageData
+                      }
+                      alt={menu.menu_name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MenusContainer;
