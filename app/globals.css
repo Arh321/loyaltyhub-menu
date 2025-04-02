@@ -40,6 +40,12 @@ html {
   width: 4px;
 }
 
+@media screen and (max-width: 480px) {
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 *::-webkit-scrollbar-track {
   background: var(--background);
   border-radius: 3px;

@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 import clsx from "clsx";
 import { LoadingOutlined } from "@ant-design/icons";
-interface ICTAButton {
+interface ICTAButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   loading?: boolean;
   loadingSize?: number;

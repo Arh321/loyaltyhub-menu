@@ -38,7 +38,7 @@ const HeaderContainer = () => {
       <div className="col-span-1 flex justify-end">
         <CTAButton
           onClick={() => router.back()}
-          className="!bg-transparent !border-none !text-light-text !text-2xl !p-0 !w-max"
+          className="!bg-transparent !border-none !text-light-text !text-xl !p-0 !w-max"
         >
           <LeftOutlined />
         </CTAButton>

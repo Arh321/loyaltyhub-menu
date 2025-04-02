@@ -10,6 +10,7 @@ interface ICTAInput {
   onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   haveBorder?: boolean;
   value?: string;
+  style?: React.CSSProperties;
 }
 
 const CTAInput = ({
@@ -21,6 +22,7 @@ const CTAInput = ({
   onPressEnter,
   haveBorder = true,
   value,
+  style,
 }: ICTAInput) => {
   return (
     <Input
@@ -36,6 +38,7 @@ const CTAInput = ({
         prefix: "text-light-primary-text",
         suffix: "text-light-primary-text",
       }}
+      style={style}
       prefix={prefix}
       suffix={suffix}
       onChange={onChange}
