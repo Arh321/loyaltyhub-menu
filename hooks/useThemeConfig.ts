@@ -31,7 +31,21 @@ const darkThemeConfig = {
   text: "white",
   id: 5,
   mode: "dark",
+  image_url: "",
 };
+
+interface IParsedConfig {
+  primary: string;
+  primaryText: string;
+  background: string;
+  mode: string;
+  secondary: string;
+  secondaryText: string;
+  gray: string;
+  text: string;
+  white: string;
+  image_url?: string;
+}
 
 const useThemeConfig = () => {
   const {
@@ -55,38 +69,46 @@ const useThemeConfig = () => {
 
     if (companyData?.result?.[0]?.config) {
       // Parse config string to theme config object
-      const parsedConfig = JSON.parse(companyData.result[0].config);
+      const parsedConfig: IParsedConfig = JSON.parse(
+        companyData.result[0].config
+      );
+      if (parsedConfig.image_url) {
+        dispatch(setCompanyLogo(parsedConfig.image_url));
+      }
       // Use company theme config if it exists
-      currentThemeConfig =
-        parsedConfig.mode === "dark" ? darkThemeConfig : parsedConfig;
+      currentThemeConfig = {
+        ...defaultThemeConfig,
+        ...parsedConfig,
+        ...(parsedConfig.mode === "dark" ? darkThemeConfig : {}),
+      };
+      root.style.setProperty(
+        "--primary-hover",
+        `${currentThemeConfig.primary}dd`
+      );
+      root.style.setProperty(
+        "--primary-disabled",
+        `${currentThemeConfig.primary}60`
+      );
+      root.style.setProperty("--primary-text", currentThemeConfig.primaryText);
+      root.style.setProperty("--secondary", currentThemeConfig.secondary);
+      root.style.setProperty(
+        "--secondary-text",
+        currentThemeConfig.secondaryText
+      );
+      root.style.setProperty("--gray", currentThemeConfig.gray);
+      root.style.setProperty(
+        "--background-theme",
+        currentThemeConfig.background
+      );
+      root.style.setProperty("--white", currentThemeConfig.white);
+      root.style.setProperty("--text", currentThemeConfig.text);
     }
-
-    root.style.setProperty("--primary", currentThemeConfig.primary);
-    root.style.setProperty(
-      "--primary-hover",
-      `${currentThemeConfig.primary}dd`
-    );
-    root.style.setProperty(
-      "--primary-disabled",
-      `${currentThemeConfig.primary}60`
-    );
-    root.style.setProperty("--primary-text", currentThemeConfig.primaryText);
-    root.style.setProperty("--secondary", currentThemeConfig.secondary);
-    root.style.setProperty(
-      "--secondary-text",
-      currentThemeConfig.secondaryText
-    );
-    root.style.setProperty("--gray", currentThemeConfig.gray);
-    root.style.setProperty("--background-theme", currentThemeConfig.background);
-    root.style.setProperty("--white", currentThemeConfig.white);
-    root.style.setProperty("--text", currentThemeConfig.text);
   };
 
   useEffect(() => {
     setThemeConfig();
     if (companyData?.result?.[0]) {
       dispatch(setCompany(companyData.result[0]));
-      dispatch(setCompanyLogo(companyLogo));
     }
   }, [companyData]);
 

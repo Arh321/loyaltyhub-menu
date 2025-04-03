@@ -12,7 +12,7 @@ const MenusListHeader = ({ isGrid, setIsGrid }: IMenusListHeaderProps) => {
   const { depId } = useParams();
   const router = useRouter();
   return (
-    <div className="flex items-center gap-2 pb-2 sticky top-0 bg-light-background z-10">
+    <div className="flex items-center gap-2 pb-2 sticky top-0 bg-light-background z-10 px-4">
       <div
         role="button"
         onClick={() => router.push(`/departments/${depId}/search`)}

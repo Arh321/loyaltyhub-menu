@@ -9,6 +9,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import SidebarComponent from "./sidebar-component";
 import { useState } from "react";
 import { ICompany } from "@/types/company-type";
+import ImageWithLoader from "../image-with-loader/image-with-loader";
 const HeaderContainer = () => {
   const { company, companyLogo } = useSelector(
     (state: RootState) => state.company
@@ -27,11 +28,12 @@ const HeaderContainer = () => {
       </div>
       <div className="col-span-1 flex flex-col items-center gap-1">
         <div className="relative size-[55px] rounded-full overflow-hidden">
-          <Image
+          <ImageWithLoader
             src={companyLogo || ""}
             alt="company logo"
-            fill
-            className="object-cover"
+            width={55}
+            height={55}
+            imageClass="object-cover"
           />
         </div>
       </div>
