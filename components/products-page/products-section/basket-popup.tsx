@@ -1,7 +1,10 @@
 import { RootState } from "@/redux/store";
+import { useRouter, useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 
 const BasketPopup = () => {
+  const router = useRouter();
+  const { depId } = useParams();
   const { basket } = useSelector((state: RootState) => state.basket);
 
   const calculateTotalPrice = () => {
@@ -11,7 +14,10 @@ const BasketPopup = () => {
   const totalItems = basket.reduce((acc, item) => acc + item.quantity, 0);
 
   return basket.length > 0 ? (
-    <div className="w-full h-max  animate-fadeUp translate-y-full !duration-200 fixed bottom-8 left-0 right-0  z-50">
+    <div
+      onClick={() => router.push(`/departments/${depId}/basket`)}
+      className="w-full h-max  animate-fadeUp translate-y-full !duration-200 fixed bottom-8 left-0 right-0  z-50"
+    >
       <div className="w-[90%]  h-full flex flex-col gap-4 p-4 mx-auto bg-light-primary rounded-lg">
         <div className="w-full h-full flex  items-center justify-between">
           <div className="w-max h-full flex items-center gap-2">
