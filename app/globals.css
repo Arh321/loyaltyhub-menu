@@ -2,75 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "swiper/css";
-@import "swiper/css/pagination";
-@import "swiper/css/navigation";
+@import "./app-fonts.css";
+@import "../styles/swiper-styles.css";
 
-@font-face {
-  font-family: Regular;
-  src: url("./fonts/IRANYekanXFaNum-Regular.woff") format("woff");
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
-@font-face {
-  font-family: Light;
-  src: url("./fonts/IRANYekanXFaNum-Light.woff") format("woff");
-}
-
-@font-face {
-  font-family: Medium;
-  src: url("./fonts/IRANYekanXFaNum-Medium.woff") format("woff");
-}
-
-@font-face {
-  font-family: Bold;
-  src: url("./fonts/IRANYekanXFaNum-Bold.woff") format("woff");
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --primary: "#FFFFFF";
-    --secondary: "#6E6E70";
-    --Tritary: "#26262D";
-    --background: "#151518";
-    --cta: "#B70F0F";
-    --text: "#333333";
-    --accent: "#F3F4F6";
-  }
-  .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --primary: "#1C1C29";
-    --secondary: "#D4DCC0";
-    --Tritary: "#F3F3F3";
-    --highliter: "#FFFFFF";
-    --background: "#F0F0F0";
-    --cta: "#FF8754";
-    --text: "#333333";
-    --accent: "#F3F4F6";
+    --background: #ffffff;
+    --foreground: #171717;
+    --primary: #005b4c;
+    --primary-text: #ffffff;
+    --secondary: #f0d9b1;
+    --secondary-text: #000000;
+    --gray: #4b4b4d;
+    --white: #000000;
+    --text: "black";
   }
 }
-.almarai-light {
-  font-family: "Almarai", serif;
-  font-weight: 300;
-  font-style: normal;
+
+html {
+  background-color: #232323;
+  direction: rtl;
 }
 
-.almarai-regular {
-  font-family: "Almarai", serif;
-  font-weight: 400;
-  font-style: normal;
+*::-webkit-scrollbar {
+  width: 4px;
 }
 
-.almarai-bold {
-  font-family: "Almarai", serif;
-  font-weight: 700;
-  font-style: normal;
+@media screen and (max-width: 480px) {
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-.almarai-extrabold {
-  font-family: "Almarai", serif;
-  font-weight: 800;
-  font-style: normal;
+*::-webkit-scrollbar-track {
+  background: var(--background);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+.sm-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.sm-scrollbar::-webkit-scrollbar {
+  width: 2px !important;
+  background: transparent !important;
+}
+
+.sm-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.border-gradient {
+  position: relative;
+}
+
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(232deg, #fff, #fff0, #fff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
