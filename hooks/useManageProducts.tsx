@@ -13,24 +13,32 @@ const useManageProducts = () => {
 
   const menus = useMemo(() => {
     return [
-      exampleMenu,
+      ...(isLoading ? [] : [exampleMenu]),
       ...(data?.result?.filter((menu) => menu.menu_id !== null) ?? []),
     ];
-  }, [data]);
+  }, [data, isLoading]);
 
-  const [selectedMenu, setSelectedMenu] = useState<IMenu | null>(() => {
+  const [selectedMenu, setSelectedMenu] = useState<number | null>(() => {
     const storedMenuId = localStorage.getItem("selectedMenuId");
     if (!storedMenuId || !menus) return null;
-    return menus?.find((menu) => menu.menu_id === Number(storedMenuId)) || null;
+    const menu = menus?.find((menu) => menu.menu_id === Number(storedMenuId));
+    return menu?.menu_id || null;
   });
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    selectedMenu?.categories[0] ?? null
+    () => {
+      if (!selectedMenu) return null;
+      const menu = menus?.find((menu) => menu.menu_id === selectedMenu);
+      return menu?.categories[0] ?? null;
+    }
   );
 
   useEffect(() => {
     if (selectedMenu) {
-      setSelectedCategory(selectedMenu.categories[0]);
+      setSelectedCategory(
+        menus?.find((menu) => menu.menu_id === selectedMenu)?.categories[0] ??
+          null
+      );
     }
   }, [selectedMenu]);
 

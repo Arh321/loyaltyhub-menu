@@ -55,6 +55,20 @@ html {
   background: var(--primary);
   border-radius: 3px;
 }
+.sm-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.sm-scrollbar::-webkit-scrollbar {
+  width: 2px !important;
+  background: transparent !important;
+}
+
+.sm-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
 
 body {
   color: var(--foreground);

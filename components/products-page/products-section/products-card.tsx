@@ -2,20 +2,24 @@ import ImageWithLoader from "@/components/image-with-loader/image-with-loader";
 import { Product } from "@/types/menu/menu-types";
 import ProductCardButton from "./product-card-button";
 import { departmentsImageData } from "@/components/departments-page/departments-image-data";
+import { useMemo } from "react";
 interface IProductsCardProps {
   product: Product;
 }
 
 const ProductsCard = ({ product }: IProductsCardProps) => {
+  const image = useMemo(() => {
+    return (
+      departmentsImageData.find((image) => image.id === product.id)?.image
+        .src ?? ""
+    );
+  }, [product.id]);
   return (
     <div className="w-full h-full flex gap-4 bg-light-secondary rounded-lg shadow-md p-4 relative">
       <div className="w-max flex h-max flex-col items-center gap-4">
         <div className="!size-[110px] bg-white rounded-lg shadow-md overflow-hidden">
           <ImageWithLoader
-            src={
-              departmentsImageData.find((image) => image.id === product.id)
-                ?.image.src ?? ""
-            }
+            src={image}
             alt={product.title}
             width={110}
             height={110}

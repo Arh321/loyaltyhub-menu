@@ -40,6 +40,7 @@ const MenusSectionContainer = ({
         initialSlide={initialSlide}
         onSlideChange={handleSlideChange}
         className={styles["menus-section-container"]}
+        allowTouchMove={false}
       >
         {menus.map((menu) => (
           <SwiperSlide key={menu.menu_id}>

@@ -12,7 +12,7 @@ const ImageWithLoader = ({
   imageClass,
   placeholder = logo, // Path to your placeholder image in public folder
 }: {
-  src: string;
+  src?: string;
   alt: string;
   width: number;
   height: number;
@@ -34,7 +34,7 @@ const ImageWithLoader = ({
   return (
     <div className={clsx(styles.imageWrapper, imageClass)}>
       {/* Placeholder image */}
-      {(!isLoaded || hasError) && (
+      {(!isLoaded || hasError || !src) && (
         <Image
           src={placeholder}
           alt={alt}
@@ -45,7 +45,7 @@ const ImageWithLoader = ({
       )}
 
       {/* Actual image */}
-      {!hasError && (
+      {!hasError && src && (
         <Image
           src={src}
           alt={alt}
