@@ -136,6 +136,11 @@ const config: Config = {
             borderImage:
               "linear-gradient(90deg, rgba(30,156,81,0.1) 0%, rgba(161,161,161,1) 50%, rgba(30,156,81,0.1) 100%) 1",
           },
+          ".border-gradient-primary": {
+            border: " 0 0 4px 0 solid transparent",
+            borderImage:
+              "linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%) 1",
+          },
         },
         ["responsive"] // Add responsive support
       );

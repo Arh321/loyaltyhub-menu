@@ -1,14 +1,21 @@
 "use client";
 import React from "react";
 import { Drawer, List } from "antd";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 interface ContactUsBottomProps {
   open: boolean;
   onClose: () => void;
 }
 
 const ContactUsBottom: React.FC<ContactUsBottomProps> = ({ open, onClose }) => {
-  const contactUsInfo = [{ title: "رزرواسیون", phoneNumber: "091234567" }];
+  const { company } = useSelector((state: RootState) => state.company);
+  const contactUsInfoItems = [
+    { title: "شماره موبایل", phoneNumber: company?.phone_number },
+    { title: "شماره ثابت", phoneNumber: company?.phone_number },
+    { title: "آدرس", phoneNumber: company?.address_line },
+    { title: "کد پستی", phoneNumber: company?.postal_code },
+  ];
   // console.log("entered contactusbottom drawer");
   return (
     <Drawer
@@ -28,7 +35,7 @@ const ContactUsBottom: React.FC<ContactUsBottomProps> = ({ open, onClose }) => {
       style={{ maxHeight: "70vh", overflowY: "auto", direction: "rtl" }} // حداکثر ارتفاع لیست و قابلیت اسکرول
     >
       <List
-        dataSource={contactUsInfo}
+        dataSource={contactUsInfoItems}
         className=" custom-list gap-2 overflow-y-auto font-Yekan-Medium"
         renderItem={(item) => (
           <List.Item className={`flex justify-between items-center `}>

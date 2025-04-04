@@ -85,10 +85,10 @@ const SidebarComponent = ({
         open={open}
         className="!w-[70vw] xs:!w-[50vw] "
         classNames={{
-          header: "!border-none !p-2",
+          header: "!border-none !p-4",
           content: "!bg-light-background rounded-l-xl",
           wrapper: "backdrop-blur-sm !w-full",
-          body: "!p-2",
+          body: "!p-4",
         }}
         closable={false}
       >
