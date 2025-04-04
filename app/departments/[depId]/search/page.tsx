@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useProducts } from "@/hooks/useSearchProducts";
 import { Spin, Input } from "antd";
-import { Product } from "@/types/products/products";
+import { Product } from "@/types/menu/menu-types";
+import ProductsCard from "@/components/products-page/products-section/products-card";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,7 +53,7 @@ const SearchPage = () => {
           <div className="flex flex-col gap-4 overflow-y-auto h-full pb-24">
             {products?.data?.map((product: Product) => (
               // <ProductCard product={product} key={product.product_id} />
-              <span key={product.product_id}>{product.name}</span>
+              <ProductsCard product={product} key={product.id} />
             ))}
           </div>
         )}
