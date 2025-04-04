@@ -53,7 +53,10 @@ const ProductsPage = () => {
             setSelectedMenu={setSelectedMenu}
           />
           <CategoriesSectionContainer
-            categories={selectedMenu?.categories ?? []}
+            categories={
+              menus.find((menu) => menu.menu_id === selectedMenu)?.categories ??
+              []
+            }
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
@@ -64,7 +67,10 @@ const ProductsPage = () => {
             className="w-full h-full overflow-y-auto pb-[100px]"
           >
             <ProductsSectionContainer
-              category={selectedMenu?.categories ?? []}
+              category={
+                menus.find((menu) => menu.menu_id === selectedMenu)
+                  ?.categories ?? []
+              }
               selectedCategory={selectedCategory}
             />
           </div>

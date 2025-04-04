@@ -5,8 +5,8 @@ import MenuItem from "./menu-item";
 import styles from "./menus-swiper.module.css";
 interface IMenusSectionContainerProps {
   menus: IMenu[];
-  selectedMenu: IMenu | null;
-  setSelectedMenu: (menu: IMenu) => void;
+  selectedMenu: number | null;
+  setSelectedMenu: (menu: number) => void;
 }
 
 const MenusSectionContainer = ({
@@ -14,11 +14,9 @@ const MenusSectionContainer = ({
   selectedMenu,
   setSelectedMenu,
 }: IMenusSectionContainerProps) => {
-  const initialSlide = menus.findIndex(
-    (menu) => menu.menu_id === selectedMenu?.menu_id
-  );
+  const initialSlide = menus.findIndex((menu) => menu.menu_id === selectedMenu);
   const handleSlideChange = (swiper: SwiperType) => {
-    setSelectedMenu(menus[swiper.activeIndex]);
+    setSelectedMenu(menus[swiper.activeIndex].menu_id);
   };
   return (
     <div className="w-full relative">
