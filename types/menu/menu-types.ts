@@ -33,7 +33,11 @@ export interface Product {
 }
 
 export interface Thumbnail {
-  id: null;
+  id: number | null;
   name: string;
   url: string;
+}
+
+export interface IBasketState extends Product {
+  quantity: number;
 }

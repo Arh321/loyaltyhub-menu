@@ -20,15 +20,21 @@ const ImageWithLoader = ({
   placeholder?: StaticImageData;
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleImageLoad = () => {
+    setIsLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setHasError(true);
     setIsLoaded(true);
   };
 
   return (
     <div className={clsx(styles.imageWrapper, imageClass)}>
       {/* Placeholder image */}
-      {!isLoaded && (
+      {(!isLoaded || hasError) && (
         <Image
           src={placeholder}
           alt={alt}
@@ -39,16 +45,19 @@ const ImageWithLoader = ({
       )}
 
       {/* Actual image */}
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        onLoadingComplete={handleImageLoad}
-        className={`${styles.image} ${isLoaded ? styles.visible : ""}`} // Show actual image once loaded
-        loading="lazy" // Enable lazy loading
-        fetchPriority="high"
-      />
+      {!hasError && (
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          onLoadingComplete={handleImageLoad}
+          onError={handleImageError}
+          className={`${styles.image} ${isLoaded ? styles.visible : ""}`} // Show actual image once loaded
+          loading="lazy" // Enable lazy loading
+          fetchPriority="high"
+        />
+      )}
     </div>
   );
 };

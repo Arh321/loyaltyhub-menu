@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useMenus } from "@/hooks/useMenus";
 import ErrorComponent from "../shared-components/error-component/error-component";
 import { useMemo, useState } from "react";
@@ -12,6 +12,7 @@ import MenusListHeader from "./menus-list-header";
 const MenusContainer = () => {
   const [isGrid, setIsGrid] = useState(false);
   const { depId } = useParams();
+  const router = useRouter();
 
   const { data, isLoading, isError, refetch, isRefetching } = useMenus(
     Number(depId)
@@ -52,6 +53,13 @@ const MenusContainer = () => {
               {menus?.map((menu, index) => (
                 <div
                   key={index}
+                  onClick={() => {
+                    localStorage.setItem(
+                      "selectedMenuId",
+                      menu.menu_id.toString()
+                    );
+                    router.push(`/departments/${depId}/products`);
+                  }}
                   className={clsx(
                     "w-full aspect-[16/7] xs:aspect-[16/5] bg-gray-100 rounded-lg overflow-hidden transition-all",
                     isGrid && "!aspect-[4/3]"

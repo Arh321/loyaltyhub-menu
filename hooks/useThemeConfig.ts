@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCompany, setCompanyLogo } from "@/redux/company-slice/companySlice";
-import companyLogo from "@public/images/resturant-logo.webp";
 
 const defaultThemeConfig = {
   primary: "#005B4C",
