@@ -28,7 +28,7 @@ const MenusContainer = () => {
   }
 
   return (
-    <>
+    <div className="w-full grow overflow-y-auto">
       <MenusListHeader isGrid={isGrid} setIsGrid={setIsGrid} />
       <div className="flex flex-col gap-4 h-max pb-4 px-4">
         {isLoading || isRefetching ? (
@@ -93,7 +93,7 @@ const MenusContainer = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
