@@ -3,7 +3,7 @@ import { useMenus } from "./useMenus";
 
 import { useEffect, useMemo, useState } from "react";
 import { Category } from "@/types/menu/menu-types";
-import { exampleMenu } from "@/components/departments-page/departments-image-data";
+
 const useManageProducts = () => {
   const { depId } = useParams();
 
@@ -12,11 +12,8 @@ const useManageProducts = () => {
   );
 
   const menus = useMemo(() => {
-    return [
-      ...(isLoading ? [] : [exampleMenu]),
-      ...(data?.result?.filter((menu) => menu.menu_id !== null) ?? []),
-    ];
-  }, [data, isLoading]);
+    return [...(data?.result?.filter((menu) => menu.menu_id !== null) ?? [])];
+  }, [data]);
 
   const [selectedMenu, setSelectedMenu] = useState<number | null>(() => {
     const storedMenuId = localStorage.getItem("selectedMenuId");

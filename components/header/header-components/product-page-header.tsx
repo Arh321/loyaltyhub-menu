@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { Popover } from "antd";
 import { useEffect, useState } from "react";
-
+import { useParams } from "next/navigation";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProductHeader = ({ router }: { router: any }) => {
   const { basket } = useSelector((state: RootState) => state.basket);
+  const { depId } = useParams();
   const [open, setOpen] = useState(false);
 
   const handleShare = async () => {
@@ -65,6 +66,7 @@ const ProductHeader = ({ router }: { router: any }) => {
             }}
           >
             <CTAButton
+              onClick={() => router.push(`/departments/${depId}/basket`)}
               className="!bg-transparent !p-2 !border-none !text-xl !w-max !text-white relative animate-fadeIn"
               aria-label={`Shopping basket with ${totalItems} items`}
             >
