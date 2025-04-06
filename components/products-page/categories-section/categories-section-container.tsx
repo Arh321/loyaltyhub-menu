@@ -33,20 +33,26 @@ const CategoriesSectionContainer = ({
       className="w-full overflow-x-auto scrollbar-hide sm-scrollbar"
     >
       <div className="w-full flex items-center  gap-4 px-6 pb-4">
-        {categories.map((category) => (
-          <div
-            onClick={() => handleCategoryClick(category)}
-            key={category.category_id}
-            data-category-id={category.category_id}
-            className={clsx(
-              "w-full h-10 bg-light-secondary rounded-lg px-4 py-1 whitespace-nowrap flex items-center justify-center cursor-pointer",
-              selectedCategory?.category_id === category.category_id &&
-                "!bg-light-primary text-white"
-            )}
-          >
-            {category.category_name}
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <div
+              onClick={() => handleCategoryClick(category)}
+              key={category.category_id}
+              data-category-id={category.category_id}
+              className={clsx(
+                "w-max h-10 bg-light-secondary rounded-lg px-4 py-1 whitespace-nowrap flex items-center justify-center cursor-pointer",
+                selectedCategory?.category_id === category.category_id &&
+                  "!bg-light-primary text-white"
+              )}
+            >
+              {category.category_name}
+            </div>
+          ))
+        ) : (
+          <div className="w-full h-10 flex items-center justify-center text-light-text">
+            داده ای وجود ندارد
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

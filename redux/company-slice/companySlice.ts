@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface ICompanyState {
   company: ICompany | null;
   companyLogo: string | null;
+  companyVat: string | null;
 }
 
 const initialState: ICompanyState = {
   company: null,
   companyLogo: null,
+  companyVat: null,
 };
 
 const companySlice = createSlice({
@@ -20,9 +22,13 @@ const companySlice = createSlice({
     setCompanyLogo: (state, action) => {
       state.companyLogo = action.payload;
     },
+    setCompanyVat: (state, action) => {
+      state.companyVat = action.payload;
+    },
   },
 });
 
 export default companySlice.reducer;
 
-export const { setCompany, setCompanyLogo } = companySlice.actions;
+export const { setCompany, setCompanyLogo, setCompanyVat } =
+  companySlice.actions;

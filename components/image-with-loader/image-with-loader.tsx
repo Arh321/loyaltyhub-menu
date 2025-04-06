@@ -4,6 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import styles from "./ImageWithLoader.module.css"; // CSS for transitions
 import logo from "@/public/images/logo.webp";
 import clsx from "clsx";
+
 const ImageWithLoader = ({
   src,
   alt,

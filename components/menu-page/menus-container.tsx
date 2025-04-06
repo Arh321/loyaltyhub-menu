@@ -77,9 +77,11 @@ const MenusContainer = () => {
                     <div className="w-full h-full absolute top-0 left-0">
                       <Image
                         src={
-                          departmentsImageData.find(
-                            (image) => image.id === menu.menu_id
-                          )?.image as StaticImageData
+                          menu.menu_image
+                            ? menu.menu_image
+                            : (departmentsImageData.find(
+                                (image) => image.id === menu.menu_id
+                              )?.image as StaticImageData)
                         }
                         alt={menu.menu_name}
                         fill

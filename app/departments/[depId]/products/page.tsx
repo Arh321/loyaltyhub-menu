@@ -7,6 +7,7 @@ import useManageProducts from "@/hooks/useManageProducts";
 import ProductsSectionContainer from "@/components/products-page/products-section/products-section-container";
 import { useEffect, useRef, Suspense } from "react";
 import BasketPopup from "@/components/products-page/products-section/basket-popup";
+
 const ProductsPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const {

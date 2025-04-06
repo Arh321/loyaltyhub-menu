@@ -2,9 +2,13 @@ import { getCompanies } from "@/api/companyService";
 import { ICompany } from "@/types/company-type";
 import { IHttpResult } from "@/types/http-result";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCompany, setCompanyLogo } from "@/redux/company-slice/companySlice";
+import {
+  setCompany,
+  setCompanyLogo,
+  setCompanyVat,
+} from "@/redux/company-slice/companySlice";
 
 const defaultThemeConfig = {
   primary: "#005B4C",
@@ -34,16 +38,25 @@ const darkThemeConfig = {
 };
 
 interface IParsedConfig {
-  primary: string;
-  primaryText: string;
-  background: string;
-  mode: string;
-  secondary: string;
-  secondaryText: string;
-  gray: string;
-  text: string;
-  white: string;
-  image_url?: string;
+  themeConfigs: {
+    primary: string;
+    primaryText: string;
+    background: string;
+    mode: string;
+    secondary: string;
+    secondaryText: string;
+    gray: string;
+    text: string;
+    white: string;
+  };
+  generalConfigs: {
+    image_url: string;
+    hasVat: boolean;
+    vat: string;
+    hasWellcomeText: boolean;
+    wellcomeText: string;
+    wellcomeTextPos: string;
+  };
 }
 
 const useThemeConfig = () => {
@@ -60,6 +73,12 @@ const useThemeConfig = () => {
     refetchOnWindowFocus: false,
   });
 
+  const [welcomeModal, setWelcomeModal] = useState({
+    isOpen: false,
+    title: "",
+    description: "",
+  });
+
   const dispatch = useDispatch();
 
   const setThemeConfig = () => {
@@ -71,14 +90,25 @@ const useThemeConfig = () => {
       const parsedConfig: IParsedConfig = JSON.parse(
         companyData.result[0].config
       );
-      if (parsedConfig.image_url) {
-        dispatch(setCompanyLogo(parsedConfig.image_url));
+
+      if (parsedConfig.generalConfigs.image_url) {
+        dispatch(setCompanyLogo(parsedConfig.generalConfigs.image_url));
+      }
+      if (parsedConfig.generalConfigs.hasVat) {
+        dispatch(setCompanyVat(parsedConfig.generalConfigs.vat));
+      }
+      if (parsedConfig.generalConfigs.hasWellcomeText) {
+        setWelcomeModal({
+          isOpen: true,
+          title: parsedConfig.generalConfigs.wellcomeText,
+          description: parsedConfig.generalConfigs.wellcomeTextPos,
+        });
       }
       // Use company theme config if it exists
       currentThemeConfig = {
         ...defaultThemeConfig,
-        ...parsedConfig,
-        ...(parsedConfig.mode === "dark" ? darkThemeConfig : {}),
+        ...parsedConfig.themeConfigs,
+        ...(parsedConfig.themeConfigs.mode === "dark" ? darkThemeConfig : {}),
       };
       root.style.setProperty(
         "--primary-hover",
@@ -118,6 +148,8 @@ const useThemeConfig = () => {
     isError,
     error,
     refetch,
+    welcomeModal,
+    setWelcomeModal,
   };
 };
 

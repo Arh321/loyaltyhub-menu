@@ -169,7 +169,7 @@ const CompanyInfoContainer = () => {
 
 export default CompanyInfoContainer;
 
-const CompanyInfoItem = ({
+export const CompanyInfoItem = ({
   icon,
   title,
   onClick,
@@ -192,30 +192,3 @@ const CompanyInfoItem = ({
     </div>
   );
 };
-//  <div className="w-full h-[200px] flex flex-col items-center justify-center gap-2 absolute top-0 left-0">
-//         <div className="!rounded-full !size-[100px] overflow-hidden">
-//           <ImageWithLoader
-//             src={companyLogo || ""}
-//             alt="company logo"
-//             width={100}
-//             height={100}
-//             imageClass="object-cover "
-//           />
-//         </div>
-
-//         <span className="text-white text-sm font-Yekan-Medium">
-//           {company?.name}
-//         </span>
-//         <span className="text-light-primary text-xs font-Yekan-Medium">
-//           Baharat Cafe
-//         </span>
-//       </div>
-//       <div className="w-full h-[calc(100%-150px)] flex flex-col justify-center  gap-4 bg-light-background rounded-tl-full p-4 mt-[150px] z-10 relative">
-//         <div className="flex flex-col items-center gap-2 ">
-//           <span className="text-light-primary text-sm font-Yekan-Medium">
-//             {company?.description}
-//           </span>
-//         </div>
-//         <div className="w-full h-1 border-gradient-primary border-b-2 border-light-primary"></div>
-//         <div className="w-full grid grid-cols-3"></div>
-//       </div>

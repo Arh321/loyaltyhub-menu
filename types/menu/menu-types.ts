@@ -4,6 +4,9 @@ export interface IMenu {
   menu_description: string;
   menu_created_at: Date;
   menu_updated_at: Date;
+  menu_image?: string;
+  total_products_count: number;
+  total_products_price: number;
   categories: Category[];
 }
 
@@ -38,6 +41,11 @@ export interface Thumbnail {
   url: string;
 }
 
-export interface IBasketState extends Product {
+export interface IBasketState {
+  productId: number;
+  image: string;
+  title: string;
+  price: number;
+  discount: number;
   quantity: number;
 }

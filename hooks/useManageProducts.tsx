@@ -2,7 +2,7 @@ import { useParams } from "next/navigation";
 import { useMenus } from "./useMenus";
 
 import { useEffect, useMemo, useState } from "react";
-import { Category, IMenu } from "@/types/menu/menu-types";
+import { Category } from "@/types/menu/menu-types";
 import { exampleMenu } from "@/components/departments-page/departments-image-data";
 const useManageProducts = () => {
   const { depId } = useParams();

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useProducts } from "@/hooks/useSearchProducts";
 import { Spin, Input } from "antd";
-import { Product } from "@/types/menu/menu-types";
+import { ISearchedProduct } from "@/types/products/products";
 import ProductsCard from "@/components/products-page/products-section/products-card";
 
 const SearchPage = () => {
@@ -51,9 +51,9 @@ const SearchPage = () => {
           <div className="text-gray-400 text-center">محصولی یافت نشد</div>
         ) : (
           <div className="flex flex-col gap-4 overflow-y-auto h-full pb-24">
-            {products?.data?.map((product: Product) => (
+            {products?.data?.map((product: ISearchedProduct) => (
               // <ProductCard product={product} key={product.product_id} />
-              <ProductsCard product={product} key={product.id} />
+              <ProductsCard product={product} key={product.product_id} />
             ))}
           </div>
         )}

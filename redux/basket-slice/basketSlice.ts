@@ -18,7 +18,7 @@ const basketSlice = createSlice({
     },
     removeFromBasket: (state, action: PayloadAction<IBasketState>) => {
       state.basket = state.basket.filter(
-        (product) => product.id !== action.payload.id
+        (product) => product.productId !== action.payload.productId
       );
     },
     clearBasket: (state) => {
@@ -26,7 +26,7 @@ const basketSlice = createSlice({
     },
     incrementQuantity: (state, action: PayloadAction<{ id: number }>) => {
       const product = state.basket.find(
-        (product) => product.id === action.payload.id
+        (product) => product.productId === action.payload.id
       );
       if (product) {
         product.quantity += 1;
@@ -34,12 +34,14 @@ const basketSlice = createSlice({
     },
     decrementQuantity: (state, action: PayloadAction<{ id: number }>) => {
       const product = state.basket.find(
-        (product) => product.id === action.payload.id
+        (product) => product.productId === action.payload.id
       );
       if (product) {
         product.quantity -= 1;
         if (product?.quantity === 0) {
-          state.basket = state.basket.filter((item) => item.id !== product.id);
+          state.basket = state.basket.filter(
+            (item) => item.productId !== product.productId
+          );
         }
       }
     },
