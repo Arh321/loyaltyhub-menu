@@ -10,7 +10,7 @@ const ProductPrice = ({
       <span dir="ltr" className="line-through text-red-600">
         {price.toLocaleString("fa-IR")}
       </span>
-      <span>
+      <span className="text-light-secondary-text">
         <span dir="ltr">
           {(price - price * (discount / 100)).toLocaleString("fa-IR")}
         </span>
@@ -18,7 +18,7 @@ const ProductPrice = ({
       </span>
     </span>
   ) : (
-    <span className="w-full text-light-secondaryText">
+    <span className="w-full text-light-secondary-text">
       <span>{price.toLocaleString("fa-IR")}</span>
       <span className="pr-1">تومان</span>
     </span>

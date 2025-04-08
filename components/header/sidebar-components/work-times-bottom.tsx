@@ -70,7 +70,7 @@ const WorkTimesDrawer: React.FC<WorkTimesDrawerProps> = ({ open, onClose }) => {
       open={open}
       classNames={{
         header:
-          "!border-none font-Yekan-Medium [&_.ant-drawer-header-title]:flex-row-reverse !p-2",
+          "!border-none font-Yekan-Medium [&_.ant-drawer-header-title]:flex-row-reverse !text-light-secondary-text [&_.anticon-close]:!text-light-secondary-text !p-2",
         content: "!bg-light-background rounded-t-xl",
         body: "!p-2",
       }}
@@ -82,16 +82,24 @@ const WorkTimesDrawer: React.FC<WorkTimesDrawerProps> = ({ open, onClose }) => {
         className=" [&_.ant-list-items]:flex [&_.ant-list-items]:flex-col [&_.ant-list-items]:gap-2 overflow-hidden"
         renderItem={(item) => (
           <List.Item
-            className={`flex justify-between items-center font-Yekan-Medium rounded-xl overflow-hidden h-12 !py-0 bg-[rgb(255,255,255,0.5)] backdrop-blur-sm !border-none`}
+            className={clsx(
+              "flex justify-between items-center font-Yekan-Medium rounded-xl overflow-hidden h-12 !py-0  backdrop-blur-sm !border-none",
+              item.isToday && "bg-light-secondary"
+            )}
           >
             <span
               className={clsx(
                 "w-4 h-full",
-                item.isToday ? "bg-light-primary" : "bg-light-primary-disabled"
+                item.isToday ? "bg-light-primary" : "bg-transparent"
               )}
             ></span>
-            <span className="font-bold grow text-center">{item.day}</span>
-            <span className="grow text-center"> {item.time}</span>
+            <span className="font-bold grow text-center text-light-secondary-text">
+              {item.day}
+            </span>
+            <span className="grow text-center text-light-secondary-text">
+              {" "}
+              {item.time}
+            </span>
           </List.Item>
         )}
       />

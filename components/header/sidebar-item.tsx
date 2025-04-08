@@ -11,7 +11,7 @@ const SidebarItems = ({
 }) => {
   return (
     <li
-      className="flex items-center gap-3 p-2 hover:bg-light-primary-disabled rounded transition cursor-pointer font-Yekan-Medium"
+      className="flex text-light-secondary-text items-center gap-3 p-2 hover:bg-light-secondary rounded transition cursor-pointer font-Yekan-Medium"
       onClick={onClick}
     >
       {icon}

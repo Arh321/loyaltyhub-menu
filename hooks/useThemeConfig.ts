@@ -2,13 +2,14 @@ import { getCompanies } from "@/api/companyService";
 import { ICompany } from "@/types/company-type";
 import { IHttpResult } from "@/types/http-result";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import {
   setCompany,
   setCompanyLogo,
   setCompanyVat,
 } from "@/redux/company-slice/companySlice";
+import { usePathname } from "next/navigation";
 
 const defaultThemeConfig = {
   primary: "#005B4C",
@@ -37,28 +38,6 @@ const darkThemeConfig = {
   image_url: "",
 };
 
-interface IParsedConfig {
-  themeConfigs: {
-    primary: string;
-    primaryText: string;
-    background: string;
-    mode: string;
-    secondary: string;
-    secondaryText: string;
-    gray: string;
-    text: string;
-    white: string;
-  };
-  generalConfigs: {
-    image_url: string;
-    hasVat: boolean;
-    vat: string;
-    hasWellcomeText: boolean;
-    wellcomeText: string;
-    wellcomeTextPos: string;
-  };
-}
-
 const useThemeConfig = () => {
   const {
     data: companyData,
@@ -79,67 +58,88 @@ const useThemeConfig = () => {
     description: "",
   });
 
-  const dispatch = useDispatch();
+  const parsedConfig = useMemo(() => {
+    return JSON.parse(companyData?.result?.[0]?.config ?? "{}");
+  }, [companyData]);
 
-  const setThemeConfig = () => {
+  const dispatch = useDispatch();
+  const pathname = usePathname();
+
+  const setThemeConfig = useCallback(() => {
     const root = document.documentElement;
     let currentThemeConfig = defaultThemeConfig;
 
     if (companyData?.result?.[0]?.config) {
-      // Parse config string to theme config object
-      const parsedConfig: IParsedConfig = JSON.parse(
-        companyData.result[0].config
-      );
-
       if (parsedConfig.generalConfigs.image_url) {
         dispatch(setCompanyLogo(parsedConfig.generalConfigs.image_url));
       }
       if (parsedConfig.generalConfigs.hasVat) {
         dispatch(setCompanyVat(parsedConfig.generalConfigs.vat));
       }
-      if (parsedConfig.generalConfigs.hasWellcomeText) {
-        setWelcomeModal({
-          isOpen: true,
-          title: parsedConfig.generalConfigs.wellcomeText,
-          description: parsedConfig.generalConfigs.wellcomeTextPos,
-        });
-      }
-      // Use company theme config if it exists
+
       currentThemeConfig = {
         ...defaultThemeConfig,
         ...parsedConfig.themeConfigs,
         ...(parsedConfig.themeConfigs.mode === "dark" ? darkThemeConfig : {}),
       };
-      root.style.setProperty(
-        "--primary-hover",
-        `${currentThemeConfig.primary}dd`
-      );
-      root.style.setProperty(
-        "--primary-disabled",
-        `${currentThemeConfig.primary}60`
-      );
-      root.style.setProperty("--primary-text", currentThemeConfig.primaryText);
-      root.style.setProperty("--secondary", currentThemeConfig.secondary);
-      root.style.setProperty(
-        "--secondary-text",
-        currentThemeConfig.secondaryText
-      );
-      root.style.setProperty("--gray", currentThemeConfig.gray);
-      root.style.setProperty(
-        "--background-theme",
-        currentThemeConfig.background
-      );
-      root.style.setProperty("--white", currentThemeConfig.white);
-      root.style.setProperty("--text", currentThemeConfig.text);
+
+      const themeProperties = {
+        "--primary-hover": `${currentThemeConfig.primary}dd`,
+        "--primary": currentThemeConfig.primary,
+        "--primary-disabled": `${currentThemeConfig.primary}60`,
+        "--primary-text": currentThemeConfig.primaryText,
+        "--secondary": currentThemeConfig.secondary,
+        "--secondary-text": currentThemeConfig.secondaryText,
+        "--gray": currentThemeConfig.gray,
+        "--background-theme": currentThemeConfig.background,
+        "--white": currentThemeConfig.white,
+        "--text": currentThemeConfig.text,
+      };
+
+      Object.entries(themeProperties).forEach(([key, value]) => {
+        root.style.setProperty(key, value);
+      });
     }
-  };
+  }, [companyData, dispatch, parsedConfig]);
+
+  const checkWelcomeModal = useCallback(() => {
+    const sessionKey = "welcomeModalShown";
+
+    const isWelcomeModalShown = sessionStorage.getItem(sessionKey);
+
+    if (isWelcomeModalShown) {
+      return;
+    }
+
+    if (
+      parsedConfig.generalConfigs.hasWellcomeText &&
+      pathname.includes("/departments/")
+    ) {
+      setWelcomeModal({
+        isOpen: true,
+        title: parsedConfig.generalConfigs.wellcomeText,
+        description: parsedConfig.generalConfigs.wellcomeTextPos,
+      });
+      sessionStorage.setItem(sessionKey, "true");
+    }
+  }, [parsedConfig, pathname]);
 
   useEffect(() => {
-    setThemeConfig();
-    if (companyData?.result?.[0]) {
-      dispatch(setCompany(companyData.result[0]));
+    if (!isLoading && !isRefetching) {
+      setThemeConfig();
+      if (companyData?.result?.[0]) {
+        dispatch(setCompany(companyData.result[0]));
+      }
+      checkWelcomeModal();
     }
-  }, [companyData]);
+  }, [
+    companyData,
+    dispatch,
+    setThemeConfig,
+    isLoading,
+    isRefetching,
+    checkWelcomeModal,
+  ]);
 
   return {
     data: companyData,

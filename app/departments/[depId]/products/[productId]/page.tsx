@@ -12,7 +12,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import ProductPrice from "@/components/products-page/products-section/product-price";
 
 const ProductPage = () => {
@@ -46,104 +46,106 @@ const ProductPage = () => {
 
   if (products)
     return (
-      <main className="w-full h-full flex flex-col">
-        <div className="w-full h-1/2 bg-white overflow-hidden relative">
-          <div
-            style={{
-              background:
-                "linear-gradient(to top, var(--background-theme),transparent 30%, rgb(0,0,0,0.7) )",
-            }}
-            className="absolute top-0 w-full h-full z-[2]"
-            aria-hidden="true"
-          ></div>
-          <ImageWithLoader
-            src={products.data[0].image_url}
-            alt={products.data[0].name}
-            width={110}
-            height={110}
-            imageClass="object-cover"
-          />
-        </div>
-        <section className="w-full h-1/2 flex flex-col justify-evenly p-4">
-          <h1 className="w-full flex">
-            <span className="text-light-text font-Yekan-Medium text-base">
-              {products.data[0].name}
-            </span>
-          </h1>
-          <div className="w-full max-h-[100px] overflow-y-auto no-scrollbar flex flex-col">
-            <p className="text-light-text font-Yekan-Light text-sm">
-              {products.data[0].description}
-            </p>
+      <Suspense fallback={<SplashScreen />}>
+        <main className="w-full h-full flex flex-col">
+          <div className="w-full h-1/2 bg-white overflow-hidden relative">
+            <div
+              style={{
+                background:
+                  "linear-gradient(to top, var(--background-theme),transparent 30%, rgb(0,0,0,0.7) )",
+              }}
+              className="absolute top-0 w-full h-full z-[2]"
+              aria-hidden="true"
+            ></div>
+            <ImageWithLoader
+              src={products.data[0].image_url}
+              alt={products.data[0].name}
+              width={110}
+              height={110}
+              imageClass="object-cover"
+            />
           </div>
-          <div className="w-full flex items-center justify-end">
-            <span className="w-max self-end">
-              <ProductPrice
-                price={products.data[0].price}
-                discount={products.data[0].discount}
-              />
-            </span>
-          </div>
-          <div className="w-full h-[40px] flex items-center justify-evenly">
-            <CTAButton
-              onClick={() =>
-                dispatch(
-                  addToBasket({
-                    productId: Number(productId),
-                    quantity: 1,
-                    image: products.data[0].image_url,
-                    title: products.data[0].name,
-                    price: products.data[0].price,
-                    discount: products.data[0].discount,
-                  })
-                )
-              }
-              className="w-max py-1 px-4 h-full"
-              aria-label="Add to cart"
-            >
-              سفارش دهید
-            </CTAButton>
-            {productInBasket && (
-              <div
-                className="w-max h-full justify-between flex items-center gap-4 animate-fadeIn"
-                role="group"
-                aria-label="Quantity controls"
+          <section className="w-full h-1/2 flex flex-col justify-evenly p-4">
+            <h1 className="w-full flex">
+              <span className="text-light-secondary-text  font-Yekan-Medium text-base">
+                {products.data[0].name}
+              </span>
+            </h1>
+            <div className="w-full max-h-[100px] overflow-y-auto no-scrollbar flex flex-col">
+              <p className="text-light-secondary-text font-Yekan-Light text-sm">
+                {products.data[0].description}
+              </p>
+            </div>
+            <div className="w-full flex items-center justify-end">
+              <span className="w-max self-end">
+                <ProductPrice
+                  price={products.data[0].price}
+                  discount={products.data[0].discount}
+                />
+              </span>
+            </div>
+            <div className="w-full h-[40px] flex items-center justify-evenly">
+              <CTAButton
+                onClick={() =>
+                  dispatch(
+                    addToBasket({
+                      productId: Number(productId),
+                      quantity: 1,
+                      image: products.data[0].image_url,
+                      title: products.data[0].name,
+                      price: products.data[0].price,
+                      discount: products.data[0].discount,
+                    })
+                  )
+                }
+                className="w-max py-1 px-4 h-full"
+                aria-label="Add to cart"
               >
-                <CTAButton
-                  className="text-sm p-[4px] h-full aspect-square !bg-light-primary !text-light-primary-text"
-                  onClick={() =>
-                    dispatch(incrementQuantity({ id: Number(productId) }))
-                  }
-                  aria-label="Increase quantity"
+                سفارش دهید
+              </CTAButton>
+              {productInBasket && (
+                <div
+                  className="w-max h-full justify-between flex items-center gap-4 animate-fadeIn"
+                  role="group"
+                  aria-label="Quantity controls"
                 >
-                  <Icon
-                    icon="basil:plus-outline"
-                    width="26"
-                    height="26"
-                    aria-hidden="true"
-                  />
-                </CTAButton>
-                <span aria-label="Current quantity">
-                  {productInBasket.quantity}
-                </span>
-                <CTAButton
-                  className="text-sm p-[4px] h-full aspect-square !bg-light-secondary !text-light-primary-text"
-                  onClick={() =>
-                    dispatch(decrementQuantity({ id: Number(productId) }))
-                  }
-                  aria-label="Decrease quantity"
-                >
-                  <Icon
-                    icon="jam:minus"
-                    width="26"
-                    height="26"
-                    aria-hidden="true"
-                  />
-                </CTAButton>
-              </div>
-            )}
-          </div>
-        </section>
-      </main>
+                  <CTAButton
+                    className="text-sm p-[4px] h-full aspect-square !bg-light-primary !text-light-primary-text"
+                    onClick={() =>
+                      dispatch(incrementQuantity({ id: Number(productId) }))
+                    }
+                    aria-label="Increase quantity"
+                  >
+                    <Icon
+                      icon="basil:plus-outline"
+                      width="26"
+                      height="26"
+                      aria-hidden="true"
+                    />
+                  </CTAButton>
+                  <span aria-label="Current quantity">
+                    {productInBasket.quantity}
+                  </span>
+                  <CTAButton
+                    className="text-sm p-[4px] h-full aspect-square !bg-light-secondary !text-light-primary-text"
+                    onClick={() =>
+                      dispatch(decrementQuantity({ id: Number(productId) }))
+                    }
+                    aria-label="Decrease quantity"
+                  >
+                    <Icon
+                      icon="jam:minus"
+                      width="26"
+                      height="26"
+                      aria-hidden="true"
+                    />
+                  </CTAButton>
+                </div>
+              )}
+            </div>
+          </section>
+        </main>
+      </Suspense>
     );
 };
 

@@ -1,6 +1,5 @@
 import { IBasketState } from "@/types/menu/menu-types";
 import ImageWithLoader from "../image-with-loader/image-with-loader";
-import { departmentsImageData } from "../departments-page/departments-image-data";
 import { useMemo } from "react";
 import CTAButton from "../shared-components/cta-button/cta-button";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -16,11 +15,8 @@ interface BasketProductListProps {
 const BasketProductList = ({ product }: BasketProductListProps) => {
   const dispatch = useDispatch();
   const image = useMemo(() => {
-    return (
-      departmentsImageData.find((image) => image.id === product.productId)
-        ?.image.src ?? ""
-    );
-  }, [product.productId]);
+    return product.image ?? "";
+  }, [product.image]);
 
   return (
     <div className="w-full flex items-center justify-between px-4">
@@ -35,7 +31,9 @@ const BasketProductList = ({ product }: BasketProductListProps) => {
           />
         </div>
         <div className=" flex flex-col justify-between w-max">
-          <span className="text-sm font-Yekan-Medium">{product.title}</span>
+          <span className="text-sm font-Yekan-Medium text-light-secondary-text">
+            {product.title}
+          </span>
           <span className="text-sm font-Yekan-Light text-light-gray">
             {product.price}
             <span className="text-xs font-Yekan-Light text-light-gray pr-1">
@@ -54,7 +52,7 @@ const BasketProductList = ({ product }: BasketProductListProps) => {
           >
             <Icon icon="basil:plus-outline" width="24" height="24" />
           </CTAButton>
-          <span>{product.quantity}</span>
+          <span className="text-light-secondary-text">{product.quantity}</span>
           <CTAButton
             className="text-sm p-[2px] w-max h-max border border-light-primaryText text-light-primaryText !bg-transparent"
             onClick={() =>

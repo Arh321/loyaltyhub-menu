@@ -1,10 +1,15 @@
-import BasketContainer from "@/components/basket-page/basket-container";
-
+import SplashScreen from "@/components/loading/splash-screen";
+import { lazy, Suspense } from "react";
+const BasketContainer = lazy(
+  () => import("@/components/basket-page/basket-container")
+);
 const BasketPage = () => {
   return (
-    <div className="w-full h-full">
-      <BasketContainer />
-    </div>
+    <Suspense fallback={<SplashScreen />}>
+      <div className="w-full h-full">
+        <BasketContainer />
+      </div>
+    </Suspense>
   );
 };
 

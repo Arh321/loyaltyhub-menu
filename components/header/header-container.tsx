@@ -22,7 +22,7 @@ const HeaderContainer = () => {
   const isProductPage = !!productId;
 
   return (
-    <>
+    <div className="w-full flex flex-col gap-4">
       {isProductPage ? (
         <ProductHeader router={router} />
       ) : isCompanyInfoPage ? (
@@ -40,7 +40,7 @@ const HeaderContainer = () => {
         company={company as ICompany}
         companyLogo={companyLogo as string}
       />
-    </>
+    </div>
   );
 };
 

@@ -23,7 +23,7 @@ const ProductsSectionContainer = ({
                 }}
                 className=" w-full h-[1px]"
               />
-              <span className="text-light-text font-Yekan-Light text-base whitespace-nowrap px-4">
+              <span className="text-light-secondary-text font-Yekan-Light text-base whitespace-nowrap px-4">
                 {category.category_name}
               </span>
               <div
@@ -44,7 +44,7 @@ const ProductsSectionContainer = ({
       </Suspense>
       {category.length === 0 && (
         <div className="w-full flex flex-col gap-4">
-          <span className="text-light-text font-Yekan-Light text-base whitespace-nowrap px-4">
+          <span className="text-light-secondary-text font-Yekan-Light text-base whitespace-nowrap px-4">
             هیچ محصولی یافت نشد
           </span>
         </div>

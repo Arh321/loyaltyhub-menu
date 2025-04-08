@@ -36,7 +36,7 @@ const SearchPage = () => {
         className=" rounded-[10px] p-3 w-full backdrop-blur-md flex items-center gap-2"
         classNames={{
           input:
-            "!bg-[rgba(0,0,0,0.15)]  !text-gray-500 !placeholder:text-gray-500 !border-none font-Yekan-Regular",
+            "!bg-[rgba(0,0,0,0.15)]  !text-light-secondary-text placeholder:!text-light-gray !border-none font-Yekan-Regular",
         }}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

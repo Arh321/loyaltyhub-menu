@@ -5,7 +5,7 @@ import MenusSectionContainer from "@/components/products-page/menus-section/menu
 import CategoriesSectionContainer from "@/components/products-page/categories-section/categories-section-container";
 import useManageProducts from "@/hooks/useManageProducts";
 import ProductsSectionContainer from "@/components/products-page/products-section/products-section-container";
-import { useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef, Suspense, useMemo } from "react";
 import BasketPopup from "@/components/products-page/products-section/basket-popup";
 
 const ProductsPage = () => {
@@ -39,6 +39,14 @@ const ProductsPage = () => {
     scrollToCategory();
   }, [selectedCategory]);
 
+  const filteredCategories = useMemo(() => {
+    return (
+      menus
+        .find((menu) => menu.menu_id === selectedMenu)
+        ?.categories.filter((category) => category.category_id !== null) ?? []
+    );
+  }, [menus, selectedMenu]);
+
   if (isLoading || isRefetching) return <SplashScreen />;
   if (isError) {
     return <ErrorComponent refetch={() => refetch()} />;
@@ -54,10 +62,7 @@ const ProductsPage = () => {
             setSelectedMenu={setSelectedMenu}
           />
           <CategoriesSectionContainer
-            categories={
-              menus.find((menu) => menu.menu_id === selectedMenu)?.categories ??
-              []
-            }
+            categories={filteredCategories}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
@@ -68,10 +73,7 @@ const ProductsPage = () => {
             className="w-full h-full overflow-y-auto pb-[100px]"
           >
             <ProductsSectionContainer
-              category={
-                menus.find((menu) => menu.menu_id === selectedMenu)
-                  ?.categories ?? []
-              }
+              category={filteredCategories}
               selectedCategory={selectedCategory}
             />
           </div>

@@ -74,10 +74,10 @@ const ProductsCard = ({ product }: IProductsCardProps) => {
         className="w-full"
       >
         <div className="w-full h-full flex flex-col gap-2 justify-between">
-          <span className="text-light-text font-Yekan-Medium text-base">
+          <span className="text-light-secondary-text font-Yekan-Medium text-base">
             {productName}
           </span>
-          <span className="text-light-text w-max self-end font-Yekan-Regular text-base">
+          <span className="text-light-secondary-text w-max self-end font-Yekan-Regular text-base">
             {productName}
           </span>
           <span className="w-max self-end">

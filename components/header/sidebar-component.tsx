@@ -6,7 +6,6 @@ import CTAButton from "../shared-components/cta-button/cta-button";
 import {
   CloseOutlined,
   FieldTimeOutlined,
-  InfoOutlined,
   ShopOutlined,
 } from "@ant-design/icons";
 import SidebarItems from "./sidebar-item";
@@ -36,17 +35,17 @@ const SidebarComponent = ({
   const sidebarItems = [
     {
       text: "اطلاعات مجموعه",
-      icon: <ShopOutlined className="text-light-text text-xl" />,
+      icon: <ShopOutlined className="text-light-secondary-text text-xl" />,
       onClick: () => router.push(`/companyInfo`),
     },
     {
       text: "ساعت کاری مجموعه",
-      icon: <FieldTimeOutlined className="text-light-text text-xl" />,
+      icon: <FieldTimeOutlined className="text-light-secondary-text text-xl" />,
       onClick: () => setOpenModals({ ...openModals, WorkTimesDrawer: true }),
     },
     {
       text: "قوانین مجموعه",
-      icon: <InfoOutlined className="text-light-text text-xl" />,
+      icon: <Icon icon="proicons:info" width="24" height="24" />,
       onClick: () => setOpenModals({ ...openModals, RulesModal: true }),
     },
   ];
@@ -58,7 +57,7 @@ const SidebarComponent = ({
         title={
           <div className="w-full flex flex-col gap-2 relative">
             <div className="flex flex-col items-center gap-2 ">
-              <div className="relative size-[50px] rounded-full overflow-hidden">
+              <div className="relative size-[70px] rounded-full overflow-hidden border-[0.3rem] border-[rgb(255,255,255,0.3)]">
                 <ImageWithLoader
                   src={companyLogo}
                   alt="company logo"
@@ -67,14 +66,14 @@ const SidebarComponent = ({
                   imageClass="object-cover"
                 />
               </div>
-              <span className="text-light-text text-xs font-Yekan-Medium">
+              <span className="text-light-secondary-text text-xs font-Yekan-Medium">
                 {company?.name}
               </span>
             </div>
             <div className="w-full h-1 border-gradient-secondary border-b-2 border-light-gray"></div>
             <CTAButton
               onClick={onClose}
-              className="!bg-transparent !border-none !text-light-text  !text-base !p-0 !w-max !h-max absolute top-0 left-0"
+              className="!bg-transparent !border-none !text-light-secondary-text  !text-base !p-0 !w-max !h-max absolute top-0 left-0"
             >
               <CloseOutlined />
             </CTAButton>
@@ -120,25 +119,16 @@ const SidebarComponent = ({
               width={100}
               height={100}
             />
-            <p className="mt-2 text-sm font-Yekan-Medium">
-              Digital Menu Market
+            <p className="mt-2 text-sm font-Yekan-Medium text-light-secondary-text">
+              Digital Menu
             </p>
-            <p className="text-xs text-gray-700 font-Yekan-Light">
+            <p className="text-xs text-light-secondary-text font-Yekan-Light">
               Quality at the Top
             </p>
           </div>
           {/* دکمه‌های پایانی */}
-          <button className="w-full mt-4 py-2 font-Yekan-Medium bg-light-primary text-white rounded-lg hover:darken transition">
-            درباره دیجیتال منو مارکت{" "}
-          </button>
           <button className="w-full mt-2 flex items-center font-Yekan-Medium justify-center gap-2 py-2 border border-light-primary text-light-primary rounded-lg hover:bg-light-primary hover:text-white transition">
-            <Icon
-              icon="hugeicons:instagram"
-              width="24"
-              height="24"
-              style={{ color: "rgba(33, 75, 138, 1)" }}
-            />{" "}
-            <span>Follow Us on Instagram</span>
+            درباره منو دیجیتال
           </button>
         </div>
       </Drawer>

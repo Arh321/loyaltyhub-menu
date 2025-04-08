@@ -19,7 +19,7 @@ const MainHeader = ({
         <div className="col-span-1">
           <CTAButton
             onClick={() => setOpen(true)}
-            className="!bg-transparent !border-none !text-2xl !p-0 !w-max !text-light-text"
+            className="!bg-transparent !border-none !text-2xl !p-2 !w-max !text-light-secondary-text hover:!bg-light-secondary "
           >
             <Icon icon="ion:menu" width="28" height="28" />
           </CTAButton>
@@ -38,7 +38,7 @@ const MainHeader = ({
         <div className="col-span-1 flex justify-end">
           <CTAButton
             onClick={() => router.back()}
-            className="!bg-transparent !border-none !text-xl !p-0 !w-max !text-light-text"
+            className="!bg-transparent !border-none !text-xl !p-2 !w-max !text-light-secondary-text hover:!bg-light-secondary "
           >
             <LeftOutlined />
           </CTAButton>

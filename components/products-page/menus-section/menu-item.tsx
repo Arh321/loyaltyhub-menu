@@ -1,6 +1,5 @@
 import ImageWithLoader from "@/components/image-with-loader/image-with-loader";
 import { IMenu } from "@/types/menu/menu-types";
-import { departmentsImageData } from "@/components/departments-page/departments-image-data";
 
 interface IMenuItemProps {
   menu: IMenu;
@@ -11,10 +10,7 @@ const MenuItem = ({ menu }: IMenuItemProps) => {
     <div className="w-full h-full  relative ">
       <div className="w-full h-full absolute top-0 left-0">
         <ImageWithLoader
-          src={
-            departmentsImageData.find((image) => image.id === menu.menu_id)
-              ?.image.src ?? ""
-          }
+          src={menu.menu_image}
           alt={menu.menu_name}
           width={100}
           height={100}

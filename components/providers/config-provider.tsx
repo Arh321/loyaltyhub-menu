@@ -25,13 +25,13 @@ const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
         <WelcomeModal
           isOpen={welcomeModal.isOpen}
           title={welcomeModal.title}
-          description={welcomeModal.description}
           onOk={() => {
             setWelcomeModal({
               isOpen: false,
               title: "",
               description: "",
             });
+            sessionStorage.setItem("welcomeModalShown", "true");
           }}
           onCancel={() => {
             setWelcomeModal({
@@ -39,6 +39,7 @@ const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
               title: "",
               description: "",
             });
+            sessionStorage.setItem("welcomeModalShown", "true");
           }}
         />
       </div>

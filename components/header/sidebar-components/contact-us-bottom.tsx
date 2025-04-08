@@ -16,7 +16,7 @@ const ContactUsBottom: React.FC<ContactUsBottomProps> = ({ open, onClose }) => {
     { title: "آدرس", phoneNumber: company?.address_line },
     { title: "کد پستی", phoneNumber: company?.postal_code },
   ];
-  // console.log("entered contactusbottom drawer");
+
   return (
     <Drawer
       title="ارتباط با ما"
@@ -27,7 +27,7 @@ const ContactUsBottom: React.FC<ContactUsBottomProps> = ({ open, onClose }) => {
       open={open}
       classNames={{
         header:
-          "!border-none font-Yekan-Medium [&_.ant-drawer-header-title]:flex-row-reverse !p-2",
+          "!border-none font-Yekan-Medium [&_.ant-drawer-header-title]:flex-row-reverse !text-light-secondary-text [&_.anticon-close]:!text-light-secondary-text !p-2",
         content: "!bg-light-background rounded-t-xl",
         body: "!p-2",
       }}
@@ -39,8 +39,13 @@ const ContactUsBottom: React.FC<ContactUsBottomProps> = ({ open, onClose }) => {
         className=" custom-list gap-2 overflow-y-auto font-Yekan-Medium"
         renderItem={(item) => (
           <List.Item className={`flex justify-between items-center `}>
-            <span className="font-bold">{item.title}</span>
-            <span> {item.phoneNumber}</span>
+            <span className="font-Yekan-Medium text-light-secondary-text">
+              {item.title}
+            </span>
+            <span className="text-light-secondary-text">
+              {" "}
+              {item.phoneNumber}
+            </span>
           </List.Item>
         )}
       />
