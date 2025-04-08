@@ -70,7 +70,7 @@ const ProductsPage = () => {
         <div className="w-full h-[calc(100%-204px)] overflow-hidden">
           <div
             ref={scrollRef}
-            className="w-full h-full overflow-y-auto pb-[100px]"
+            className="w-full h-full overflow-y-auto pb-[200px]"
           >
             <ProductsSectionContainer
               category={filteredCategories}

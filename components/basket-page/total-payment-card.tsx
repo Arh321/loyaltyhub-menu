@@ -15,7 +15,7 @@ const TotoalPaymentCard = () => {
 
   //   useEffect(() => {}, []);
   return (
-    <div className="bg-light-secondary rounded-t-xl p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_-2px_4px_-1px_rgba(0,0,0,0.06)] text-base">
+    <div className="bg-light-secondary relative z-[2] rounded-t-xl p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_-2px_4px_-1px_rgba(0,0,0,0.06)] text-base">
       <div className="flex flex-col justify-between gap-2 items-center ">
         <div className="flex gap-1 justify-between w-full">
           <span className="text-light-secondary-text">مبلغ پرداختی:</span>

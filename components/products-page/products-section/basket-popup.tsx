@@ -21,7 +21,7 @@ const BasketPopup = () => {
       <div className="w-[90%]  h-full flex flex-col gap-4 p-4 mx-auto bg-light-primary rounded-lg">
         <div className="w-full h-full flex  items-center justify-between">
           <div className="w-max h-full flex items-center gap-2">
-            <span className="size-8 text-sm flex items-center justify-center rounded-full bg-light-background">
+            <span className="size-8 text-sm flex items-center justify-center rounded-full bg-light-secondary text-light-secondary-text">
               {totalItems}
             </span>
             <span className="text-light-primary-text text-xs">

@@ -9,7 +9,7 @@ import {
 } from "@/redux/basket-slice/basketSlice";
 import { decrementQuantity } from "@/redux/basket-slice/basketSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { Suspense, useMemo } from "react";
@@ -17,6 +17,8 @@ import ProductPrice from "@/components/products-page/products-section/product-pr
 
 const ProductPage = () => {
   const { productId } = useParams();
+  const router = useRouter();
+  const { depId } = useParams();
 
   const { data: products, isLoading } = useProducts(
     undefined,
@@ -87,21 +89,23 @@ const ProductPage = () => {
             <div className="w-full h-[40px] flex items-center justify-evenly">
               <CTAButton
                 onClick={() =>
-                  dispatch(
-                    addToBasket({
-                      productId: Number(productId),
-                      quantity: 1,
-                      image: products.data[0].image_url,
-                      title: products.data[0].name,
-                      price: products.data[0].price,
-                      discount: products.data[0].discount,
-                    })
-                  )
+                  !productInBasket
+                    ? dispatch(
+                        addToBasket({
+                          productId: Number(productId),
+                          quantity: 1,
+                          image: products.data[0].image_url,
+                          title: products.data[0].name,
+                          price: products.data[0].price,
+                          discount: products.data[0].discount,
+                        })
+                      )
+                    : router.push(`/departments/${depId}/basket`)
                 }
                 className="w-max py-1 px-4 h-full"
                 aria-label="Add to cart"
               >
-                سفارش دهید
+                {productInBasket ? "مشاهده سبد خرید" : "سفارش دهید"}
               </CTAButton>
               {productInBasket && (
                 <div

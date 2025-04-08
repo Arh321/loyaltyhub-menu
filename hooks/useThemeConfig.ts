@@ -10,7 +10,7 @@ import {
   setCompanyVat,
 } from "@/redux/company-slice/companySlice";
 import { usePathname } from "next/navigation";
-
+import { initBasket } from "@/redux/basket-slice/basketSlice";
 const defaultThemeConfig = {
   primary: "#005B4C",
   primaryText: "#ffffff",
@@ -124,6 +124,13 @@ const useThemeConfig = () => {
     }
   }, [parsedConfig, pathname]);
 
+  const handleInitBasket = useCallback(() => {
+    const basket = localStorage.getItem("basket");
+    if (basket) {
+      dispatch(initBasket(JSON.parse(basket)));
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     if (!isLoading && !isRefetching) {
       setThemeConfig();
@@ -131,6 +138,7 @@ const useThemeConfig = () => {
         dispatch(setCompany(companyData.result[0]));
       }
       checkWelcomeModal();
+      handleInitBasket();
     }
   }, [
     companyData,
