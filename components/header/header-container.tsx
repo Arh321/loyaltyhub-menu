@@ -8,6 +8,7 @@ import { ICompany } from "@/types/company-type";
 import ProductHeader from "./header-components/product-page-header";
 import CompanyHeader from "./header-components/company-info-header";
 import MainHeader from "./header-components/main-header";
+import SplitPageHeader from "./header-components/splite-page-header";
 
 const HeaderContainer = () => {
   const { productId } = useParams();
@@ -20,6 +21,7 @@ const HeaderContainer = () => {
 
   const isCompanyInfoPage = pathname === "/companyInfo";
   const isProductPage = !!productId;
+  const isInSplt = pathname.includes("split");
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -27,6 +29,8 @@ const HeaderContainer = () => {
         <ProductHeader router={router} />
       ) : isCompanyInfoPage ? (
         <CompanyHeader setOpen={setOpen} router={router} />
+      ) : isInSplt ? (
+        <SplitPageHeader router={router} />
       ) : (
         <MainHeader
           setOpen={setOpen}
