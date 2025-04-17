@@ -1,13 +1,9 @@
-// redux/slices/itemSplitSlice.ts
+import { IBasketState } from "@/types/menu/menu-types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-export interface AssignedItem {
-  productId: number;
-  quantity: number;
-}
 
 export interface AssignedParticipant {
   participantId: string;
-  items: AssignedItem[];
+  items: IBasketState[];
 }
 
 export interface ItemSplitState {
@@ -26,11 +22,10 @@ const itemSplitSlice = createSlice({
       state,
       action: PayloadAction<{
         participantId: string;
-        productId: number;
-        quantity: number;
+        item: IBasketState;
       }>
     ) => {
-      const { participantId, productId, quantity } = action.payload;
+      const { participantId, item } = action.payload;
 
       const participant = state.assignments.find(
         (p) => p.participantId === participantId
@@ -39,19 +34,22 @@ const itemSplitSlice = createSlice({
       if (!participant) {
         state.assignments.push({
           participantId,
-          items: [{ productId, quantity }],
+          items: [{ ...item, quantity: 1 }],
         });
       } else {
-        const item = participant.items.find((i) => i.productId === productId);
-        if (item) {
-          item.quantity = quantity;
+        const existing = participant.items.find(
+          (i) => i.productId === item.productId
+        );
+
+        if (existing) {
+          existing.quantity += 1;
         } else {
-          participant.items.push({ productId, quantity });
+          participant.items.push({ ...item, quantity: 1 });
         }
       }
     },
 
-    removeItemFromParticipant: (
+    decreaseItemFromParticipant: (
       state,
       action: PayloadAction<{
         participantId: string;
@@ -59,15 +57,21 @@ const itemSplitSlice = createSlice({
       }>
     ) => {
       const { participantId, productId } = action.payload;
-
       const participant = state.assignments.find(
         (p) => p.participantId === participantId
       );
 
       if (participant) {
-        participant.items = participant.items.filter(
-          (i) => i.productId !== productId
-        );
+        const item = participant.items.find((i) => i.productId === productId);
+        if (item) {
+          if (item.quantity > 1) {
+            item.quantity -= 1;
+          } else {
+            participant.items = participant.items.filter(
+              (i) => i.productId !== productId
+            );
+          }
+        }
       }
     },
 
@@ -79,7 +83,7 @@ const itemSplitSlice = createSlice({
 
 export const {
   assignItemToParticipant,
-  removeItemFromParticipant,
+  decreaseItemFromParticipant,
   resetItemSplit,
 } = itemSplitSlice.actions;
 
