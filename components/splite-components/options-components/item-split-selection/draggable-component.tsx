@@ -10,12 +10,12 @@ const Draggable = ({ id, label }: { id: string; label: React.JSX.Element }) => {
   });
 
   const handleMouseDown = (event: React.MouseEvent) => {
-    setStartPos({ x: event.clientX, y: event.clientY });
+    setStartPos({ x: event.clientX - 160, y: event.clientY - 80 });
   };
 
   const handleTouchStart = (event: React.TouchEvent) => {
     const touch = event.touches[0];
-    setStartPos({ x: touch.clientX, y: touch.clientY });
+    setStartPos({ x: touch.clientX - 160, y: touch.clientY - 80 });
   };
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -44,8 +44,8 @@ const Draggable = ({ id, label }: { id: string; label: React.JSX.Element }) => {
         boxShadow: isDragging
           ? "0 4px 6px rgba(255,255,255,0.5)"
           : "0 4px 6px rgba(0,0,0,0.1)",
-        left: isDragging ? `${startPos.x}px` : undefined,
-        top: isDragging ? `${startPos.y}px` : undefined,
+        left: isDragging ? `${startPos.x}px` : "10%",
+        top: isDragging ? `${startPos.y}px` : "10%",
         margin: isDragging ? "auto" : "0",
       }}
       {...listeners}

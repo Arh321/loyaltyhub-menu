@@ -1,6 +1,6 @@
 "use client";
-import { Drawer } from "antd";
-import React, { useState } from "react";
+import { Drawer, Spin } from "antd";
+import React, { Suspense, useState } from "react";
 import DnDExample from "./item-split-selection/splite-section-container";
 
 const options = [
@@ -79,10 +79,18 @@ const OptionsContainer: React.FC<OptionsContainerProps> = ({
           content: "!bg-light-background rounded-t-xl !h-full !max-h-full",
           body: "!p-2 !h-full",
         }}
-        height="95vh" // ارتفاع کلی دراور
+        height="95dvh" // ارتفاع کلی دراور
         style={{ maxHeight: "70vh", overflowY: "auto", direction: "rtl" }} // حداکثر ارتفاع لیست و قابلیت اسکرول
       >
-        <DnDExample />
+        <Suspense
+          fallback={
+            <div className="w-full h-full">
+              <Spin />
+            </div>
+          }
+        >
+          <DnDExample handleChoseOption={() => handleChoseOption("split")} />
+        </Suspense>
       </Drawer>
     </>
   );

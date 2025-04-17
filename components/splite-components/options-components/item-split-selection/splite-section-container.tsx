@@ -57,7 +57,12 @@ const Droppable = ({
     </div>
   );
 };
-export default function DnDExample() {
+
+interface DnDExampleProps {
+  handleChoseOption: () => void;
+}
+
+const DnDExample: React.FC<DnDExampleProps> = ({ handleChoseOption }) => {
   const { availableItems, decreaseItem, increaseItem, resetAvailableItems } =
     useItemSplitSelection();
 
@@ -133,8 +138,8 @@ export default function DnDExample() {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <div className="px-2 pt-2 max-w-md mx-auto h-full">
-        <div className="h-1/2 overflow-y-auto m-0 relative">
+      <div className="px-2 pt-2 max-w-md mx-auto h-full relative flex flex-col ">
+        <div className="max-h-1/2 min-h-[40%] overflow-y-auto m-0 relative">
           <h2 className="mb-2 w-full text-center font-Yekan-Medium text-light-white flex items-center justify-center gap-2">
             <Icon
               icon="qlementine-icons:items-grid-16"
@@ -164,7 +169,7 @@ export default function DnDExample() {
           {/* <Draggable id="pizza-2" label="🍕 پیتزا ۲" /> */}
         </div>
 
-        <div className="h-1/2 overflow-y-auto m-0 pt-2 relative">
+        <div className="grow overflow-y-auto m-0 pt-2 pb-8 relative transition-all">
           <div className="w-full flex items-center justify-between mb-2">
             <h2 className=" w-max text-center font-Yekan-Medium text-light-white flex items-center justify-center gap-2">
               <Icon icon="mynaui:users-group" width="20" height="20" />
@@ -199,7 +204,15 @@ export default function DnDExample() {
             className="sticky h-4 bottom-0 right-0"
           ></div>
         </div>
+        <CTAButton
+          className="absolute bottom-0 right-0 left-0 !w-2/3 !h-max !p-2 mx-auto"
+          onClick={handleChoseOption}
+        >
+          ثبت و دیدن نتیجه
+        </CTAButton>
       </div>
     </DndContext>
   );
-}
+};
+
+export default DnDExample;

@@ -42,7 +42,9 @@ const itemSplitSlice = createSlice({
         );
 
         if (existing) {
-          existing.quantity += 1;
+          if (existing.quantity <= existing.quantity + 1) {
+            existing.quantity += 1;
+          }
         } else {
           participant.items.push({ ...item, quantity: 1 });
         }

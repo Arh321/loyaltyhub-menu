@@ -7,7 +7,14 @@ import CTAButton from "@/components/shared-components/cta-button/cta-button";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-const ParticipantsComponent = () => {
+interface ParticipantsComponentProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleChoseOption: (key: any) => void;
+}
+
+const ParticipantsComponent: React.FC<ParticipantsComponentProps> = ({
+  handleChoseOption,
+}) => {
   const [name, setName] = useState("");
   const [tempNameToEdit, setTempNameToEdit] = useState<
     | {
@@ -41,7 +48,7 @@ const ParticipantsComponent = () => {
   };
 
   return (
-    <div className="px-4 pt-4 overflow-y-auto    rounded-xl shadow-md  max-w-md mx-auto space-y-4 select-none w-full h-full flex flex-col justify-between pb-20">
+    <div className="px-4 pt-4 overflow-y-auto    rounded-xl shadow-md  max-w-md mx-auto space-y-4 select-none w-full h-full flex flex-col justify-between pb-20 ">
       <div className="flex flex-col gap-4">
         <h2 className="text-center flex items-center justify-between ">
           <hr className="grow border border-dashed border-light-primary" />
@@ -125,16 +132,25 @@ const ParticipantsComponent = () => {
         </div>
       </div>
 
-      {participants.length > 0 && (
-        <div className="fixed bottom-4 right-0 flex items-center justify-center w-full">
-          <button
-            onClick={resetParticipants}
-            className="w-2/3 mx-auto bg-light-background font-Yekan-Regular text-sm text-red-500 border border-red-300 rounded-lg py-2 hover:bg-red-100 transition self-end"
-          >
-            پاک کردن همه
-          </button>
-        </div>
-      )}
+      <div className="w-full flex items-center justify-between fixed bottom-4 right-0 px-4 gap-2">
+        {participants.length > 0 && (
+          <div className=" flex items-center justify-center w-full">
+            <button
+              onClick={resetParticipants}
+              className="w-full mx-auto bg-light-background font-Yekan-Regular text-sm text-red-500 border border-red-300 rounded-lg py-2 hover:bg-red-100 transition self-end"
+            >
+              پاک کردن همه
+            </button>
+          </div>
+        )}
+        <CTAButton
+          disabled={participants.length == 0}
+          onClick={() => handleChoseOption("2")}
+          className="p-2 grow"
+        >
+          بعدی
+        </CTAButton>
+      </div>
     </div>
   );
 };
