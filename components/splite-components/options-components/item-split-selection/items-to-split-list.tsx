@@ -15,14 +15,14 @@ const ItemsToSplit = ({ product }: ItemsToSplitProps) => {
   }, [product.image]);
 
   return (
-    <div className="w-full h-full py-2 flex flex-col items-center justify-between relative">
+    <div className="w-full h-max py-2 flex flex-col items-center justify-between relative">
       <div className="w-max flex flex-col items-center gap-4">
-        <div className="size-[50px] rounded-[10px] overflow-hidden">
+        <div className="size-[70px] rounded-[10px] overflow-hidden">
           <ImageWithLoader
             src={image}
             alt={product.title}
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             imageClass=" object-cover"
           />
         </div>

@@ -8,6 +8,7 @@ import SplashScreen from "@/components/loading/splash-screen";
 import ErrorBoundaryWrapper from "@/components/error-component/ErrorBoundary";
 import NotFoundComponent from "@/components/not-found-page/not-found-component";
 import ReduxProvider from "@/redux/provider/redux-provider";
+import { NotifyProvider } from "@/components/shared-components/notife/notife";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -35,17 +36,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent transition-colors duration-300 font-Yekan-Regular text-black max-w-[768px] mx-auto h-[100dvh]`}
       >
         <ReduxProvider>
-          <Suspense fallback={<SplashScreen />}>
-            <ConfigProvider>
-              <ErrorBoundaryWrapper
-                fallback={
-                  <NotFoundComponent title="مشکلی در بارگذاری صفحه رخ داده است" />
-                }
-              >
-                <LoadingIndicator component={<>{children}</>} />
-              </ErrorBoundaryWrapper>
-            </ConfigProvider>
-          </Suspense>
+          <NotifyProvider>
+            <Suspense fallback={<SplashScreen />}>
+              <ConfigProvider>
+                <ErrorBoundaryWrapper
+                  fallback={
+                    <NotFoundComponent title="مشکلی در بارگذاری صفحه رخ داده است" />
+                  }
+                >
+                  <LoadingIndicator component={<>{children}</>} />
+                </ErrorBoundaryWrapper>
+              </ConfigProvider>
+            </Suspense>
+          </NotifyProvider>
         </ReduxProvider>
       </body>
     </html>

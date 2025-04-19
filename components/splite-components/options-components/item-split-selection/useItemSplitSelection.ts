@@ -1,68 +1,90 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { IBasketState } from "@/types/menu/menu-types";
+import { Participant } from "@/redux/participantsSlice/participantsSlice";
+import {
+  assignParticipantToItem,
+  removeParticipantFromItem,
+  resetItemSplit,
+  resetMessege,
+} from "@/redux/participantsSlice/itemSplitSlice";
+import { useNotify } from "@/components/shared-components/notife/notife";
 
 export const useItemSplitSelection = () => {
-  const basket: IBasketState[] = useSelector(
-    (state: RootState) => state.basket.basket
+  const [draggedPerson, setDraggedPerson] = useState<Participant | null>(null);
+  const { basket } = useSelector((state: RootState) => state.basket);
+  const { participants } = useSelector(
+    (state: RootState) => state.participants
   );
+  const { sharedItems, errorMessage } = useSelector(
+    (state: RootState) => state.itemSplitSlice
+  );
+  const { notify } = useNotify();
+  const participantsWithAll = useMemo(() => {
+    const allGuys = {
+      id: "1000",
+      name: "همه",
+    };
+    return participants ? [allGuys, ...participants] : [allGuys];
+  }, [participants]);
+  const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDragEnd = (e: any) => {
+    const { over, active } = e;
+    if (!over || String(active.id) === String(over.id)) return;
 
-  const [availableItems, setAvailableItems] = useState<IBasketState[]>([]);
+    const itemId = parseInt(over.id);
+    const personId = active.id;
+    if (itemId && personId) {
+      const findProduct = basket.find((pr) => pr.productId == itemId);
+      const findPerson =
+        personId == "1000"
+          ? {
+              id: "1000",
+              name: "همه",
+            }
+          : participants.find((participant) => participant.id == personId);
+
+      if (findProduct && findPerson) {
+        dispatch(
+          assignParticipantToItem({
+            participant: findPerson,
+            product: findProduct,
+          })
+        );
+      }
+    }
+  };
+
+  const handleRemove = (payload: {
+    product: IBasketState;
+    participant: Participant;
+  }) => {
+    dispatch(removeParticipantFromItem(payload));
+  };
 
   useEffect(() => {
-    setAvailableItems(basket.map((item) => ({ ...item }))); // Clone to avoid mutation
-  }, [basket]);
+    if (errorMessage) {
+      notify("error", errorMessage ?? "");
+      setTimeout(() => {
+        dispatch(resetMessege());
+      }, 300);
+    }
+  }, [errorMessage]);
 
-  const decreaseItem = (productId: number, qty: number = 1) => {
-    setAvailableItems(
-      (prev) =>
-        prev
-          .map((item) => {
-            if (item.productId !== productId) return item;
-            const newQty = item.quantity - qty;
-            return newQty > 0 ? { ...item, quantity: newQty } : null;
-          })
-          .filter(Boolean) as IBasketState[] // Remove nulls
-    );
+  const handleResetSharedItems = () => {
+    dispatch(resetItemSplit());
   };
-
-  const increaseItem = (productId: number, qty: number = 1) => {
-    const basketItem = basket.find((i) => i.productId === productId);
-    if (!basketItem) return;
-
-    setAvailableItems((prev) => {
-      const exists = prev.find((i) => i.productId === productId);
-      if (!exists) {
-        return [
-          ...prev,
-          {
-            ...basketItem,
-            quantity: Math.min(qty, basketItem.quantity),
-          },
-        ];
-      }
-
-      return prev.map((item) => {
-        if (item.productId !== productId) return item;
-        const newQty = Math.min(item.quantity + qty, basketItem.quantity);
-        return { ...item, quantity: newQty };
-      });
-    });
-  };
-
-  const resetAvailableItems = () => {
-    setAvailableItems(basket.map((item) => ({ ...item })));
-  };
-
-  const getItemById = (productId: number) =>
-    availableItems.find((i) => i.productId === productId);
 
   return {
-    availableItems,
-    decreaseItem,
-    increaseItem,
-    resetAvailableItems,
-    getItemById,
+    draggedPerson,
+    setDraggedPerson,
+    handleRemove,
+    handleDragEnd,
+    sharedItems,
+    participantsWithAll,
+    handleResetSharedItems,
+    basket,
   };
 };

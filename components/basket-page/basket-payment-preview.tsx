@@ -4,6 +4,8 @@ import { useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import useClickOutside from "@/hooks/useClickOutside";
+import { toPersianCurrency } from "@/utils/numberToRial";
+
 interface BasketPaymentPreviewProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -11,13 +13,27 @@ interface BasketPaymentPreviewProps {
 
 const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
   const { basket } = useSelector((state: RootState) => state.basket);
+  const { companyVat } = useSelector((state: RootState) => state.company);
+
   const basketInfo = useMemo(() => {
+    const totalPrice = basket.reduce((acc, curr) => acc + curr.price, 0);
+    const totalQuantity = basket.reduce((acc, curr) => acc + curr.quantity, 0);
+    const totalDiscount = basket.reduce(
+      (acc, curr) => acc + (curr.price * curr.discount) / 100,
+      0
+    );
+    const netPrice =
+      totalPrice -
+      totalDiscount +
+      Number(totalPrice - totalDiscount) * (Number(companyVat ?? 0) / 100);
+
     return {
-      totalPrice: basket.reduce((acc, curr) => acc + curr.price, 0),
-      totalQuantity: basket.reduce((acc, curr) => acc + curr.quantity, 0),
-      totalVat: basket.reduce((acc, curr) => acc + curr.discount, 0),
+      totalPrice,
+      totalQuantity,
+      totalDiscount,
+      netPrice,
     };
-  }, [basket]);
+  }, [basket, companyVat]);
 
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => setOpen(false));
@@ -29,13 +45,13 @@ const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
         "w-full flex flex-col items-center top-0 right-0 left-0 mx-auto p-4 absolute transition-all duration-500",
         {
           "translate-y-[-46px]": !open,
-          "translate-y-[-100%]": open,
+          "translate-y-[-95%]": open,
         }
       )}
     >
       <div
         onClick={() => setOpen(!open)}
-        className="bg-light-secondary h-[30px] text-light-secondary-text w-max px-2 py-1 rounded-t-lg flex items-center gap-2"
+        className="bg-light-secondary  w-[80px] h-[30px] text-light-secondary-text  px-2 py-1 rounded-t-lg flex items-center justify-between"
       >
         {open ? "کمتر" : "بیشتر"}
         <span className="text-light-primary">
@@ -57,16 +73,26 @@ const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
         </div>
         <div className="w-full flex items-center justify-between text-light-secondary-text">
           <span className="text-sm">مجموع سفارش</span>
-          <span className="text-sm">{basketInfo.totalPrice}</span>
+          <span className="text-sm">
+            {toPersianCurrency(basketInfo.totalPrice)}
+          </span>
         </div>
         <div className="w-full flex items-center justify-between text-light-secondary-text">
-          <span className="text-sm">مجموع مالیات</span>
-          <span className="text-sm">{basketInfo.totalVat}</span>
+          <span className="text-sm">مجموع تخفیف</span>
+          <span className="text-sm">
+            {toPersianCurrency(basketInfo.totalDiscount)}
+          </span>
+        </div>
+        <div className="w-full flex items-center justify-between text-light-secondary-text">
+          <span className="text-sm">مالیات بر ارزش افزوده</span>
+          <span className="text-sm">%{companyVat}</span>
         </div>
         <hr className="border-dashed border-light-gray" />
         <div className="w-full flex items-center justify-between text-light-secondary-text">
           <span className="text-sm">مجموع قابل پرداخت</span>
-          <span className="text-sm">{basketInfo.totalPrice}</span>
+          <span className="text-sm">
+            {toPersianCurrency(basketInfo.netPrice)}
+          </span>
         </div>
       </div>
     </div>

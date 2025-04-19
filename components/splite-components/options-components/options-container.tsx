@@ -1,7 +1,7 @@
 "use client";
 import { Drawer, Spin } from "antd";
-import React, { Suspense, useState } from "react";
-import DnDExample from "./item-split-selection/splite-section-container";
+import React, { Suspense, useEffect, useState } from "react";
+import SplitModelContainer from "./item-split-selection/new-Split-section";
 
 const options = [
   {
@@ -33,6 +33,25 @@ const OptionsContainer: React.FC<OptionsContainerProps> = ({
   const onClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (open) {
+        onClose(); // Close the modal
+        event.preventDefault(); // Prevent the default back behavior
+        window.history.pushState(null, ""); // Push state to avoid exiting the page
+      }
+    };
+
+    if (open) {
+      window.history.pushState(null, ""); // Push a new state to the history stack
+      window.addEventListener("popstate", handlePopState); // Listen for the back button
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState); // Cleanup the event listener
+    };
+  }, [open]);
 
   return (
     <>
@@ -77,7 +96,7 @@ const OptionsContainer: React.FC<OptionsContainerProps> = ({
           header:
             "!border-none font-Yekan-Medium [&_.ant-drawer-header-title]:flex-row-reverse !text-light-secondary-text [&_.anticon-close]:!text-light-secondary-text !p-2",
           content: "!bg-light-background rounded-t-xl !h-full !max-h-full",
-          body: "!p-2 !h-full",
+          body: "!px-2 !pt-2 !pb-0 !h-full",
         }}
         height="95dvh" // ارتفاع کلی دراور
         style={{ maxHeight: "70vh", overflowY: "auto", direction: "rtl" }} // حداکثر ارتفاع لیست و قابلیت اسکرول
@@ -89,7 +108,13 @@ const OptionsContainer: React.FC<OptionsContainerProps> = ({
             </div>
           }
         >
-          <DnDExample handleChoseOption={() => handleChoseOption("split")} />
+          {/* <DnDExample handleChoseOption={() => handleChoseOption("split")} /> */}
+          <SplitModelContainer
+            handleChoseOption={() => {
+              onClose();
+              handleChoseOption("split");
+            }}
+          />
         </Suspense>
       </Drawer>
     </>
