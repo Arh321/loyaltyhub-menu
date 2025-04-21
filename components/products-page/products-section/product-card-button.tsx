@@ -63,7 +63,9 @@ const ProductCardButton = ({ product }: IProductCardButtonProps) => {
           >
             <Icon icon="basil:plus-outline" width="24" height="24" />
           </CTAButton>
-          <span>{productInBasket.quantity}</span>
+          <span className="text-light-secondary-text">
+            {productInBasket.quantity}
+          </span>
           <CTAButton
             className="text-sm p-[2px] w-max h-max border border-light-primaryText text-light-primaryText !bg-transparent"
             onClick={() => dispatch(decrementQuantity({ id: productId }))}

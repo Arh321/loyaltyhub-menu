@@ -1,10 +1,10 @@
-import { RootState } from "@/redux/store";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useMemo, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useRef } from "react";
+
 import clsx from "clsx";
 import useClickOutside from "@/hooks/useClickOutside";
 import { toPersianCurrency } from "@/utils/numberToRial";
+import useBasketTotalInfo from "@/hooks/useBAsketTotalInfo";
 
 interface BasketPaymentPreviewProps {
   open: boolean;
@@ -12,28 +12,7 @@ interface BasketPaymentPreviewProps {
 }
 
 const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
-  const { basket } = useSelector((state: RootState) => state.basket);
-  const { companyVat } = useSelector((state: RootState) => state.company);
-
-  const basketInfo = useMemo(() => {
-    const totalPrice = basket.reduce((acc, curr) => acc + curr.price, 0);
-    const totalQuantity = basket.reduce((acc, curr) => acc + curr.quantity, 0);
-    const totalDiscount = basket.reduce(
-      (acc, curr) => acc + (curr.price * curr.discount) / 100,
-      0
-    );
-    const netPrice =
-      totalPrice -
-      totalDiscount +
-      Number(totalPrice - totalDiscount) * (Number(companyVat ?? 0) / 100);
-
-    return {
-      totalPrice,
-      totalQuantity,
-      totalDiscount,
-      netPrice,
-    };
-  }, [basket, companyVat]);
+  const { basketInfo, companyVat } = useBasketTotalInfo();
 
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => setOpen(false));

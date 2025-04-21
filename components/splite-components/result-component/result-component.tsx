@@ -1,4 +1,7 @@
+import { Suspense } from "react";
 import EqualSplitComponent from "../options-components/equalSplit/equalSplit";
+import SpliteMEthodResults from "./splite-result-component";
+import { LoadingOutlined } from "@ant-design/icons";
 
 interface ResultComponentProps {
   activeKey: "equal" | "split" | "mixed";
@@ -6,8 +9,34 @@ interface ResultComponentProps {
 
 const resultComponents: Record<"equal" | "split" | "mixed", React.JSX.Element> =
   {
-    equal: <EqualSplitComponent />,
-    split: <div></div>,
+    equal: (
+      <Suspense
+        fallback={
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="w-max h-max block text-2xl">
+              <LoadingOutlined />
+            </span>
+          </div>
+        }
+      >
+        <EqualSplitComponent />
+      </Suspense>
+    ),
+    split: (
+      <Suspense
+        fallback={
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="w-max h-max block text-2xl">
+              <LoadingOutlined />
+            </span>
+          </div>
+        }
+      >
+        <div>
+          <SpliteMEthodResults />
+        </div>
+      </Suspense>
+    ),
     mixed: <div></div>,
   };
 

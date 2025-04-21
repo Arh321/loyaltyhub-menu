@@ -38,7 +38,7 @@ const ItemsToSplit = ({ product }: ItemsToSplitProps) => {
           </span>
         </div>
       </div>
-      <span className="size-6 flex items-center justify-center rounded-full font-Yekan-Light bg-light-primary text-light-primary-text absolute top-0 left-0">
+      <span className="size-6 flex items-center justify-center rounded-full font-Yekan-Light bg-light-primary text-light-primary-text absolute top-2 left-2">
         {product.quantity}
       </span>
     </div>

@@ -109,12 +109,12 @@ const ProductPage = () => {
               </CTAButton>
               {productInBasket && (
                 <div
-                  className="w-max h-full justify-between flex items-center gap-4 animate-fadeIn"
+                  className="w-max h-full  flex items-center animate-fadeIn"
                   role="group"
                   aria-label="Quantity controls"
                 >
                   <CTAButton
-                    className="text-sm p-[4px] h-full aspect-square !bg-light-primary !text-light-primary-text"
+                    className="text-sm !w-max p-[4px] h-full aspect-square !bg-light-primary !text-light-primary-text"
                     onClick={() =>
                       dispatch(incrementQuantity({ id: Number(productId) }))
                     }
@@ -127,11 +127,14 @@ const ProductPage = () => {
                       aria-hidden="true"
                     />
                   </CTAButton>
-                  <span aria-label="Current quantity">
+                  <span
+                    aria-label="Current quantity"
+                    className="text-light-secondary-text w-10 text-center"
+                  >
                     {productInBasket.quantity}
                   </span>
                   <CTAButton
-                    className="text-sm p-[4px] h-full aspect-square !bg-light-secondary !text-light-primary-text"
+                    className="text-sm !w-max p-[4px] h-full aspect-square !bg-light-secondary !text-light-primary-text"
                     onClick={() =>
                       dispatch(decrementQuantity({ id: Number(productId) }))
                     }

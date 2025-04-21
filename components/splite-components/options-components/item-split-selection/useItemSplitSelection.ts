@@ -5,6 +5,7 @@ import { IBasketState } from "@/types/menu/menu-types";
 import { Participant } from "@/redux/participantsSlice/participantsSlice";
 import {
   assignParticipantToItem,
+  initShareProducts,
   removeParticipantFromItem,
   resetItemSplit,
   resetMessege,
@@ -12,15 +13,41 @@ import {
 import { useNotify } from "@/components/shared-components/notife/notife";
 
 export const useItemSplitSelection = () => {
+  const { notify } = useNotify();
+  const dispatch = useDispatch();
   const [draggedPerson, setDraggedPerson] = useState<Participant | null>(null);
   const { basket } = useSelector((state: RootState) => state.basket);
+
+  const basketItemsInRow = useMemo(() => {
+    const newBasket = basket
+      .flatMap((item, index) =>
+        item.quantity <= 1
+          ? {
+              ...item,
+              productId: item.productId + index,
+            }
+          : Array(item.quantity)
+              .fill(null)
+              .map((_, i) => ({
+                ...item,
+                quantity: 1,
+                productId: item.productId + index + i + 1,
+              }))
+      )
+      .map((item, index) => {
+        return { ...item, productId: index + 1 };
+      });
+    dispatch(initShareProducts(newBasket));
+    return newBasket;
+  }, [basket]);
+
   const { participants } = useSelector(
     (state: RootState) => state.participants
   );
   const { sharedItems, errorMessage } = useSelector(
     (state: RootState) => state.itemSplitSlice
   );
-  const { notify } = useNotify();
+
   const participantsWithAll = useMemo(() => {
     const allGuys = {
       id: "1000",
@@ -28,7 +55,7 @@ export const useItemSplitSelection = () => {
     };
     return participants ? [allGuys, ...participants] : [allGuys];
   }, [participants]);
-  const dispatch = useDispatch();
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDragEnd = (e: any) => {
     const { over, active } = e;
@@ -37,7 +64,7 @@ export const useItemSplitSelection = () => {
     const itemId = parseInt(over.id);
     const personId = active.id;
     if (itemId && personId) {
-      const findProduct = basket.find((pr) => pr.productId == itemId);
+      const findProduct = basketItemsInRow.find((pr) => pr.productId == itemId);
       const findPerson =
         personId == "1000"
           ? {
@@ -85,6 +112,6 @@ export const useItemSplitSelection = () => {
     sharedItems,
     participantsWithAll,
     handleResetSharedItems,
-    basket,
+    basketItemsInRow,
   };
 };

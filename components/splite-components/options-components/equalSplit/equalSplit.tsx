@@ -14,7 +14,9 @@ const EqualSplitComponent = () => {
   const basketInfo = useMemo(() => {
     return {
       totalPay: basket.reduce(
-        (acc, curr) => acc + (curr.price - (curr.price * curr.discount) / 100),
+        (acc, curr) =>
+          acc +
+          (curr.price - (curr.price * curr.discount) / 100) * curr.quantity,
         0
       ),
     };

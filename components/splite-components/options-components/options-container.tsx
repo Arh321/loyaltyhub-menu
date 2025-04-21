@@ -96,9 +96,9 @@ const OptionsContainer: React.FC<OptionsContainerProps> = ({
           header:
             "!border-none font-Yekan-Medium [&_.ant-drawer-header-title]:flex-row-reverse !text-light-secondary-text [&_.anticon-close]:!text-light-secondary-text !p-2",
           content: "!bg-light-background rounded-t-xl !h-full !max-h-full",
-          body: "!px-2 !pt-2 !pb-0 !h-full",
+          body: "!px-2 !pt-2 !pb-0 !h-full !overflow-hidden",
         }}
-        height="95dvh" // ارتفاع کلی دراور
+        height="98dvh" // ارتفاع کلی دراور
         style={{ maxHeight: "70vh", overflowY: "auto", direction: "rtl" }} // حداکثر ارتفاع لیست و قابلیت اسکرول
       >
         <Suspense

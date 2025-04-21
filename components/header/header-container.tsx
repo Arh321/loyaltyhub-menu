@@ -24,7 +24,7 @@ const HeaderContainer = () => {
   const isInSplt = pathname.includes("split");
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <>
       {isProductPage ? (
         <ProductHeader router={router} />
       ) : isCompanyInfoPage ? (
@@ -44,7 +44,7 @@ const HeaderContainer = () => {
         company={company as ICompany}
         companyLogo={companyLogo as string}
       />
-    </div>
+    </>
   );
 };
 

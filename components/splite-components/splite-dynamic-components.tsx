@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import dynamic from "next/dynamic";
 
 const DynamicOptionsContainer = dynamic(
@@ -8,7 +8,13 @@ const DynamicOptionsContainer = dynamic(
     ),
   {
     ssr: false, // Optionally disable server-side rendering
-    loading: () => <Spin />,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <span className="w-max h-max block text-4xl text-light-secondary-text">
+          <LoadingOutlined />
+        </span>
+      </div>
+    ),
   }
 );
 
@@ -19,7 +25,13 @@ const DynamicParticipantsComponent = dynamic(
     ),
   {
     ssr: false, // Optionally disable server-side rendering
-    loading: () => <Spin />,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <span className="w-max h-max block text-4xl text-light-secondary-text">
+          <LoadingOutlined />
+        </span>
+      </div>
+    ),
   }
 );
 
@@ -28,7 +40,13 @@ const DynamicResultComponent = dynamic(
     import("@/components/splite-components/result-component/result-component"),
   {
     ssr: false, // Optionally disable server-side rendering
-    loading: () => <Spin />,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <span className="w-max h-max block text-4xl text-light-secondary-text">
+          <LoadingOutlined />
+        </span>
+      </div>
+    ),
   }
 );
 

@@ -4,10 +4,10 @@ import {
   DynamicParticipantsComponent,
   DynamicResultComponent,
 } from "@/components/splite-components/splite-dynamic-components";
-import { Tabs, TabsProps } from "antd";
+import { Spin, Tabs, TabsProps } from "antd";
 import style from "./split-page-style.module.css";
 import clsx from "clsx";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
@@ -65,13 +65,15 @@ const SplitPage = () => {
 
   return (
     <div className="p-4 w-full grow h-full overflow-y-auto flex flex-col gap-4 [&_.ant-tabs-tab-disabled]:!opacity-30">
-      <Tabs
-        defaultActiveKey="1"
-        activeKey={activeTAb}
-        items={items}
-        onChange={onChange}
-        className={clsx(style["split-page-container"])}
-      />
+      <Suspense fallback={<Spin />}>
+        <Tabs
+          defaultActiveKey="1"
+          activeKey={activeTAb}
+          items={items}
+          onChange={onChange}
+          className={clsx(style["split-page-container"])}
+        />
+      </Suspense>
     </div>
   );
 };

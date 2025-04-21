@@ -14,9 +14,11 @@ export interface SharedItem {
 export interface ItemSplitState {
   sharedItems: SharedItem[];
   errorMessage: string | undefined;
+  products: IBasketState[];
 }
 
 const initialState: ItemSplitState = {
+  products: [],
   sharedItems: [],
   errorMessage: undefined,
 };
@@ -40,60 +42,48 @@ const itemSplitSlice = createSlice({
 
       if (!item) {
         // زمانی که "همه" انتخاب شده و quantity محصول برابر ۱ است
-        if (participant.id === "1000" && product.quantity === 1) {
-          state.sharedItems = [
-            {
-              productId: product.productId,
-              sharedBetween: [
-                {
-                  ...participant,
-                  quantity: product.quantity,
-                },
-              ],
-            },
-          ];
-
-          return;
-        } else {
-          state.sharedItems.push({
-            productId: product.productId,
-            sharedBetween: [{ ...participant, quantity: 1 }],
-          });
+        if (participant.id === "1000") {
+          state.errorMessage =
+            "هنگام انتخاب همه، نمی‌توانید شخص جدیدی اضافه کنید.";
         }
+        state.sharedItems.push({
+          productId: product.productId,
+          sharedBetween: [{ ...participant, quantity: 1 }],
+        });
       } else {
         const findPerson = item.sharedBetween.find(
           (shared) => shared.id === participant.id
         );
 
-        // اگر "همه" انتخاب شده و تعداد محصول برابر با تعداد "همه" باشد
-        const allSelected = item.sharedBetween.some(
+        const findProduct = item.sharedBetween.find(
           (shared) => shared.id === "1000"
         );
-        const totalQuantity = item.sharedBetween.reduce(
-          (sum, shared) => sum + shared.quantity,
-          0
-        );
 
-        if (allSelected && totalQuantity === product.quantity) {
-          // اگر "همه" انتخاب شده و تعداد کل برابر با quantity محصول باشد، هیچ فرد دیگری نمی‌تواند اضافه شود
+        if ((findPerson && findPerson.id === "1000") || findProduct) {
           state.errorMessage =
-            "محدودیت: دیگر نمی‌توانید شخص جدیدی اضافه کنید چون همه محصول به تعداد مشخص تقسیم شده است.";
-          return; // جلوی اضافه شدن فرد جدید را می‌گیریم
-        }
-
-        // اگر فرد بخواهد بیشتر از موجودی محصول quantity اضافه کند
-        if (findPerson && findPerson.quantity + 1 > product.quantity) {
-          state.errorMessage =
-            "خطا: شما نمی‌توانید بیشتر از موجودی محصول تعداد را افزایش دهید.";
+            "محدودیت: دیگر نمی‌توانید شخص جدیدی اضافه کنید چون همه در محصول شریک هستند.";
           return;
         }
 
-        if (
-          findPerson &&
-          findPerson.quantity + 1 === product.quantity &&
-          participant.id === "1000"
-        ) {
+        // اگر "همه" انتخاب شده و کسی غیر از "همه" در لیست باشد، او را حذف کنیم
+        if (participant.id === "1000") {
+          const filter = state.sharedItems.filter(
+            (item) => item.productId !== product.productId
+          );
+          console.log([
+            ...filter,
+            {
+              productId: product.productId,
+              sharedBetween: [
+                {
+                  ...participant,
+                  quantity: product.quantity,
+                },
+              ],
+            },
+          ]);
           state.sharedItems = [
+            ...filter,
             {
               productId: product.productId,
               sharedBetween: [
@@ -104,11 +94,12 @@ const itemSplitSlice = createSlice({
               ],
             },
           ];
+          state.errorMessage =
+            "هنگام انتخاب همه، نمی‌توانید شخص جدیدی اضافه کنید.";
           return;
         }
-
         // اگر فرد مورد نظر موجود باشد، تعدادش افزایش پیدا کند
-        if (findPerson && findPerson.quantity + 1 <= product.quantity) {
+        if (findPerson) {
           findPerson.quantity++;
         }
 
@@ -118,13 +109,6 @@ const itemSplitSlice = createSlice({
             ...participant,
             quantity: 1,
           });
-        }
-
-        // اگر "همه" انتخاب شده و کسی غیر از "همه" در لیست باشد، او را حذف کنیم
-        if (allSelected && totalQuantity === product.quantity) {
-          item.sharedBetween = item.sharedBetween.filter(
-            (shared) => shared.id === "1000"
-          );
         }
       }
     },
@@ -214,6 +198,9 @@ const itemSplitSlice = createSlice({
     resetMessege: (state) => {
       state.errorMessage = undefined;
     },
+    initShareProducts: (state, payload: PayloadAction<IBasketState[]>) => {
+      state.products = payload.payload;
+    },
   },
 });
 
@@ -223,6 +210,7 @@ export const {
   resetItemSplit,
   setParticipantItemQuantity,
   resetMessege,
+  initShareProducts,
 } = itemSplitSlice.actions;
 
 export default itemSplitSlice.reducer;
