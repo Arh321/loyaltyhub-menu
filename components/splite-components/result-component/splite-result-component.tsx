@@ -42,7 +42,10 @@ const SpliteMEthodResults = () => {
       );
       if (!findProduct) return;
 
-      const allShares = shared.sharedBetween.length;
+      const allShares = shared.sharedBetween.reduce(
+        (prev, curr) => (prev += curr.quantity),
+        0
+      );
       shared.sharedBetween.forEach((person) => {
         const participant = allParticipants.find((p) => p.id === person.id);
         if (!participant) return;
@@ -56,7 +59,8 @@ const SpliteMEthodResults = () => {
         }
 
         resultList[participant.id].payPrice +=
-          calculateNetPrice(findProduct.price, findProduct.discount) /
+          (calculateNetPrice(findProduct.price, findProduct.discount) *
+            person.quantity) /
           allShares;
       });
     });
