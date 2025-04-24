@@ -1,8 +1,6 @@
 import ImageWithLoader from "@/components/image-with-loader/image-with-loader";
 import { ISearchedProduct } from "@/types/products/products";
 import ProductCardButton from "./product-card-button";
-import { departmentsImageData } from "@/components/departments-page/departments-image-data";
-import { useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Product } from "@/types/menu/menu-types";
 import ProductPrice from "./product-price";
@@ -35,14 +33,7 @@ const ProductsCard = ({ product }: IProductsCardProps) => {
     return "";
   };
 
-  const image = useMemo(() => {
-    return (
-      departmentsImageData.find((img) => img.id === getProductId(product))
-        ?.image.src ?? ""
-    );
-  }, [product]);
-
-  const productImage = getProductImage(product) || image;
+  const productImage = getProductImage(product);
   const productName = getProductName(product);
   const productId = getProductId(product);
 
@@ -61,7 +52,7 @@ const ProductsCard = ({ product }: IProductsCardProps) => {
             alt={productName}
             width={110}
             height={110}
-            imageClass=" object-cover"
+            imageClass="w-full h-full object-cover"
           />
         </div>
         <ProductCardButton product={product} />

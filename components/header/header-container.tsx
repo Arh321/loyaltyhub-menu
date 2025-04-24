@@ -19,7 +19,7 @@ const HeaderContainer = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const isCompanyInfoPage = pathname === "/companyInfo";
+  const isCompanyInfoPage = pathname === "/";
   const isProductPage = !!productId;
   const isInSplt = pathname.includes("split");
 
@@ -28,7 +28,7 @@ const HeaderContainer = () => {
       {isProductPage ? (
         <ProductHeader router={router} />
       ) : isCompanyInfoPage ? (
-        <CompanyHeader setOpen={setOpen} router={router} />
+        <CompanyHeader setOpen={setOpen} />
       ) : isInSplt ? (
         <SplitPageHeader router={router} />
       ) : (

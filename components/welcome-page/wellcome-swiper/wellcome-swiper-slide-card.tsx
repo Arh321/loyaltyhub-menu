@@ -15,7 +15,7 @@ const WelcomeSwiperSlideCart: React.FC<WelcomeSwiperSlideCartProps> = ({
       <h2 className="font-Almarai-ExtraBold translate-x-full opacity-0 text-[24px] !text-light-primary-text dark:text-dark-primary-text">
         {title}
       </h2>
-      <p className="font-Almarai-Light translate-y-full opacity-0 text-[14px] leading-[20px] text-light-primary-text dark:text-dark-primary-text">
+      <p className="font-Almarai-Light translate-y-full opacity-0 text-[14px] leading-[22px] text-light-primary-text dark:text-dark-primary-text">
         {content}
       </p>
     </div>

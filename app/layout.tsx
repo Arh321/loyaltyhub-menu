@@ -9,6 +9,7 @@ import ErrorBoundaryWrapper from "@/components/error-component/ErrorBoundary";
 import NotFoundComponent from "@/components/not-found-page/not-found-component";
 import ReduxProvider from "@/redux/provider/redux-provider";
 import { NotifyProvider } from "@/components/shared-components/notife/notife";
+import Head from "next/head";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -32,6 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        {/* ✅ این لینک‌ها برای preconnect */}
+        <link rel="preconnect" href="https://api.iconify.design" />
+        <link rel="preconnect" href="https://dashboardapi.loyaltyhub.ir" />
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent transition-colors duration-300 font-Yekan-Regular text-black max-w-[768px] mx-auto h-[100dvh]`}
       >

@@ -9,4 +9,5 @@ export interface IDepartment {
   status: number;
   latitude: number;
   longitude: number;
+  image_url: string;
 }

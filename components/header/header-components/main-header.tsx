@@ -32,13 +32,13 @@ const MainHeader = ({
           </CTAButton>
         </div>
         <div className="col-span-1 flex flex-col items-center gap-1">
-          <div className="relative size-[55px] rounded-full overflow-hidden">
+          <div className="relative width-[70px] overflow-hidden flex items-center">
             <ImageWithLoader
               src={companyLogo || ""}
               alt="company logo"
-              width={55}
+              width={70}
               height={55}
-              imageClass="object-cover"
+              imageClass="!object-contain [&_img]:!object-contain"
             />
           </div>
         </div>

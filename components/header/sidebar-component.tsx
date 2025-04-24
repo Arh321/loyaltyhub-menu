@@ -63,7 +63,7 @@ const SidebarComponent = ({
                   alt="company logo"
                   width={50}
                   height={50}
-                  imageClass="object-cover"
+                  imageClass="object-cover w-full h-full flex items-center justify-center"
                 />
               </div>
               <span className="text-light-secondary-text text-xs font-Yekan-Medium">

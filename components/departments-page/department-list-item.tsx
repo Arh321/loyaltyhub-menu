@@ -1,16 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { Suspense, useRef } from "react";
-import { StaticImageData } from "next/image";
+import React, { memo, Suspense, useEffect, useRef } from "react";
 import clsx from "clsx";
 import ImageWithLoader from "../image-with-loader/image-with-loader";
-import { Skeleton } from "antd";
+import { motion } from "framer-motion";
+import { DepartmentItemSkeleton } from "./department-item-skeleton";
+
 interface ProvidersCardProps {
   name: string;
-  imageSrc: StaticImageData;
-  cardDestination: number; // تغییر به string
+  imageSrc: string;
+  cardDestination: number;
   imageId: number;
   enName: string;
+  index: number;
 }
 
 const hoverStyles = [
@@ -32,9 +34,15 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
   cardDestination,
   imageId,
   enName,
+  index,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  // 👇 Prefetch صفحه مقصد وقتی کاربر میاد روی کارت
+  useEffect(() => {
+    router.prefetch(`/departments/${cardDestination}`);
+  }, [cardDestination, router]);
 
   const handleClick = () => {
     router.push(`/departments/${cardDestination}`);
@@ -53,46 +61,51 @@ const ProvidersCard: React.FC<ProvidersCardProps> = ({
   };
 
   return (
-    <div
+    <motion.div
       ref={ref}
       id={`department-list-item-${imageId}`}
       role="button"
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
       className={clsx(
         "w-full h-[80px] lxs:h-[85px] xs:h-[90px] p-1 flex items-center relative cursor-pointer overflow-hidden animate-fadeIn rounded-full text-base font-Yekan-Bold bg-[#2D2D2D] hover:bg-[#3D3D3D]"
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick} // استفاده از تابع جداگانه برای مدیریت کلیک
+      onClick={handleClick}
     >
-      {/* عکس در انتها */}
       <Suspense
         fallback={
-          <div className="w-[calc(80px-0.5rem)] aspect-square  lxs:w-[calc(85px-0.5rem)] xs:w-[calc(90px-0.5rem)]  rounded-full">
-            <Skeleton.Node active className="!w-full !h-full rounded-full" />
+          <div className="w-[calc(80px-0.5rem)] aspect-square rounded-full">
+            <DepartmentItemSkeleton className="!w-full !h-full rounded-full" />
           </div>
         }
       >
-        <div className="w-[calc(80px-0.5rem)] absolute top-0 bottom-0 my-auto right-1  aspect-square  lxs:w-[calc(85px-0.5rem)] xs:w-[calc(90px-0.5rem)]  rounded-full overflow-hidden image-container transition-all duration-500">
+        <div className="w-[calc(80px-0.5rem)] absolute top-0 bottom-0 my-auto right-1 aspect-square rounded-full overflow-hidden image-container transition-all duration-500">
           <ImageWithLoader
-            src={imageSrc?.src ?? ""}
+            src={imageSrc}
             alt={`${name} pic`}
-            width={80}
-            height={80}
-            imageClass="object-cover"
+            loading="lazy"
+            fetchPriority="low"
+            imageClass="object-cover w-full h-full"
+            // loading="eager" // ← اگه تصویر خیلی مهمه، فعال کن!
           />
         </div>
       </Suspense>
-      {/* متن در وسط */}
-      <div className="flex flex-col items-center  h-full gap-1 xs:gap-2 justify-center grow z-[2] text-container">
+
+      <div className="flex flex-col items-center h-full gap-1 xs:gap-2 justify-center grow z-[2] text-container">
         <span className="w-max h-max block lxs:text-base text-sm xs:text-xl font-Yekan-Medium text-white text-center transition-all duration-500">
           {name}
         </span>
-        <span className="w-max h-max block lxs:text-xs xs:text-xs font-Yekan-Medium text-white text-center ">
+        <span className="w-max h-max block lxs:text-xs xs:text-xs font-Yekan-Medium text-white text-center">
           {enName || "Rose Darvishi Hotel"}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default ProvidersCard;
+export default memo(ProvidersCard);
