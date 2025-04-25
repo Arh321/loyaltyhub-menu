@@ -43,18 +43,13 @@ const WelcomeModal = ({
       >
         <div className="flex flex-col gap-4 !bg-[rgba(0,0,0,0.7)] backdrop-blur-[30px] !border !border-[rgba(255,255,255,0.3)] w-full rounded-[10px] p-4">
           <div className="w-full flex items-center justify-center !bg-transparent !h-[55px] !relative">
-            <div
-              style={{
-                boxShadow: "0 0 15px 0 var(--primary)",
-              }}
-              className=" size-[55px] rounded-full overflow-hidden absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2"
-            >
+            <div className=" size-[70px] overflow-hidden absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
               <ImageWithLoader
                 src={companyLogo || ""}
                 alt="company logo"
-                width={55}
-                height={55}
-                imageClass="object-cover"
+                width={70}
+                height={70}
+                imageClass="object-contain w-full h-full flex items-center justify-center !bg-transparent"
               />
             </div>
             <CTAButton

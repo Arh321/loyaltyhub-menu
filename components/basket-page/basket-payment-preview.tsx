@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
 import clsx from "clsx";
 import useClickOutside from "@/hooks/useClickOutside";
@@ -21,10 +21,10 @@ const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
     <div
       ref={ref}
       className={clsx(
-        "w-full flex flex-col items-center top-0 right-0 left-0 mx-auto p-4 absolute transition-all duration-500",
+        "w-[calc(100%-32px)] flex flex-col items-center top-0 right-0 left-0 mx-auto absolute transition-all duration-500",
         {
-          "translate-y-[-46px]": !open,
-          "translate-y-[-95%]": open,
+          "translate-y-[-30px]": !open,
+          "translate-y-[-105%]": open,
         }
       )}
     >
@@ -45,7 +45,7 @@ const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
           />
         </span>
       </div>
-      <div className="w-full flex flex-col gap-4 bg-light-secondary rounded-lg p-4">
+      <div className="w-full flex flex-col gap-3 bg-light-secondary rounded-lg p-4">
         <div className="w-full flex items-center justify-between text-light-secondary-text">
           <span className="text-sm">تعداد اقلام</span>
           <span className="text-sm">{basketInfo.totalQuantity}</span>
@@ -78,4 +78,4 @@ const BasketPaymentPreview = ({ open, setOpen }: BasketPaymentPreviewProps) => {
   );
 };
 
-export default BasketPaymentPreview;
+export default memo(BasketPaymentPreview);

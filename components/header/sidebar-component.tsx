@@ -36,7 +36,7 @@ const SidebarComponent = ({
     {
       text: "اطلاعات مجموعه",
       icon: <ShopOutlined className="text-light-secondary-text text-xl" />,
-      onClick: () => router.push(`/companyInfo`),
+      onClick: () => router.push(`/`),
     },
     {
       text: "ساعت کاری مجموعه",

@@ -21,6 +21,7 @@ const DroppableProduct = ({
   return (
     <div
       ref={setNodeRef}
+      id={`dropp-${id}`}
       style={{
         background: isOver ? "rgb(25 202 62 / 26%)" : "var(--secondary)",
       }}

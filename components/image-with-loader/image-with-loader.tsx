@@ -98,7 +98,7 @@ const ImageWithLoader = ({
           loading={loading}
           fetchPriority={fetchPriority}
           className={clsx(
-            "transition-opacity duration-700 ease-in-out object-cover",
+            "transition-opacity duration-700 ease-in-out object-cover w-full h-full",
             isLoaded ? "opacity-100" : "opacity-0"
           )}
         />

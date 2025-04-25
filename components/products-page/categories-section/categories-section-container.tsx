@@ -1,6 +1,6 @@
 import { Category } from "@/types/menu/menu-types";
-import clsx from "clsx";
 import { useMemo, useRef } from "react";
+import CategoryItem from "./categorie-item";
 interface ICategoriesSectionContainerProps {
   categories: Category[];
   selectedCategory: Category | null;
@@ -36,21 +36,15 @@ const CategoriesSectionContainer = ({
       ref={categoriesRef}
       className="w-full overflow-x-auto scrollbar-hide sm-scrollbar"
     >
-      <div className="w-full flex items-center  gap-4 px-6 pb-4">
+      <div className="w-full flex items-center  gap-4 px-6 pb-2 pt-2">
         {filteredCategories.length > 0 ? (
           filteredCategories.map((category) => (
-            <div
-              onClick={() => handleCategoryClick(category)}
+            <CategoryItem
               key={category.category_id}
-              data-category-id={category.category_id}
-              className={clsx(
-                "w-max h-10 bg-light-secondary text-sm shadow-md text-light-secondary-text rounded-lg px-4 py-1 whitespace-nowrap flex items-center justify-center cursor-pointer",
-                selectedCategory?.category_id === category.category_id &&
-                  "!bg-light-primary text-white"
-              )}
-            >
-              {category.category_name}
-            </div>
+              category={category}
+              handleCategoryClick={handleCategoryClick}
+              selectedCategory={selectedCategory}
+            />
           ))
         ) : (
           <div className="w-full h-10 flex items-center justify-center text-light-secondary-text">

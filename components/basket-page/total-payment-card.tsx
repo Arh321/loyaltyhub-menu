@@ -1,26 +1,23 @@
 "use client";
 
-import { RootState } from "@/redux/store";
-import { Button } from "antd";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import useBasketTotalInfo from "@/hooks/useBAsketTotalInfo";
 
-const TotoalPaymentCard = () => {
-  const { basket } = useSelector((state: RootState) => state.basket);
+import { toPersianCurrency } from "@/utils/numberToRial";
+import { Button } from "antd";
+import React, { memo, useState } from "react";
+
+const TotalPaymentCard = () => {
   const isOpen = useState(true);
-  const totalPrice = basket.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const { basketInfo } = useBasketTotalInfo();
 
   //   useEffect(() => {}, []);
   return (
-    <div className="bg-light-secondary relative z-[2] rounded-t-xl p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_-2px_4px_-1px_rgba(0,0,0,0.06)] text-base">
+    <div className="bg-light-secondary relative z-[2] rounded-t-xl backdrop-blur-lg p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_-2px_4px_-1px_rgba(0,0,0,0.06)] text-base">
       <div className="flex flex-col justify-between gap-2 items-center ">
         <div className="flex gap-1 justify-between w-full">
           <span className="text-light-secondary-text">مبلغ پرداختی:</span>
-          <span className="text-sm font-Yekan-Light text-light-gray">
-            {totalPrice}
+          <span className="text-base font-Yekan-Light text-light-secondary-text">
+            {toPersianCurrency(basketInfo.netPrice)}
             <span className="text-xs font-Yekan-Light text-light-gray pr-1">
               تومان
             </span>
@@ -55,4 +52,4 @@ const TotoalPaymentCard = () => {
   );
 };
 
-export default TotoalPaymentCard;
+export default memo(TotalPaymentCard);

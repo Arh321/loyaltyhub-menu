@@ -38,20 +38,20 @@ const ProductsCard = ({ product }: IProductsCardProps) => {
   const productId = getProductId(product);
 
   return (
-    <div className="w-full h-full flex gap-4 bg-light-secondary rounded-lg shadow-md p-4 relative">
+    <div className="w-full h-full flex gap-4 bg-light-secondary rounded-lg shadow-md p-2 relative">
       <div className="w-max flex h-max flex-col items-center gap-4">
         <div
           role="button"
           onClick={() => {
             router.push(`/departments/${depId}/products/${productId}`);
           }}
-          className="!size-[110px] bg-white rounded-lg shadow-md overflow-hidden"
+          className="!size-[90px] bg-white rounded-lg shadow-md overflow-hidden"
         >
           <ImageWithLoader
             src={productImage}
             alt={productName}
-            width={110}
-            height={110}
+            width={90}
+            height={90}
             imageClass="w-full h-full object-cover"
           />
         </div>

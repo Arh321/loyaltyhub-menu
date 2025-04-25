@@ -115,12 +115,16 @@ const useThemeConfig = () => {
       parsedConfig.generalConfigs.hasWellcomeText &&
       pathname.includes("/departments/")
     ) {
-      setWelcomeModal({
-        isOpen: true,
-        title: parsedConfig.generalConfigs.wellcomeText,
-        description: parsedConfig.generalConfigs.wellcomeTextPos,
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          setWelcomeModal({
+            isOpen: true,
+            title: parsedConfig.generalConfigs.wellcomeText,
+            description: parsedConfig.generalConfigs.wellcomeTextPos,
+          });
+          sessionStorage.setItem(sessionKey, "true");
+        }, 300); // این ۳۰۰ میل‌ثانیه اختیاریه، UX بهتر
       });
-      sessionStorage.setItem(sessionKey, "true");
     }
   }, [parsedConfig, pathname]);
 
@@ -140,6 +144,7 @@ const useThemeConfig = () => {
       checkWelcomeModal();
       handleInitBasket();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     companyData,
     dispatch,

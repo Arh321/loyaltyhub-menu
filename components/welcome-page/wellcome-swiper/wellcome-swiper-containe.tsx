@@ -77,7 +77,10 @@ const WelcomeSwiperContainer = () => {
         {isEnd ? (
           <span
             className="font-Yekan-Medium text-lg w-full text-left cursor-pointer"
-            onClick={() => router.push("/")}
+            onClick={() => {
+              localStorage.setItem("hasSeenWelcomeModal", "true");
+              router.push("/");
+            }}
           >
             رفتن به منو
           </span>

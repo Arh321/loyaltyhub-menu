@@ -15,30 +15,34 @@ const useManageProducts = () => {
     return [...(data?.result?.filter((menu) => menu.menu_id !== null) ?? [])];
   }, [data]);
 
-  const [selectedMenu, setSelectedMenu] = useState<number | null>(() => {
-    const storedMenuId = localStorage.getItem("selectedMenuId");
-    if (!storedMenuId || !menus) return null;
-    const menu = menus?.find((menu) => menu.menu_id === Number(storedMenuId));
-    return menu?.menu_id || null;
-  });
-
+  const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    () => {
-      if (!selectedMenu) return null;
-      const menu = menus?.find((menu) => menu.menu_id === selectedMenu);
-      return menu?.categories[0] ?? null;
-    }
+    null
   );
 
   useEffect(() => {
-    if (selectedMenu) {
-      setSelectedCategory(
-        menus?.find((menu) => menu.menu_id === selectedMenu)?.categories[0] ??
-          null
+    if (menus.length > 0 && selectedMenu === null) {
+      const storedMenuId = localStorage.getItem("selectedMenuId");
+      const menuFromStorage = menus.find(
+        (menu) => menu.menu_id === Number(storedMenuId)
       );
-    }
-  }, [selectedMenu]);
 
+      const initialMenu = menuFromStorage || menus[0];
+      setSelectedMenu(initialMenu.menu_id);
+      localStorage.setItem("selectedMenuId", initialMenu.menu_id.toString());
+      setSelectedCategory(initialMenu.categories[0] ?? null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menus]);
+
+  useEffect(() => {
+    if (selectedMenu) {
+      const selected = menus.find((menu) => menu.menu_id === selectedMenu);
+      if (selected) {
+        setSelectedCategory(selected.categories[0] ?? null);
+      }
+    }
+  }, [selectedMenu, menus]);
   return {
     menus,
     selectedMenu,

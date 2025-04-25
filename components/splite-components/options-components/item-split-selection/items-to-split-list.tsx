@@ -23,7 +23,7 @@ const ItemsToSplit = ({ product }: ItemsToSplitProps) => {
             alt={product.title}
             width={70}
             height={70}
-            imageClass=" object-cover"
+            imageClass="w-full h-full object-cover"
           />
         </div>
         <div className=" flex flex-col justify-between w-max">

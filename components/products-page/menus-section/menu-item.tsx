@@ -12,8 +12,6 @@ const MenuItem = ({ menu }: IMenuItemProps) => {
         <ImageWithLoader
           src={menu.menu_image}
           alt={menu.menu_name}
-          width={100}
-          height={100}
           imageClass="w-full h-full object-cover"
         />
       </div>

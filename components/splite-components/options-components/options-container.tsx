@@ -108,7 +108,6 @@ const OptionsContainer: React.FC<OptionsContainerProps> = ({
             </div>
           }
         >
-          {/* <DnDExample handleChoseOption={() => handleChoseOption("split")} /> */}
           <SplitModelContainer
             handleChoseOption={() => {
               onClose();

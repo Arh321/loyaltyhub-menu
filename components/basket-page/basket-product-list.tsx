@@ -27,7 +27,7 @@ const BasketProductList = ({ product }: BasketProductListProps) => {
             alt={product.title}
             width={50}
             height={50}
-            imageClass=" object-cover"
+            imageClass="w-full h-full object-cover"
           />
         </div>
         <div className=" flex flex-col justify-between w-max">

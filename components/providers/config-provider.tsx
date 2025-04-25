@@ -4,9 +4,11 @@ import SplashScreen from "../loading/splash-screen";
 import NotFoundComponent from "../not-found-page/not-found-component";
 import WelcomeModal from "./welcome-modal";
 import { Suspense } from "react";
+import useWelcome from "@/hooks/useWelcome";
 const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   const { isLoading, isError, isRefetching, welcomeModal, setWelcomeModal } =
     useThemeConfig();
+  useWelcome();
 
   if (isError) {
     return (
