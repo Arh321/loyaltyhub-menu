@@ -25,7 +25,7 @@ const ProductsListHEader = ({
     if (isInView && hasPassedHeight && !tabScrolling) {
       handleSetCat();
     }
-    console.log(tabScrolling);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView, hasPassedHeight, tabScrolling]);
   return (

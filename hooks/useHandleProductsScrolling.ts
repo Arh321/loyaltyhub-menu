@@ -1,5 +1,5 @@
 import { Category } from "@/types/menu/menu-types";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // import useScrollStatus from "./useScrollStatus";
 interface scrollStateProps {
   isClickScrolling: boolean;
@@ -16,11 +16,13 @@ const useHandleProductsScrolling = (
     isClickScrolling: false,
     isManualScrolling: false,
   });
-  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+  const [scroll, setScroll] = useState<scrollStateProps>({
+    isClickScrolling: false,
+    isManualScrolling: false,
+  });
+  // const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const DEBOUNCE_DELAY = 50; // Reduced debounce delay
-  const lastScrollTime = useRef<number>(0);
-  const THROTTLE_DELAY = 16; // ~60fps
+  const DEBOUNCE_DELAY = 450; // Reduced debounce delay
 
   const scrollToCategory = () => {
     if (selectedCategory?.category_id && scrollRef.current) {
@@ -28,10 +30,10 @@ const useHandleProductsScrolling = (
         selectedCategory.category_id.toString()
       );
       if (element) {
-        isScrolling.current = {
-          ...isScrolling.current,
+        setScroll({
           isClickScrolling: true,
-        };
+          isManualScrolling: false,
+        });
         scrollRef.current.scrollTo({
           top: element.offsetTop - scrollRef.current.offsetTop,
           behavior: "smooth",
@@ -41,64 +43,42 @@ const useHandleProductsScrolling = (
   };
 
   const handleScroll = (parameter: keyof scrollStateProps) => {
-    isScrolling.current = {
-      ...isScrolling.current,
-      [parameter]: true,
-    };
-
-    if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current);
-
-    timeoutIdRef.current = setTimeout(() => {
-      isScrolling.current = {
-        ...isScrolling.current,
-        [parameter]: false,
-      };
+    const timeoutIdRef = setTimeout(() => {
+      setScroll((prev) => {
+        return { ...prev, [parameter]: false };
+      });
     }, DEBOUNCE_DELAY);
+
+    return () => clearTimeout(timeoutIdRef);
+
+    // if (timeoutIdRef.current) {
+    //   clearTimeout(timeoutIdRef.current);
+
+    //   timeoutIdRef.current = setTimeout(() => {
+    //     isScrolling.current = {
+    //       ...isScrolling.current,
+    //       [parameter]: false,
+    //     };
+    //   }, DEBOUNCE_DELAY);
+    // }
   };
 
   const handleProductsScrolling = () => {
-    const now = Date.now();
-    if (now - lastScrollTime.current < THROTTLE_DELAY) {
-      return;
-    }
-    lastScrollTime.current = now;
-
-    if (!isScrolling.current.isClickScrolling) {
-      // handleScroll("isManualScrolling");
-      // requestAnimationFrame(() => {
-      //   const updatedTopIndexes: number[] = [];
-      //   filteredCategories.forEach((item, index) => {
-      //     const el = document.getElementById(String(item.category_id));
-      //     const parent = el?.parentElement?.parentElement;
-      //     if (el && parent) {
-      //       const elRect = el.getBoundingClientRect();
-      //       const parentRect = parent.getBoundingClientRect();
-      //       const distanceFromParentTop = elRect.top - parentRect.top;
-      //       if (
-      //         scrollRef.current?.offsetHeight &&
-      //         distanceFromParentTop < scrollRef.current?.offsetHeight / 2 - 64
-      //       ) {
-      //         updatedTopIndexes.push(index);
-      //       }
-      //     }
-      //   });
-      //   if (
-      //     updatedTopIndexes.length !== topIndexs.current.length ||
-      //     !updatedTopIndexes.every((val, idx) => val === topIndexs.current[idx])
-      //   ) {
-      //     setSelectedCategory(
-      //       filteredCategories[updatedTopIndexes[updatedTopIndexes.length - 1]]
-      //     );
-      //     topIndexs.current = updatedTopIndexes;
-      //   }
-      // });
-    } else {
+    if (scroll.isClickScrolling) {
       handleScroll("isClickScrolling");
+    } else {
+      if (!scroll.isManualScrolling && !scroll.isClickScrolling) {
+        setScroll({
+          isClickScrolling: false,
+          isManualScrolling: true,
+        });
+      }
+      handleScroll("isManualScrolling");
     }
   };
 
   useEffect(() => {
-    if (!isScrolling.current.isManualScrolling) scrollToCategory();
+    if (!scroll.isManualScrolling) scrollToCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
@@ -106,7 +86,7 @@ const useHandleProductsScrolling = (
     scrollToCategory,
     scrollRef,
     handleProductsScrolling,
-    tabScrolling: isScrolling.current.isClickScrolling,
+    tabScrolling: scroll.isClickScrolling && !scroll.isManualScrolling,
   };
 };
 
