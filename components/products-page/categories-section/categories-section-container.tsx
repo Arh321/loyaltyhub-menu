@@ -12,28 +12,17 @@ const CategoriesSectionContainer = ({
   selectedCategory,
   setSelectedCategory,
 }: ICategoriesSectionContainerProps) => {
-  const categoriesRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const handleCategoryClick = (category: Category) => {
     setSelectedCategory(category);
-    const categoryElement = categoriesRef.current?.querySelector(
-      `[data-category-id="${category.category_id}"]`
-    );
-    if (categoryElement) {
-      categoryElement.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    }
   };
-
   const filteredCategories = useMemo(() => {
     return categories.filter((category) => category.category_id !== null);
   }, [categories]);
 
   return (
     <div
-      ref={categoriesRef}
+      ref={containerRef}
       className="w-full overflow-x-auto scrollbar-hide sm-scrollbar"
     >
       <div className="w-full flex items-center  gap-4 px-6 pb-2 pt-2">

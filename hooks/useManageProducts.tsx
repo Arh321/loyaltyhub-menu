@@ -7,9 +7,7 @@ import { Category } from "@/types/menu/menu-types";
 const useManageProducts = () => {
   const { depId } = useParams();
 
-  const { data, isLoading, isError, refetch, isRefetching } = useMenus(
-    Number(depId)
-  );
+  const { data, isError, refetch, isFetching } = useMenus(Number(depId));
 
   const menus = useMemo(() => {
     return [...(data?.result?.filter((menu) => menu.menu_id !== null) ?? [])];
@@ -47,10 +45,10 @@ const useManageProducts = () => {
     menus,
     selectedMenu,
     setSelectedMenu,
-    isLoading,
+
     isError,
     refetch,
-    isRefetching,
+    isFetching,
     selectedCategory,
     setSelectedCategory,
   };

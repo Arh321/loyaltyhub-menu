@@ -5,39 +5,21 @@ import MenusSectionContainer from "@/components/products-page/menus-section/menu
 import CategoriesSectionContainer from "@/components/products-page/categories-section/categories-section-container";
 import useManageProducts from "@/hooks/useManageProducts";
 import ProductsSectionContainer from "@/components/products-page/products-section/products-section-container";
-import { useEffect, useRef, Suspense, useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import BasketPopup from "@/components/products-page/products-section/basket-popup";
+import useHandleProductsScrolling from "@/hooks/useHandleProductsScrolling";
 
 const ProductsPage = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const {
     menus,
     selectedMenu,
     setSelectedMenu,
-    isLoading,
     isError,
     refetch,
-    isRefetching,
+    isFetching,
     selectedCategory,
     setSelectedCategory,
   } = useManageProducts();
-  const scrollToCategory = () => {
-    if (selectedCategory?.category_id && scrollRef.current) {
-      const element = document.getElementById(
-        selectedCategory.category_id.toString()
-      );
-      if (element) {
-        scrollRef.current.scrollTo({
-          top: element.offsetTop - scrollRef.current.offsetTop,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  useEffect(() => {
-    scrollToCategory();
-  }, [selectedCategory]);
 
   const filteredCategories = useMemo(() => {
     return (
@@ -47,7 +29,10 @@ const ProductsPage = () => {
     );
   }, [menus, selectedMenu]);
 
-  if (isLoading || isRefetching) return <SplashScreen />;
+  const { scrollRef, handleProductsScrolling, tabScrolling } =
+    useHandleProductsScrolling(selectedCategory);
+
+  if (isFetching) return <SplashScreen />;
   if (isError) {
     return <ErrorComponent refetch={() => refetch()} />;
   }
@@ -70,11 +55,15 @@ const ProductsPage = () => {
         <div className="w-full h-[calc(100%-204px)] overflow-hidden">
           <div
             ref={scrollRef}
+            onScroll={handleProductsScrolling}
+            id="products-scroll-container"
             className="w-full h-full overflow-y-auto pb-[200px]"
           >
             <ProductsSectionContainer
               category={filteredCategories}
               selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              tabScrolling={tabScrolling}
             />
           </div>
         </div>

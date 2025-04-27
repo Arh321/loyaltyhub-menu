@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 import MenuItem from "./menu-item";
 import styles from "./menus-swiper.module.css";
+import { useEffect, useState } from "react";
 interface IMenusSectionContainerProps {
   menus: IMenu[];
   selectedMenu: number | null;
@@ -14,10 +15,29 @@ const MenusSectionContainer = ({
   selectedMenu,
   setSelectedMenu,
 }: IMenusSectionContainerProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [swiperRef, setSwiperRef] = useState<any>();
+
   const initialSlide = menus.findIndex((menu) => menu.menu_id === selectedMenu);
   const handleSlideChange = (swiper: SwiperType) => {
     setSelectedMenu(menus[swiper.activeIndex].menu_id);
+    localStorage.setItem(
+      "selectedMenuId",
+      String(menus[swiper.activeIndex].menu_id)
+    );
   };
+
+  useEffect(() => {
+    if (swiperRef) {
+      const initialSlide = menus.findIndex(
+        (menu) => menu.menu_id === selectedMenu
+      );
+      swiperRef.slideTo(initialSlide);
+    }
+    console.log(swiperRef);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [swiperRef]);
+
   return (
     <div className="w-full relative">
       <Swiper
@@ -36,6 +56,7 @@ const MenusSectionContainer = ({
         slideToClickedSlide={true}
         spaceBetween={25}
         initialSlide={initialSlide}
+        onSwiper={setSwiperRef}
         onSlideChange={handleSlideChange}
         className={styles["menus-section-container"]}
         allowTouchMove={false}
