@@ -62,13 +62,14 @@ const ProductsCard = ({ product }: IProductsCardProps) => {
         onClick={() => {
           router.push(`/departments/${depId}/products/${productId}`);
         }}
+        dir="rtl"
         className="w-full"
       >
         <div className="w-full h-full flex flex-col gap-2 justify-between">
-          <span className="text-light-secondary-text font-Yekan-Medium text-base">
+          <span className="w-full line-clamp-2 overflow-hidden text-ellipsis text-light-secondary-text font-Yekan-Medium text-base">
             {productName}
           </span>
-          <span className="text-light-secondary-text w-max self-end font-Yekan-Regular text-base">
+          <span className="w-full line-clamp-2 overflow-hidden text-ellipsis text-light-gray self-end font-Yekan-light font-[300] text-sm">
             {productName}
           </span>
           <span className="w-max self-end">

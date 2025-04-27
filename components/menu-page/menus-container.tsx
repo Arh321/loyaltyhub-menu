@@ -3,7 +3,7 @@
 import { Suspense, useState } from "react";
 
 import MenusListHeader from "./menus-list-header";
-import MenuListItemsContainer from "@/components/menu-page/menu-list-items";
+import MenuListItemsContainer from "@/components/menu-page/menu-list-items-container";
 import MenuListLoader from "./menu-list-loader";
 const MenusContainer = () => {
   const [isGrid, setIsGrid] = useState(false);

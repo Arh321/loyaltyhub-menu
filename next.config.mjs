@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: ["example.com"], // آدرس دامینی که عکس ازش میاد
+    domains: ["example.com"], // درست اینه
   },
 };
 

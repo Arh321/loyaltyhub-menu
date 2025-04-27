@@ -1,9 +1,9 @@
 .menus-section-container {
   width: 100%;
-  padding: 10px 24px 19px 24px;
+  padding: 4px 24px 4px 24px;
 }
 .menus-section-container [class~="swiper-slide"] {
-  height: 95px;
+  height: 105px;
   border-radius: 10px;
   overflow: hidden;
 }
