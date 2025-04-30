@@ -64,7 +64,7 @@ const ProductPage = () => {
               alt={products.data[0].name}
               width={110}
               height={110}
-              imageClass="object-cover"
+              imageClass="w-full h-full object-cover"
             />
           </div>
           <section className="w-full h-1/2 flex flex-col justify-evenly p-4">

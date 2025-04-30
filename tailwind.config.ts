@@ -109,6 +109,10 @@ const config: Config = {
             transform: "translateY(-2px)",
           },
         },
+        marquee: {
+          "0%": { transform: "translateX(50%)" },
+          "100%": { transform: "translateX(-4px)" },
+        },
       },
       animation: {
         fadeIn: "fadeIn 0.3s ease-in-out",
@@ -116,6 +120,7 @@ const config: Config = {
         "fadeIn-repetive": "fadeIn 2s ease-in-out",
         movable: "movable 3s infinite",
         popIn: "popIn 0.7s ease-in-out",
+        marquee: "marquee 5s linear infinite",
       },
     },
   },

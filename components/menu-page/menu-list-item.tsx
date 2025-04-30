@@ -2,15 +2,18 @@ import { IMenu } from "@/types/menu/menu-types";
 import Link from "next/link";
 import ImageWithLoader from "../image-with-loader/image-with-loader";
 import { memo } from "react";
+import clsx from "clsx";
 
 interface MenuListItemComponentProps {
   depId: string;
   menu: IMenu;
+  isGrid: boolean;
 }
 
 const MenuListItemComponent: React.FC<MenuListItemComponentProps> = ({
   depId,
   menu,
+  isGrid,
 }) => {
   return (
     <Link
@@ -22,11 +25,38 @@ const MenuListItemComponent: React.FC<MenuListItemComponentProps> = ({
       className="w-full h-full "
     >
       <div className="w-full h-full flex justify-between items-center relative">
-        <h2 className="text-light-primary-text flex flex-col gap-1 pr-4 absolute bottom-4 right-0 w-max bg-linear-gradient-to-left z-[2]">
-          <span className="text-sm xs:text-lg font-Yekan-Medium">
+        <h2
+          className={clsx(
+            "text-light-primary-text flex flex-col gap-1 pr-1 absolute  right-0 transition-colors  z-[2]",
+            {
+              "bottom-4 w-max bg-linear-gradient-to-left": !isGrid,
+              "bottom-0 w-full h-full bg-black/60 p-2 justify-center": isGrid,
+            }
+          )}
+        >
+          <span
+            className={clsx("text-sm xs:text-lg font-Yekan-Regular", {
+              "text-center w-full": isGrid,
+            })}
+          >
             {menu.menu_name}
           </span>
-          <span className="text-white text-sm xs:text-base max-w-[100px] xs:max-w-full whitespace-nowrap overflow-hidden text-ellipsis font-Yekan-Regular">
+          {isGrid && (
+            <div className="w-full px-2">
+              <div className="border-gradient-secondary"></div>
+            </div>
+          )}
+          <span
+            className={clsx(
+              "text-white text-xs xs:text-base  font-Yekan-Light",
+              {
+                "text-center w-full line-clamp-2 text-ellipsis overflow-hidden":
+                  isGrid,
+                "max-w-[130px] xs:max-w-full whitespace-nowrap overflow-hidden text-ellipsis":
+                  !isGrid,
+              }
+            )}
+          >
             {menu.menu_description}
           </span>
         </h2>

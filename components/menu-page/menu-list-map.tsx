@@ -54,6 +54,7 @@ const MenuListMapItems: React.FC<MenuListMapItemsProps> = ({
             <MemoizedMenuListItemComponent
               depId={depId as string}
               menu={menu}
+              isGrid={isGrid}
             />
           </motion.div>
         ))}

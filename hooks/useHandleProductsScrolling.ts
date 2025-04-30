@@ -1,26 +1,17 @@
 import { Category } from "@/types/menu/menu-types";
 import { useEffect, useRef, useState } from "react";
-// import useScrollStatus from "./useScrollStatus";
+
 interface scrollStateProps {
   isClickScrolling: boolean;
   isManualScrolling: boolean;
 }
 
-const useHandleProductsScrolling = (
-  selectedCategory: Category | null
-  // filteredCategories: Category[],
-  // setSelectedCategory: Dispatch<SetStateAction<Category | null>>
-) => {
-  // const topIndexs = useRef<number[]>([0]);
-  const isScrolling = useRef<scrollStateProps>({
-    isClickScrolling: false,
-    isManualScrolling: false,
-  });
+const useHandleProductsScrolling = (selectedCategory: Category | null) => {
   const [scroll, setScroll] = useState<scrollStateProps>({
     isClickScrolling: false,
     isManualScrolling: false,
   });
-  // const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const DEBOUNCE_DELAY = 450; // Reduced debounce delay
 
@@ -50,17 +41,6 @@ const useHandleProductsScrolling = (
     }, DEBOUNCE_DELAY);
 
     return () => clearTimeout(timeoutIdRef);
-
-    // if (timeoutIdRef.current) {
-    //   clearTimeout(timeoutIdRef.current);
-
-    //   timeoutIdRef.current = setTimeout(() => {
-    //     isScrolling.current = {
-    //       ...isScrolling.current,
-    //       [parameter]: false,
-    //     };
-    //   }, DEBOUNCE_DELAY);
-    // }
   };
 
   const handleProductsScrolling = () => {
