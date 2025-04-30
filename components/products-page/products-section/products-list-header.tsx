@@ -40,7 +40,7 @@ const ProductsListHEader = ({
         }}
         className=" w-full h-[1px]"
       />
-      <span className="text-light-secondary-text font-Yekan-Light text-base whitespace-nowrap px-4">
+      <span className="text-light-secondary-text font-[300] font-Yekan-Medium text-base whitespace-nowrap px-4">
         {category.category_name}
       </span>
       <div
