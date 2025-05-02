@@ -28,7 +28,7 @@ const BasketContainer = () => {
 
   return (
     <div className="w-full flex flex-col justify-between h-full ">
-      <div className="w-full flex flex-col gap-3">
+      <div className="w-full flex flex-col">
         <BasketProductsListContainerLazy basket={basket} open={open} />
         <BasketSplitRouteButtonLazy depId={depId as string} router={router} />
       </div>

@@ -15,7 +15,7 @@ const MenuItem = ({ menu }: IMenuItemProps) => {
           imageClass="w-full h-full object-cover"
         />
       </div>
-      <span className="w-full h-full bg-[rgba(0,0,0,0.4)] flex items-center justify-center text-white font-Yekan-Medium text-sm z-[2] absolute bottom-0 left-0">
+      <span className="w-full h-full bg-[rgba(0,0,0,0.4)] flex items-center  justify-center text-center px-2 text-white font-Yekan-Medium text-sm z-[2] absolute bottom-0 left-0">
         {menu.menu_name}
       </span>
     </div>

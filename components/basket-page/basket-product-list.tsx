@@ -8,6 +8,7 @@ import {
   incrementQuantity,
 } from "@/redux/basket-slice/basketSlice";
 import { useDispatch } from "react-redux";
+import { toPersianCurrency } from "@/utils/numberToRial";
 interface BasketProductListProps {
   product: IBasketState;
 }
@@ -31,11 +32,11 @@ const BasketProductList = ({ product }: BasketProductListProps) => {
           />
         </div>
         <div className=" flex flex-col justify-between w-max">
-          <span className="text-sm font-Yekan-Medium text-light-secondary-text">
+          <span className="text-sm font-Yekan-Regular max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap text-light-secondary-text font-light">
             {product.title}
           </span>
           <span className="text-sm font-Yekan-Light text-light-gray">
-            {product.price}
+            {toPersianCurrency(product.price)}
             <span className="text-xs font-Yekan-Light text-light-gray pr-1">
               تومان
             </span>
